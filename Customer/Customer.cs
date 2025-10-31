@@ -9,6 +9,30 @@ public partial class Customer : CharacterBody2D
 	[Export] public Timer CuisineEatingTimer;
 	[Export] public float CuisineEatingTime = 5f;
 	public Cuisine DesiredCuisine;
+	public bool IsSeated
+	{
+		get => field;
+		set
+		{
+			if (field == value)
+				return;
+			field = value;
+			if (field)
+				OnSeated();
+		}
+	} = false;
+	public bool IsOrdered
+	{
+		get => field;
+		set
+		{
+			if (field == value)
+				return;
+			field = value;
+			if (field)
+				OnOrdered();
+		}
+	} = false;
 	public bool IsDelivered
 	{
 		get => field;
@@ -24,28 +48,32 @@ public partial class Customer : CharacterBody2D
 			}
 		}
 	} = false;
-	public bool IsSeated
-	{
-		get => field;
-		set
-		{
-			if (field == value)
-				return;
-			field = value;
-			if (field)
-				OnSeated();
-		}
-	} = false;
-
 	public Vector2 TargetTablePosition;
 	private Vector2[] path = Array.Empty<Vector2>();
 	private int currentStep = 0;
-
+	private ShaderMaterial _customerShaderMaterial = null;
+	private bool _isPlayerNearby = false;
 	public override void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 		PatienceTimer.Timeout += OnPatienceTimeout;
 		CuisineEatingTimer.Timeout += OnCuisineFinished;
+		_customerShaderMaterial = GetNode<Sprite2D>("Sprite2D").Material as ShaderMaterial;
+	}
+	private void ToggleWhiteBorder(bool enable)
+	{
+		_customerShaderMaterial.SetShaderParameter("outline_enabled", enable);
+	}
+	private void OnBodyEntered(Node2D body)
+	{
+		_isPlayerNearby = true;
+		if (body is not Player || !IsSeated || IsDelivered) return;
+		ToggleWhiteBorder(true);
+	}
+	private void OnBodyExited(Node2D body)
+	{
+		_isPlayerNearby = false;
+		ToggleWhiteBorder(false);
 	}
 	public void MoveTo(Vector2 targetPosition)
 	{
@@ -86,7 +114,15 @@ public partial class Customer : CharacterBody2D
 		}
 		MoveAndSlide();
 	}
-
+	public override void _Process(double delta)
+	{
+		if (_isPlayerNearby && Input.IsActionJustPressed("Interact") && !IsDelivered && IsOrdered)
+		{
+			Player player = GetTree().GetFirstNodeInGroup("Player") as Player;
+			GD.Print($"Customer has received cuisine: {player.CurrentCuisine.CuisineName}");
+			IsDelivered = true;
+		}
+	}
 	public void StartPatienceTimer(float time)
 	{
 		PatienceTimer.Start(time);
@@ -96,12 +132,13 @@ public partial class Customer : CharacterBody2D
 		CuisineEatingTimer.Start(time);
 	}
 	public void Leave()
-    {
+	{
 		GD.Print("顾客离开餐厅。");
-    }
+	}
 	protected virtual void OnSeated() { }
-	protected virtual void OnCuisineFinished() { }
+	protected virtual void OnOrdered() { }
 	protected virtual void OnCuisineDelivered() { }
+	protected virtual void OnCuisineFinished() { }
 	protected virtual void OnPatienceRunOut() { }
 	protected void OnPatienceTimeout()
 	{

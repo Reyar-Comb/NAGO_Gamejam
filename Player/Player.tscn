@@ -145,7 +145,7 @@ script = ExtResource("10_v0k0e")
 Storage = NodePath("../../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 
-[node name="Timers" type="Node" parent="."]
+[node name="Timers" type="Node" parent="." groups=["Player"]]
 
 [node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
 one_shot = true

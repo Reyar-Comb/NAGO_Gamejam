@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds83mf3sm4dvs"]
+[gd_scene load_steps=9 format=3 uid="uid://ds83mf3sm4dvs"]
 
 [ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
 [ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
@@ -50,10 +50,14 @@ shader_parameter/outline_width = 1.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
-[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6pke"]
+radius = 110.0727
+
+[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer", "CuisineEatingTimer")]
 script = ExtResource("1_47pxv")
 NavigationManager = NodePath("NavigationManager")
 PatienceTimer = NodePath("Timers/PatienceTimer")
+CuisineEatingTimer = NodePath("Timers/CuisineEatingTimer")
 
 [node name="NavigationManager" type="Node" parent="."]
 script = ExtResource("2_k6pke")
@@ -77,3 +81,11 @@ one_shot = true
 
 [node name="CuisineEatingTimer" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="DetectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea"]
+shape = SubResource("CircleShape2D_k6pke")
+
+[connection signal="body_entered" from="DetectArea" to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="DetectArea" to="." method="OnBodyExited"]

@@ -74,3 +74,21 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "NEADW"
 label_settings = ExtResource("1_iybee")
+
+[node name="EnergyGaugeMarginContainer" type="MarginContainer" parent="InGameUIControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="EnergyGauge" type="ProgressBar" parent="InGameUIControl/EnergyGaugeMarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+show_percentage = false

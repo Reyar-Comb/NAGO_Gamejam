@@ -20,6 +20,11 @@ public partial class Player : CharacterBody2D
 				GD.PushError("Player: Received Cuisine has no texture!");
 				return;
 			}
+			if (string.IsNullOrEmpty(value.CuisineName))
+			{
+				GD.PushError("Player: Received Cuisine has no name!");
+				return;
+			}
 			field = value;
 			GD.Print($"Player: Updating Cuisine Display to {field.CuisineName}");
 			field.OnCollected();
