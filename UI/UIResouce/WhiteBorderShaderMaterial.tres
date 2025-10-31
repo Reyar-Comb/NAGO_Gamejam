@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://du1va1amly4c0"]
+
+[ext_resource type="Shader" uid="uid://cpaas03qnjjnb" path="res://UI/UIResouce/WhiteBorder.gdshader" id="1_e6ux8"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_e6ux8")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_enabled = false

@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://qau8f4xvrh45"]
+
+[ext_resource type="LabelSettings" uid="uid://du3tjffftumx3" path="res://UI/UIResouce/LabelSettings.tres" id="1_iybee"]
+[ext_resource type="Script" uid="uid://dtrimc2h6b4jg" path="res://UI/InGameUi.cs" id="1_v4w3m"]
+
+[node name="InGameUI" type="CanvasLayer"]
+script = ExtResource("1_v4w3m")
+
+[node name="InGameUIControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreMarginContainer" type="MarginContainer" parent="InGameUIControl"]
+layout_mode = 1
+offset_right = 1.0
+offset_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="InGameUIControl/ScoreMarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/ScoreMarginContainer"]
+layout_mode = 2
+
+[node name="ScoreTextLabel" type="Label" parent="InGameUIControl/ScoreMarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "FUCK"
+label_settings = ExtResource("1_iybee")
+
+[node name="ScoreDisplayLabel" type="Label" parent="InGameUIControl/ScoreMarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "FUCKYOU"
+label_settings = ExtResource("1_iybee")
+
+[node name="TimeMarginContainer" type="MarginContainer" parent="InGameUIControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/TimeMarginContainer"]
+layout_mode = 2
+
+[node name="DayDisplayLabel" type="Label" parent="InGameUIControl/TimeMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "HELLO"
+label_settings = ExtResource("1_iybee")
+
+[node name="RemainingTimeDisplayLabel" type="Label" parent="InGameUIControl/TimeMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "aaaaa"
+label_settings = ExtResource("1_iybee")
+
+[node name="NegativeMarginContainer" type="MarginContainer" parent="InGameUIControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="NegativeViewsDisplayLabel" type="Label" parent="InGameUIControl/NegativeMarginContainer"]
+layout_mode = 2
+text = "NEADW"
+label_settings = ExtResource("1_iybee")

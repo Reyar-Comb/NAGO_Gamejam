@@ -1,7 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=7 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
+[ext_resource type="Script" uid="uid://dxintdrx5ddm8" path="res://Player/StaminaBar.cs" id="3_tok1r"]
+
+[sub_resource type="Shader" id="Shader_tok1r"]
+code = "shader_type canvas_item;
+
+uniform float outline_width : hint_range(0, 100, 1) = 1.0;
+uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform bool outline_enabled = true;
+
+void fragment() {
+    vec4 current_color = texture(TEXTURE, UV);
+    vec2 size = TEXTURE_PIXEL_SIZE * outline_width;
+
+    if (outline_enabled && current_color.a <= 0.1)
+	{
+        // 检查八个方向的像素
+        float alpha = 0.0;
+        alpha += texture(TEXTURE, UV + vec2(0.0, -size.y)).a;        // 上
+        alpha += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;     // 右上
+        alpha += texture(TEXTURE, UV + vec2(size.x, 0.0)).a;         // 右
+        alpha += texture(TEXTURE, UV + vec2(size.x, size.y)).a;      // 右下
+        alpha += texture(TEXTURE, UV + vec2(0.0, size.y)).a;         // 下
+        alpha += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;     // 左下
+        alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;        // 左
+        alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;    // 左上
+
+        if (alpha > 0.0)
+            COLOR = vec4(outline_color.rgb, alpha * outline_color.a);
+        else
+            COLOR = current_color;
+    }
+	else
+	{
+        COLOR = current_color;
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddoul"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tok1r")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lat"]
 size = Vector2(128, 128)
@@ -10,7 +53,23 @@ size = Vector2(128, 128)
 script = ExtResource("1_q3lat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ddoul")
 texture = ExtResource("1_3qydi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_q3lat")
+
+[node name="StaminaBar" type="ProgressBar" parent="." node_paths=PackedStringArray("StaminaRegenDelayTimer")]
+offset_left = -104.0
+offset_top = -38.0
+offset_right = -84.0
+offset_bottom = 60.0
+fill_mode = 3
+show_percentage = false
+script = ExtResource("3_tok1r")
+StaminaRegenDelayTimer = NodePath("../Timers/StaminRegenDelayTimer")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
+one_shot = true

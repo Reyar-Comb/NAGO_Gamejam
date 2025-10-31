@@ -12,7 +12,7 @@ public partial class Player : CharacterBody2D
 		if (direction != Vector2.Zero)
 			velocity = direction * Speed;
 		else
-			velocity = Vector2.Zero;
+			velocity = velocity.MoveToward(Vector2.Zero, Speed);
 
 		Velocity = velocity;
 		MoveAndSlide();
