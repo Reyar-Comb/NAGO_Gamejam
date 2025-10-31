@@ -6,18 +6,23 @@ using System.Linq;
 [GlobalClass]
 public partial class NavigationManager : Node
 {
-    [Export] public TileMapLayer GroundLayer;
+    public TileMapLayer ObstacleLayer = null;
     private AStarGrid2D astar;
 
+    public TileMapLayer FindObstacleLayer()
+    {
+        return null;
+    }
     public override void _Ready()
     {
+        ObstacleLayer = FindObstacleLayer();
         astar = new AStarGrid2D();
-        astar.Region = GroundLayer.GetUsedRect();
-        astar.CellSize = GroundLayer.TileSet.TileSize;
+        astar.Region = ObstacleLayer.GetUsedRect();
+        astar.CellSize = ObstacleLayer.TileSet.TileSize;
         astar.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;
         astar.Update();
         
-        foreach (Vector2I cell in GroundLayer.GetUsedCells())
+        foreach (Vector2I cell in ObstacleLayer.GetUsedCells())
         {
             astar.SetPointSolid(cell);
         }
@@ -25,15 +30,15 @@ public partial class NavigationManager : Node
     
     public Vector2[] GetPath(Vector2 from, Vector2 to)
     {
-        Vector2I startCell = GroundLayer.LocalToMap(from);
-        Vector2I targetCell = GroundLayer.LocalToMap(to);
+        Vector2I startCell = ObstacleLayer.LocalToMap(from);
+        Vector2I targetCell = ObstacleLayer.LocalToMap(to);
 
         Vector2I[] pathCells = astar.GetIdPath(startCell, targetCell).ToArray();
 
         Vector2[] worldPath = new Vector2[pathCells.Length];
         for (int i = 0; i < pathCells.Length; i++)
         {
-            worldPath[i] = GroundLayer.MapToLocal(pathCells[i]);
+            worldPath[i] = ObstacleLayer.MapToLocal(pathCells[i]);
         }
         
         return worldPath;

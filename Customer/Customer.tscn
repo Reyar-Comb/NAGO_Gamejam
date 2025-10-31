@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds83mf3sm4dvs"]
+
+[ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
+[ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ms251"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i5y8d"]
+
+[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer")]
+script = ExtResource("1_47pxv")
+NavigationManager = NodePath("NavigationManager")
+PatienceTimer = NodePath("Timer")
+
+[node name="NavigationManager" type="Node" parent="."]
+script = ExtResource("2_k6pke")
+metadata/_custom_type_script = "uid://g0d06dgwtpfu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ms251")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_i5y8d")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
