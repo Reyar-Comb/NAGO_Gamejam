@@ -37,7 +37,7 @@ public partial class Customer : CharacterBody2D
 		}
 	} = false;
 
-	public Vector2 TargetTablePosition;
+	public Vector2 TargetChairPosition;
 	private Vector2[] path = Array.Empty<Vector2>();
 	private int currentStep = 0;
 
