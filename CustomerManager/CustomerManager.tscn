@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://51vopsq0t4ij"]
+[gd_scene load_steps=2 format=3 uid="uid://51vopsq0t4ij"]
+
+[ext_resource type="Script" uid="uid://ctc05ngonsvwq" path="res://CustomerManager/CustomerManager.cs" id="1_g0o6m"]
 
 [node name="CustomerManager" type="Node"]
+script = ExtResource("1_g0o6m")
