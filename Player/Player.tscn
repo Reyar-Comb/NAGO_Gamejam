@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=18 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cj4x36cv6m4gt" path="res://Player/PlayerStates/PlayerIdleState.cs" id="7_v0k0e"]
 [ext_resource type="Script" uid="uid://bk8rt0dw3k3ut" path="res://StateTree/VarStorage.cs" id="8_5wa8t"]
 [ext_resource type="Script" uid="uid://y4slby86bcvd" path="res://Player/PlayerStates/PlayerWalkState.cs" id="9_0j2ni"]
+[ext_resource type="Shader" uid="uid://bykcvbhvcxov6" path="res://UI/UIResouce/CircularProgressBar.gdshader" id="10_5wa8t"]
 [ext_resource type="Script" uid="uid://crkrpw08wksgv" path="res://Player/PlayerStates/PlayerDashState.cs" id="10_v0k0e"]
 
 [sub_resource type="Shader" id="Shader_tok1r"]
@@ -53,34 +54,53 @@ shader_parameter/outline_width = 1.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
+[sub_resource type="Gradient" id="Gradient_v0k0e"]
+colors = PackedColorArray(0.93, 0.35712007, 0.21390001, 1, 0.7625001, 0.43, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5wa8t"]
+gradient = SubResource("Gradient_v0k0e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7tob"]
+shader = ExtResource("10_5wa8t")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/background = Color(0, 0, 0, 0.7)
+shader_parameter/gradient = SubResource("GradientTexture1D_5wa8t")
+shader_parameter/use_gradient = true
+shader_parameter/min_value = 0.0
+shader_parameter/max_value = 100.0
+shader_parameter/current_value = 91.0
+shader_parameter/start_angle = -90.0
+shader_parameter/clockwise = true
+shader_parameter/outer_radius = 0.5
+shader_parameter/width = 0.1
+shader_parameter/antialiasing = 0.01
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lat"]
 size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite")]
 script = ExtResource("1_q3lat")
-CuisineDisplaySprite = NodePath("CuisineDisplaySprite")
+CuisineDisplaySprite = NodePath("Sprites/CuisineDisplaySprite")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="PlayerSprite" type="Sprite2D" parent="Sprites"]
 material = SubResource("ShaderMaterial_ddoul")
 texture = ExtResource("1_3qydi")
 
+[node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer")]
+material = SubResource("ShaderMaterial_p7tob")
+position = Vector2(-148, -70)
+texture = ExtResource("1_3qydi")
+script = ExtResource("3_tok1r")
+StaminaTweenDuration = 0.2
+StaminaRegenDelayTimer = NodePath("../../Timers/StaminRegenDelayTimer")
+
+[node name="CuisineDisplaySprite" type="Sprite2D" parent="Sprites"]
+position = Vector2(89, -13)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_q3lat")
-
-[node name="StaminaBar" type="ProgressBar" parent="." node_paths=PackedStringArray("StaminaRegenDelayTimer")]
-offset_left = -104.0
-offset_top = -38.0
-offset_right = -84.0
-offset_bottom = 60.0
-fill_mode = 3
-show_percentage = false
-script = ExtResource("3_tok1r")
-StaminaRegenDelayTimer = NodePath("../Timers/StaminRegenDelayTimer")
-
-[node name="Timers" type="Node" parent="."]
-
-[node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
-one_shot = true
 
 [node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
 script = ExtResource("8_5wa8t")
@@ -89,7 +109,7 @@ _initialVariantStorage = Dictionary[String, Variant]({
 })
 _nodeStorage = {
 "Player": NodePath(".."),
-"StaminaBar": NodePath("../StaminaBar"),
+"StaminaBar": NodePath("../Sprites/StaminaBar"),
 "StateTree": NodePath("../StateTree")
 }
 metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
@@ -125,5 +145,7 @@ script = ExtResource("10_v0k0e")
 Storage = NodePath("../../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 
-[node name="CuisineDisplaySprite" type="Sprite2D" parent="."]
-position = Vector2(89, -13)
+[node name="Timers" type="Node" parent="."]
+
+[node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
+one_shot = true
