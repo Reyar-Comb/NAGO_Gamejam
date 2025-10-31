@@ -49,8 +49,9 @@ shader_parameter/outline_enabled = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lat"]
 size = Vector2(128, 128)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite")]
 script = ExtResource("1_q3lat")
+CuisineDisplaySprite = NodePath("CuisineDisplaySprite")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ddoul")
@@ -73,3 +74,6 @@ StaminaRegenDelayTimer = NodePath("../Timers/StaminRegenDelayTimer")
 
 [node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="CuisineDisplaySprite" type="Sprite2D" parent="."]
+position = Vector2(121, -37)

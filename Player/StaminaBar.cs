@@ -5,6 +5,7 @@ public partial class StaminaBar : ProgressBar
 {
 	[Export] public float MaxStamina = 100.0f;
 	[Export] public float StaminaRegenRate = 10.0f;
+	[Export] public float StaminaDecreaseRate = 30.0f;
 	[Export] public float StaminaRegenDelay = 1.0f;
 	[Export] public Timer StaminaRegenDelayTimer = null;
 	private float CurrentStamina
