@@ -6,7 +6,7 @@ public partial class Player : CharacterBody2D
 {
 	[Export] public Sprite2D CuisineDisplaySprite;
 	public Cuisine CurrentCuisine
-    {
+	{
 		get => field;
 		set
 		{
@@ -25,5 +25,5 @@ public partial class Player : CharacterBody2D
 			field.OnCollected();
 			CuisineDisplaySprite.Texture = field.CuisineTexture;
 		}
-    }
+	}
 }
