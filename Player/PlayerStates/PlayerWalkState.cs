@@ -16,14 +16,15 @@ public partial class PlayerWalkState : State
 
 	protected override void FrameUpdate(double delta)
 	{
-		if (Mathf.IsZeroApprox(_player.Velocity.X))
-		{
-			AskTransit("Idle");
-		}
-		
 		if (Input.IsActionJustPressed("Dash"))
 		{
 			AskTransit("Dash");
 		}
+		if (_player.Velocity.IsEqualApprox(Vector2.Zero))
+		{
+			AskTransit("Idle");
+		}
+		
+		
 	}
 }
