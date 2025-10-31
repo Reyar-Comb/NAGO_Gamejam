@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 SignalBus="*res://Utilities/SignalBus/SignalBus.cs"
 GameData="*res://Utilities/GameData/GameData.cs"
+CustomerManager="*res://CustomerManager/CustomerManager.tscn"
 
 [display]
 
