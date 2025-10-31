@@ -21,7 +21,7 @@ public partial class PlayerMoveControl : State
 		
 		if (_stateTree.CurrentState.Name == "Dash")
 		{
-			_finalSpeed = _speed * 2;
+			_finalSpeed = _speed * 10;
 		}
 		else
 		{

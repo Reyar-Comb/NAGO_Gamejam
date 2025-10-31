@@ -35,8 +35,8 @@ public partial class StaminaBar : ProgressBar
 	{
 		if (_canRegen)
 			RegenStamina(delta);
-		if (Input.IsActionJustPressed("Dash"))
-			CurrentStamina -= 20.0f;
+		if (Input.IsActionPressed("Dash"))
+			CurrentStamina -= 1.0f;
 	}
 	public void RegenStamina(double delta)
 	{
