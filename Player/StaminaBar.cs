@@ -8,7 +8,7 @@ public partial class StaminaBar : ProgressBar
 	[Export] public float StaminaDecreaseRate = 30.0f;
 	[Export] public float StaminaRegenDelay = 1.0f;
 	[Export] public Timer StaminaRegenDelayTimer = null;
-	private float CurrentStamina
+	public float CurrentStamina
 	{
 		get => field;
 		set

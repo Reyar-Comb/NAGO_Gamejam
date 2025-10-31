@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://dupjiaq6l7ym5"]
+[gd_scene load_steps=7 format=4 uid="uid://dupjiaq6l7ym5"]
 
 [ext_resource type="Script" uid="uid://dk6q5mmp40n3u" path="res://test_astar/Testastar.cs" id="1_najx7"]
 [ext_resource type="Texture2D" uid="uid://chqc8x6t38uyi" path="res://test_astar/TX Tileset Ground.png" id="1_sun5c"]
 [ext_resource type="PackedScene" uid="uid://bq65l1duij0ea" path="res://test_astar/testNPC/testNPC.tscn" id="2_t8vps"]
+[ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="4_uuyl3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8vps"]
 texture = ExtResource("1_sun5c")
@@ -190,6 +191,9 @@ GroundLayer = NodePath("../../GroundLayer")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-126, 94)
+
+[node name="Player" parent="." instance=ExtResource("4_uuyl3")]
+position = Vector2(182, -115)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
