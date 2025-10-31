@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1mbvae7ie44p"
-path="res://.godot/imported/Table.png-310c2b9eac024b26463eb2f776aeb85f.ctex"
+uid="uid://dw17idtr02wym"
+path="res://.godot/imported/FlowerPot.png-b40dc907521355651b2d025ccb8721ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Table.png"
-dest_files=["res://.godot/imported/Table.png-310c2b9eac024b26463eb2f776aeb85f.ctex"]
+source_file="res://Assets/FlowerPot.png"
+dest_files=["res://.godot/imported/FlowerPot.png-b40dc907521355651b2d025ccb8721ae.ctex"]
 
 [params]
 

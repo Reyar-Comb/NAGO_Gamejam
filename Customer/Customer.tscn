@@ -1,4 +1,5 @@
 [gd_scene load_steps=8 format=3 uid="uid://ds83mf3sm4dvs"]
+[gd_scene load_steps=8 format=3 uid="uid://ds83mf3sm4dvs"]
 
 [ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
 [ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
@@ -77,3 +78,23 @@ one_shot = true
 
 [node name="CuisineEatingTimer" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="VarStorage" type="Node" parent="."]
+script = ExtResource("3_i5y8d")
+metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
+
+[node name="StateTree" type="Node" parent="." node_paths=PackedStringArray("Storage")]
+script = ExtResource("4_gj5ka")
+InitialStateName = "Idle"
+Storage = NodePath("../VarStorage")
+metadata/_custom_type_script = "uid://bnasen8oklvj8"
+
+[node name="Walk" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
+script = ExtResource("5_73njr")
+Storage = NodePath("../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Idle" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
+script = ExtResource("5_73njr")
+Storage = NodePath("../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
