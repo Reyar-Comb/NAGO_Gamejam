@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1mbvae7ie44p"
-path="res://.godot/imported/Table.png-310c2b9eac024b26463eb2f776aeb85f.ctex"
+uid="uid://blkaf4pvq4124"
+path="res://.godot/imported/ChineseKnot.png-159c5c6767d7bb72eb07d3bc21a7643a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Table.png"
-dest_files=["res://.godot/imported/Table.png-310c2b9eac024b26463eb2f776aeb85f.ctex"]
+source_file="res://Assets/ChineseKnot.png"
+dest_files=["res://.godot/imported/ChineseKnot.png-159c5c6767d7bb72eb07d3bc21a7643a.ctex"]
 
 [params]
 
