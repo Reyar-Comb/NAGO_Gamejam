@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq65l1duij0ea"]
+
+[ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_v2avx"]
+[ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_i2kdw"]
+[ext_resource type="Script" uid="uid://ytcpw4qagnyj" path="res://test_astar/testNPC/TestNpc.cs" id="3_o15kl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3uvuv"]
+radius = 9.0
+height = 22.0
+
+[node name="TestNpc" type="Node2D"]
+
+[node name="NavigationManager" type="Node" parent="."]
+script = ExtResource("2_i2kdw")
+metadata/_custom_type_script = "uid://g0d06dgwtpfu"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("NavigationManager")]
+script = ExtResource("3_o15kl")
+NavigationManager = NodePath("../NavigationManager")
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(5.9604645e-08, 1.1920929e-07)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_v2avx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_3uvuv")
