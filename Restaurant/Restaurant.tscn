@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://bgvi4pamawh5"]
+[gd_scene load_steps=3 format=3 uid="uid://bgvi4pamawh5"]
 
-[node name="Restaurant" type="Node2D"]
+[ext_resource type="Script" uid="uid://4vdeqmpvo1w8" path="res://Restaurant/Restaurant.cs" id="1_vkde5"]
+[ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="5_3vqf3"]
+
+[node name="Restaurant" type="Node2D" node_paths=PackedStringArray("CuisineSpawnTimer", "Waiter")]
+script = ExtResource("1_vkde5")
+CuisineSpawnTimer = NodePath("Timer")
+Waiter = NodePath("Player")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("5_3vqf3")]
+position = Vector2(466, 170)

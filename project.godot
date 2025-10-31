@@ -14,6 +14,11 @@ config/name="NAGO_Gamejam"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*res://Utilities/SignalBus/SignalBus.cs"
+GameData="*res://Utilities/GameData/GameData.cs"
+
 [display]
 
 window/size/viewport_width=1920
