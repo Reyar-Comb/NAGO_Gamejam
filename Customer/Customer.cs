@@ -6,17 +6,46 @@ public partial class Customer : CharacterBody2D
 	[Export] public float Speed = 100f;
 	[Export] public NavigationManager NavigationManager;
 	[Export] public Timer PatienceTimer;
+	[Export] public Timer CuisineEatingTimer;
+	[Export] public float CuisineEatingTime = 5f;
 	public Cuisine DesiredCuisine;
-	public bool IsDelivered = false;
-	public bool IsSeated = false;
+	public bool IsDelivered
+	{
+		get => field;
+		set
+		{
+			if (field == value)
+				return;
+			field = value;
+			if (field)
+			{
+				OnCuisineDelivered();
+				StartCuisineEatingTimer(CuisineEatingTime);
+			}
+		}
+	} = false;
+	public bool IsSeated
+	{
+		get => field;
+		set
+		{
+			if (field == value)
+				return;
+			field = value;
+			if (field)
+				OnSeated();
+		}
+	} = false;
 
-	public Marker2D TargetTableMarker;
+	public Vector2 TargetTablePosition;
 	private Vector2[] path = Array.Empty<Vector2>();
 	private int currentStep = 0;
 
 	public override void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
+		PatienceTimer.Timeout += OnPatienceTimeout;
+		CuisineEatingTimer.Timeout += OnCuisineFinished;
 	}
 	public void MoveTo(Vector2 targetPosition)
 	{
@@ -29,7 +58,7 @@ public partial class Customer : CharacterBody2D
 		}
 		else
 		{
-			GD.Print("No path found.");
+			GD.PushError("No path found.");
 		}
 	}
 
@@ -57,10 +86,27 @@ public partial class Customer : CharacterBody2D
 		}
 		MoveAndSlide();
 	}
-	
+
 	public void StartPatienceTimer(float time)
 	{
-		PatienceTimer.WaitTime = time;
-		PatienceTimer.Start();
+		PatienceTimer.Start(time);
+	}
+	public void StartCuisineEatingTimer(float time)
+	{
+		CuisineEatingTimer.Start(time);
+	}
+	public void Leave()
+    {
+		GD.Print("顾客离开餐厅。");
+    }
+	protected virtual void OnSeated() { }
+	protected virtual void OnCuisineFinished() { }
+	protected virtual void OnCuisineDelivered() { }
+	protected virtual void OnPatienceRunOut() { }
+	protected void OnPatienceTimeout()
+	{
+		GD.Print("顾客的耐心用尽了！");
+		OnPatienceRunOut();
+		Leave();
 	}
 }

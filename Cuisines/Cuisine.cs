@@ -18,6 +18,16 @@ public partial class Cuisine : Resource
     protected static Dictionary<string, Cuisine> CuisineDictionary = new();
     public virtual void OnCollected() { }
     public virtual void OnDelivered() { }
+    static Cuisine()
+    {
+        var cuisineTypes = AppDomain.CurrentDomain.GetAssemblies();
+        foreach (var assembly in cuisineTypes)
+            foreach (var type in assembly.GetTypes())
+                if (type.IsSubclassOf(typeof(Cuisine)) && !type.IsAbstract)
+                {
+                    Cuisine instance = (Cuisine)Activator.CreateInstance(type);
+                }
+    }
     public static Cuisine GetCuisineByName(string name)
     {
         if (CuisineDictionary.ContainsKey(name))

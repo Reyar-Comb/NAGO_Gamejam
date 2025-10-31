@@ -8,10 +8,5 @@ public partial class GameData : Node
     public override void _Ready()
     {
         Instance = this;
-        InitializeCuisineDictionary();
-    }
-    private void InitializeCuisineDictionary()
-    {
-        Meal meal = new();
     }
 }
