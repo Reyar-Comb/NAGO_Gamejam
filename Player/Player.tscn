@@ -1,8 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=14 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
 [ext_resource type="Script" uid="uid://dxintdrx5ddm8" path="res://Player/StaminaBar.cs" id="3_tok1r"]
+[ext_resource type="Script" uid="uid://bnasen8oklvj8" path="res://StateTree/StateTree.cs" id="4_s1rgi"]
+[ext_resource type="Script" uid="uid://8t4wc55psrvo" path="res://Player/PlayerStates/PlayerUniversalState.cs" id="5_j23h2"]
+[ext_resource type="Script" uid="uid://ci2lt87r2aksf" path="res://Player/PlayerStates/PlayerMoveControl.cs" id="6_0j2ni"]
+[ext_resource type="Script" uid="uid://cj4x36cv6m4gt" path="res://Player/PlayerStates/PlayerIdleState.cs" id="7_v0k0e"]
+[ext_resource type="Script" uid="uid://bk8rt0dw3k3ut" path="res://StateTree/VarStorage.cs" id="8_5wa8t"]
+[ext_resource type="Script" uid="uid://y4slby86bcvd" path="res://Player/PlayerStates/PlayerWalkState.cs" id="9_0j2ni"]
+[ext_resource type="Script" uid="uid://crkrpw08wksgv" path="res://Player/PlayerStates/PlayerDashState.cs" id="10_v0k0e"]
 
 [sub_resource type="Shader" id="Shader_tok1r"]
 code = "shader_type canvas_item;
@@ -73,3 +80,46 @@ StaminaRegenDelayTimer = NodePath("../Timers/StaminRegenDelayTimer")
 
 [node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
+script = ExtResource("8_5wa8t")
+_initialVariantStorage = Dictionary[String, Variant]({
+"Speed": 100.0
+})
+_nodeStorage = {
+"Player": NodePath(".."),
+"StaminaBar": NodePath("../StaminaBar"),
+"StateTree": NodePath("../StateTree")
+}
+metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
+
+[node name="StateTree" type="Node" parent="." node_paths=PackedStringArray("Storage")]
+script = ExtResource("4_s1rgi")
+InitialStateName = "Idle"
+Storage = NodePath("../VarStorage")
+metadata/_custom_type_script = "uid://bnasen8oklvj8"
+
+[node name="Universal" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
+script = ExtResource("5_j23h2")
+Storage = NodePath("../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="MoveControl" type="Node" parent="StateTree/Universal" node_paths=PackedStringArray("Storage")]
+script = ExtResource("6_0j2ni")
+Storage = NodePath("../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Idle" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
+script = ExtResource("7_v0k0e")
+Storage = NodePath("../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Walk" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
+script = ExtResource("9_0j2ni")
+Storage = NodePath("../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Dash" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
+script = ExtResource("10_v0k0e")
+Storage = NodePath("../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
