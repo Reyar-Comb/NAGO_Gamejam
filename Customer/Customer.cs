@@ -1,9 +1,10 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class Customer : CharacterBody2D
 {
-	[Export] public float Speed = 100f;
+	[Export] public float Speed = 300f;
 	[Export] public NavigationManager NavigationManager;
 	[Export] public Timer PatienceTimer;
 	[Export] public Timer CuisineEatingTimer;
@@ -53,12 +54,15 @@ public partial class Customer : CharacterBody2D
 	private int _currentStep = 0;
 	private ShaderMaterial _customerShaderMaterial = null;
 	private bool _isPlayerNearby = false;
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 		PatienceTimer.Timeout += OnPatienceTimeout;
 		CuisineEatingTimer.Timeout += OnCuisineFinished;
 		_customerShaderMaterial = GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material as ShaderMaterial;
+
+		await ToSignal(GetTree().CreateTimer(2), "timeout");
+		MoveTo(TargetChairPosition);
 	}
 	private void ToggleWhiteBorder(bool enable)
 	{
