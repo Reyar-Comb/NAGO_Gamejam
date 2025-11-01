@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkttw1fa0hwiy"]
+
+[ext_resource type="PackedScene" uid="uid://ds83mf3sm4dvs" path="res://Customer/Customer.tscn" id="1_wy85c"]
+[ext_resource type="Shader" uid="uid://cpaas03qnjjnb" path="res://UI/UIResouce/WhiteBorder.gdshader" id="2_1l2jb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjf4j"]
+resource_local_to_scene = true
+shader = ExtResource("2_1l2jb")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[node name="Customer" instance=ExtResource("1_wy85c")]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+material = SubResource("ShaderMaterial_jjf4j")
