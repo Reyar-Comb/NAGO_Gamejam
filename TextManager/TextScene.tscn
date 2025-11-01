@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3o2mugpeoe7q"]
+
+[ext_resource type="Script" uid="uid://t5gtckkvg7iy" path="res://TextManager/TextScene.cs" id="1_dsucd"]
+[ext_resource type="Texture2D" uid="uid://dj55tlt0yc0er" path="res://Assets/Character/PlayerProfile.png" id="2_68f6d"]
+[ext_resource type="Texture2D" uid="uid://bhua5pixfay7k" path="res://Assets/Character/ChefProfile.png" id="3_q2oqx"]
+[ext_resource type="Texture2D" uid="uid://d1w778ehlm62y" path="res://Assets/UI/Dialogue.png" id="4_5pydy"]
+
+[node name="TextScene" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_dsucd")
+
+[node name="DialoguePanel" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerProfile" type="TextureRect" parent="DialoguePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -163.0
+offset_top = 240.0
+offset_right = 818.0
+offset_bottom = 1256.0
+texture = ExtResource("2_68f6d")
+flip_h = true
+
+[node name="ChefProfile" type="TextureRect" parent="DialoguePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1065.0
+offset_top = 181.0
+offset_right = 2046.0
+offset_bottom = 1197.0
+texture = ExtResource("3_q2oqx")
+
+[node name="MarginContainer" type="MarginContainer" parent="DialoguePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueBoard" type="TextureRect" parent="DialoguePanel/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_5pydy")
+expand_mode = 1
+
+[node name="SpeakerNameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 149.0
+offset_top = 1009.0
+offset_right = 189.0
+offset_bottom = 1032.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "asdf"
+
+[node name="DialogueTextLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 167.0
+offset_top = 1123.0
+offset_right = 997.0
+offset_bottom = 1255.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "asdfasdfsafsaf
+asdfasfasfdsafasfddsf
+asdfsafdasfdsadfsafsafafasfassfasfdasdfasdfasdfasfdasdf"

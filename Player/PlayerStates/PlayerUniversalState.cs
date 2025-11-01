@@ -55,10 +55,10 @@ public partial class PlayerUniversalState : State
 		UpdateCustomerHighlight();
 		_frameCounter++;
 		if (_frameCounter % ScanFrameInterval == 0)
-        {
+		{
 			_frameCounter = 0;
 			RunScan();
-        }
+		}
 		if (Input.IsActionJustPressed("Interact"))
 		{
 			if (_player.CurrentCuisine == null && _highlightedPickupPoint != null)
