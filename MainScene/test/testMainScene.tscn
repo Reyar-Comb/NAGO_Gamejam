@@ -17,7 +17,7 @@
 
 [node name="CustomerManager" parent="." instance=ExtResource("1_nryb2")]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="ObstacleLayer" type="TileMapLayer" parent="."]
 
 [node name="Offset" type="Node2D" parent="."]
 position = Vector2(4, -30)
@@ -70,8 +70,9 @@ position = Vector2(2304, 1920)
 [node name="Customer" parent="." instance=ExtResource("11_ulsfy")]
 position = Vector2(1284, 1634)
 
-[node name="Player" parent="." instance=ExtResource("13_nryb2")]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1284, 1250)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(0.8, 0.8)
+
+[node name="Player" parent="." instance=ExtResource("13_nryb2")]
+position = Vector2(1412, 994)

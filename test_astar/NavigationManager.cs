@@ -11,7 +11,7 @@ public partial class NavigationManager : Node
 
     public TileMapLayer FindObstacleLayer()
     {
-        return null;
+        return GetTree().CurrentScene.GetNode<TileMapLayer>("%ObstacleLayer");
     }
     public override void _Ready()
     {

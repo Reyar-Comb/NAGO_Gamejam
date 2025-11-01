@@ -14,6 +14,7 @@ public partial class PlayerDashState : State
 	protected override void Enter()
 	{
 		GD.Print("Player has entered Dash State.");
+		Storage.SetVariant("AnimationSpeedMultiplier", Storage.GetVariant<float>("DashAnimationSpeedMultiplier"));
 	}
 
 	protected override void FrameUpdate(double delta)

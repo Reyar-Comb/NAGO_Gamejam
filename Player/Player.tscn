@@ -1,9 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=41 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
+[ext_resource type="Texture2D" uid="uid://3xtfips564ho" path="res://Assets/Character/PlayerNormalAndHoldingCuisineSpriteSheet.png" id="2_3mea3"]
+[ext_resource type="Texture2D" uid="uid://771ve60f25e2" path="res://Assets/Character/PlayerHoldCuisineWalkSpriteSheet.png" id="3_7v5gs"]
 [ext_resource type="Script" uid="uid://dxintdrx5ddm8" path="res://Player/StaminaBar.cs" id="3_tok1r"]
 [ext_resource type="Script" uid="uid://bnasen8oklvj8" path="res://StateTree/StateTree.cs" id="4_s1rgi"]
+[ext_resource type="Texture2D" uid="uid://bgx4c6763yw6k" path="res://Assets/Character/PlayerWalkSpriteSheet.png" id="5_8sa4y"]
 [ext_resource type="Script" uid="uid://8t4wc55psrvo" path="res://Player/PlayerStates/PlayerUniversalState.cs" id="5_j23h2"]
 [ext_resource type="Script" uid="uid://ci2lt87r2aksf" path="res://Player/PlayerStates/PlayerMoveControl.cs" id="6_0j2ni"]
 [ext_resource type="Script" uid="uid://cj4x36cv6m4gt" path="res://Player/PlayerStates/PlayerIdleState.cs" id="7_v0k0e"]
@@ -11,51 +14,214 @@
 [ext_resource type="Script" uid="uid://y4slby86bcvd" path="res://Player/PlayerStates/PlayerWalkState.cs" id="9_0j2ni"]
 [ext_resource type="Shader" uid="uid://bykcvbhvcxov6" path="res://UI/UIResouce/CircularProgressBar.gdshader" id="10_5wa8t"]
 [ext_resource type="Script" uid="uid://crkrpw08wksgv" path="res://Player/PlayerStates/PlayerDashState.cs" id="10_v0k0e"]
+[ext_resource type="Script" uid="uid://cdj06y6nspiin" path="res://Player/PlayerStates/PlayerPlayWalkAnimation.cs" id="12_3mea3"]
 
-[sub_resource type="Shader" id="Shader_tok1r"]
-code = "shader_type canvas_item;
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm7nj"]
+atlas = ExtResource("2_3mea3")
+region = Rect2(0, 0, 768, 1287)
 
-uniform float outline_width : hint_range(0, 100, 1) = 1.0;
-uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform bool outline_enabled = true;
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mea3"]
+atlas = ExtResource("2_3mea3")
+region = Rect2(768, 0, 768, 1287)
 
-void fragment() {
-    vec4 current_color = texture(TEXTURE, UV);
-    vec2 size = TEXTURE_PIXEL_SIZE * outline_width;
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v5gs"]
+atlas = ExtResource("2_3mea3")
+region = Rect2(1536, 0, 768, 1287)
 
-    if (outline_enabled && current_color.a <= 0.1)
-	{
-        // 检查八个方向的像素
-        float alpha = 0.0;
-        alpha += texture(TEXTURE, UV + vec2(0.0, -size.y)).a;        // 上
-        alpha += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;     // 右上
-        alpha += texture(TEXTURE, UV + vec2(size.x, 0.0)).a;         // 右
-        alpha += texture(TEXTURE, UV + vec2(size.x, size.y)).a;      // 右下
-        alpha += texture(TEXTURE, UV + vec2(0.0, size.y)).a;         // 下
-        alpha += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;     // 左下
-        alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;        // 左
-        alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;    // 左上
+[sub_resource type="AtlasTexture" id="AtlasTexture_roy6y"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(914, 0, 914, 946)
 
-        if (alpha > 0.0)
-            COLOR = vec4(outline_color.rgb, alpha * outline_color.a);
-        else
-            COLOR = current_color;
-    }
-	else
-	{
-        COLOR = current_color;
-    }
-}"
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5tep"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(1828, 0, 914, 946)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddoul"]
-resource_local_to_scene = true
-shader = SubResource("Shader_tok1r")
-shader_parameter/outline_width = 1.0
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_enabled = false
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps8ct"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(0, 946, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uipr"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(914, 946, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yifbt"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(1828, 946, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0mko"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(914, 1892, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqjia"]
+atlas = ExtResource("3_7v5gs")
+region = Rect2(1828, 1892, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sa4y"]
+atlas = ExtResource("2_3mea3")
+region = Rect2(0, 1287, 768, 1287)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nb2p"]
+atlas = ExtResource("2_3mea3")
+region = Rect2(768, 1287, 768, 1287)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7xyo"]
+atlas = ExtResource("2_3mea3")
+region = Rect2(1536, 1287, 768, 1287)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x70vp"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(914, 0, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wo5nf"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(1828, 0, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_croik"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(0, 946, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgaaw"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(914, 946, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv3fu"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(1828, 946, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu7fl"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(914, 1892, 914, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78fhc"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(1828, 1892, 914, 946)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0k0e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm7nj")
+}],
+"loop": false,
+"name": &"HoldCuisineDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mea3")
+}],
+"loop": false,
+"name": &"HoldCuisineHorizontal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v5gs")
+}],
+"loop": false,
+"name": &"HoldCuisineUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roy6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5tep")
+}],
+"loop": true,
+"name": &"HoldCuisineWalkDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps8ct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7uipr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yifbt")
+}],
+"loop": true,
+"name": &"HoldCuisineWalkHorizontal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0mko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqjia")
+}],
+"loop": true,
+"name": &"HoldCuisineWalkUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sa4y")
+}],
+"loop": false,
+"name": &"IdleDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nb2p")
+}],
+"loop": false,
+"name": &"IdleHorizontal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7xyo")
+}],
+"loop": false,
+"name": &"IdleUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x70vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo5nf")
+}],
+"loop": true,
+"name": &"WalkDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_croik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgaaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv3fu")
+}],
+"loop": true,
+"name": &"WalkHorizontal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu7fl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78fhc")
+}],
+"loop": true,
+"name": &"WalkUp",
+"speed": 5.0
+}]
 
 [sub_resource type="Gradient" id="Gradient_v0k0e"]
-colors = PackedColorArray(0.93, 0.35712007, 0.21390001, 1, 0.7625001, 0.43, 1, 1)
+offsets = PackedFloat32Array(0.008230452, 0.51028806, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.49019608, 0.6392157, 0.19607843, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5wa8t"]
 gradient = SubResource("Gradient_v0k0e")
@@ -68,7 +234,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_5wa8t")
 shader_parameter/use_gradient = true
 shader_parameter/min_value = 0.0
 shader_parameter/max_value = 100.0
-shader_parameter/current_value = 91.0
+shader_parameter/current_value = 100.0
 shader_parameter/start_angle = -90.0
 shader_parameter/clockwise = true
 shader_parameter/outer_radius = 0.5
@@ -78,21 +244,24 @@ shader_parameter/antialiasing = 0.01
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lat"]
 size = Vector2(128, 128)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite") groups=["Player"]]
 script = ExtResource("1_q3lat")
 CuisineDisplaySprite = NodePath("Sprites/CuisineDisplaySprite")
 
 [node name="Sprites" type="Node2D" parent="."]
 
-[node name="PlayerSprite" type="Sprite2D" parent="Sprites"]
-material = SubResource("ShaderMaterial_ddoul")
-texture = ExtResource("1_3qydi")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
+scale = Vector2(0.5130208, 0.5130208)
+sprite_frames = SubResource("SpriteFrames_v0k0e")
+animation = &"WalkDown"
 
 [node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer")]
 material = SubResource("ShaderMaterial_p7tob")
-position = Vector2(-148, -70)
+position = Vector2(-247, -156)
+scale = Vector2(1.5992316, 1.6492573)
 texture = ExtResource("1_3qydi")
 script = ExtResource("3_tok1r")
+StaminaRegenRate = 20.0
 StaminaTweenDuration = 0.2
 StaminaRegenDelayTimer = NodePath("../../Timers/StaminRegenDelayTimer")
 
@@ -105,9 +274,16 @@ shape = SubResource("RectangleShape2D_q3lat")
 [node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
 script = ExtResource("8_5wa8t")
 _initialVariantStorage = Dictionary[String, Variant]({
-"Speed": 100.0
+"AnimationSpeedMultiplier": 1.0,
+"DashAnimationSpeedMultiplier": 2.0,
+"HeadingRight": false,
+"HeadingUp": false,
+"LastRemovedDirection": "",
+"Speed": 500.0,
+"SpeedMultiplier": 2.0
 })
 _nodeStorage = {
+"AnimatedSprite": NodePath("../Sprites/AnimatedSprite2D"),
 "Player": NodePath(".."),
 "StaminaBar": NodePath("../Sprites/StaminaBar"),
 "StateTree": NodePath("../StateTree")
@@ -130,22 +306,27 @@ script = ExtResource("6_0j2ni")
 Storage = NodePath("../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 
+[node name="PlayWalkAnimation" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
+script = ExtResource("12_3mea3")
+Storage = NodePath("../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Walk" type="Node" parent="StateTree/Universal/MoveControl/PlayWalkAnimation" node_paths=PackedStringArray("Storage")]
+script = ExtResource("9_0j2ni")
+Storage = NodePath("../../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Dash" type="Node" parent="StateTree/Universal/MoveControl/PlayWalkAnimation" node_paths=PackedStringArray("Storage")]
+script = ExtResource("10_v0k0e")
+Storage = NodePath("../../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
 [node name="Idle" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
 script = ExtResource("7_v0k0e")
 Storage = NodePath("../../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 
-[node name="Walk" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
-script = ExtResource("9_0j2ni")
-Storage = NodePath("../../../../VarStorage")
-metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
-
-[node name="Dash" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
-script = ExtResource("10_v0k0e")
-Storage = NodePath("../../../../VarStorage")
-metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
-
-[node name="Timers" type="Node" parent="." groups=["Player"]]
+[node name="Timers" type="Node" parent="."]
 
 [node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
 one_shot = true
