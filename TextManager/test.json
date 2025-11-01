@@ -1,0 +1,28 @@
+{
+    "scene1":[
+        {
+            "Id": "1",
+            "Side": "Left",
+            "Text": "Hello!",
+            "SpeakerName": "椰子"
+        },
+        {
+            "Id": "2",
+            "Side": "Right",
+            "Text": "Hey there!",
+            "SpeakerName": "小锑"
+        },
+        {
+            "Id": "3",
+            "Side": "Left",
+            "Text": "Where are we going?",
+            "SpeakerName": "椰子"
+        },
+        {
+            "Id": "4",
+            "Side": "Right",
+            "Text": "Just going to the dock to get some chips.",
+            "SpeakerName": "小锑"
+        }
+    ]
+}

@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 SignalBus="*res://Utilities/SignalBus/SignalBus.cs"
 GameData="*res://Utilities/GameData/GameData.cs"
 AudioManager="*res://AudioManager/AudioManager.tscn"
+TextScene="*res://TextManager/TextScene.tscn"
+TextManager="*res://TextManager/TextManager.cs"
 SceneManager="*res://Utilities/SceneManager/SceneManager.tscn"
 
 [display]

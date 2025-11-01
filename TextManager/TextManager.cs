@@ -1,0 +1,174 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+public partial class TextManager : Node
+{
+	public static TextManager Instance { get; private set; }
+	public Control DialoguePanel;
+	public TextureRect PlayerProfile;
+	public TextureRect ChefProfile;
+	public Label DialogueTextLabel;
+	public Label SpeakerNameLabel;
+	public MarginContainer TextMarginContainer;
+	public string CurrentDialogueScene = "";
+	private bool _isTextShowing = false;
+	[Serializable]
+	public class DialogueLine
+	{
+		public string Id { get; set; }
+		public string Side { get; set; }
+		public string Text { get; set; }
+		public string SpeakerName { get; set; }
+	}
+	public DialogueLine[] Lines;
+	public int Index = 0;
+
+	public override void _Ready()
+	{
+		// 单例模式
+		if (Instance == null)
+		{
+			Instance = this;
+			// 确保切换场景时不被销毁
+			ProcessMode = ProcessModeEnum.Always;
+		}
+		else
+		{
+			QueueFree();
+		}
+
+		GetTextSceneNodes();
+	}
+	private void StartDialogue()
+	{
+		if (_isTextShowing)
+			return;
+		Index = 0;
+		_isTextShowing = true;
+		ShowText();
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.DialogueStarted);
+	}
+	private void GetTextSceneNodes()
+	{
+		TextScene textScene = TextScene.Instance;
+		PlayerProfile = textScene.GetNode<TextureRect>("%PlayerProfile");
+		ChefProfile = textScene.GetNode<TextureRect>("%ChefProfile");
+		DialogueTextLabel = textScene.GetNode<Label>("%DialogueTextLabel");
+		SpeakerNameLabel = textScene.GetNode<Label>("%SpeakerNameLabel");
+	}
+	private void LoadLines(string path, string scene)
+	{
+		if (_isTextShowing)
+			return;
+		var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+		var jsonText = file.GetAsText();
+		file.Close();
+		var json = JsonSerializer.Deserialize<Dictionary<string, DialogueLine[]>>(jsonText);
+		Lines = json[scene];
+		CurrentDialogueScene = scene;
+	}
+	public void RunLines(string path, string scene)
+	{
+		if (_isTextShowing)
+			return;
+		LoadLines(path, scene);
+		StartDialogue();
+	}
+	public void EndDialogue()
+	{
+		if (!_isTextShowing)
+			return;
+			
+		Lines = null;
+		Index = 0;
+		_isTextShowing = false;
+		TextScene.Instance.Visible = false;
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.DialogueEnded);
+	}
+	private async void ShowText()
+	{
+		if (!_isTextShowing || Lines is null || Index >= Lines.Length)
+		{
+			EndDialogue();
+			return;
+		}
+
+		_isTextShowing = true;
+		TextScene.Instance.Visible = true;
+		var line = Lines[Index];
+		Tween tween = CreateTween();
+		if (line.Side == "Left")
+		{
+			PlayerProfile.Modulate = new Color(1, 1, 1, 1);		
+			ChefProfile.Modulate = new Color(0.5f, 0.5f, 0.5f, 1f);
+		}
+		else if (line.Side == "Right")
+		{
+			PlayerProfile.Modulate = new Color(0.5f, 0.5f, 0.5f, 1f);		
+			ChefProfile.Modulate = new Color(1, 1, 1, 1);
+		}
+
+		DialogueTextLabel.Text = line.Text;
+		DialogueTextLabel.VisibleRatio = 0f;
+		SpeakerNameLabel.Text = line.SpeakerName;
+		float durationFactor = 0.035f;
+		tween.TweenProperty(DialogueTextLabel, "visible_ratio", 1f, line.Text.Length * durationFactor);
+
+		while (true)
+		{
+			if (!_isTextShowing) return;
+
+			if (IsSkipping())
+			{
+				tween.Kill();
+				DialogueTextLabel.VisibleRatio = 1f;
+
+				await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
+				break;
+			}
+			else if (DialogueTextLabel.VisibleRatio >= 0.999f)
+			{
+				break;
+			}
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			if (Lines == null || Index >= Lines.Length)
+			{
+				EndDialogue();
+				return;
+			}
+		}
+
+		WaitAdvance();
+	}
+
+	public async void WaitAdvance()
+	{
+		while (true)
+		{
+			if (!_isTextShowing) return;
+
+			if (IsSkipping())
+			{
+				await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
+				break;
+			}
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+			if (Lines == null || Index >= Lines.Length)
+			{
+				EndDialogue();
+				return;
+			}
+		}
+		Index++;
+		ShowText();
+	}
+	private bool IsSkipping()
+	{
+		return Input.IsMouseButtonPressed(MouseButton.Left) || Input.IsActionJustPressed("Interact");
+	}
+}
