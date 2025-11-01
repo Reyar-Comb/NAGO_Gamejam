@@ -15,8 +15,9 @@ public partial class Customer : CharacterBody2D
 	[Export] public float MinPatienceTime = 10f;
 	[Export] public float MaxPatienceTime = 60f;
 	[Export] public float PatienceTimeRandomness = 5f;
+	[Export] public PackedScene[] RubbishScenes;
 	public float CurrentBasePatienceTime => (float)Mathf.Max(
-		MaxPatienceTime - (GameData.Instance.Level - 1) * 2,
+		MaxPatienceTime - (GameData.Instance.Day - 1) * 2,
 		MinPatienceTime);
 	public float PatienceTime => (float)Mathf.Clamp(
 		CurrentBasePatienceTime + GD.RandRange(-PatienceTimeRandomness, PatienceTimeRandomness),
@@ -38,7 +39,8 @@ public partial class Customer : CharacterBody2D
 			{
 				OrderDisplayPanel.Visible = true;
 				GetNode<TextureRect>("%CuisineIcon").Texture = DesiredCuisine.CuisineTexture;
-				PatienceTimer.Start(PatienceTime);
+				_patienceTime = PatienceTime;
+				PatienceTimer.Start(_patienceTime);
 				_panelOriginalPosition = OrderDisplayPanel.Position;
 				GetNode<Node2D>("Offset").Position = DecideOrderPanelPosition();
 			}
@@ -80,16 +82,41 @@ public partial class Customer : CharacterBody2D
 	private ShaderMaterial CustomerShaderMaterial => GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material as ShaderMaterial;
 	private bool _isPlayerNearby = false;
 	private float _timeElapsed = 0f;
+	private float _leftAndRightXOffset = -300f;
+	private float _patienceTime = 0f;
 	private Vector2 DecideOrderPanelPosition()
-    {
-        return TargetChairType switch
+	{
+		return TargetChairType switch
 		{
-			Chair.ChairType.Up => new Vector2(-400, -970),
-			Chair.ChairType.Left => new Vector2(161, -1070),
-			Chair.ChairType.Right => new Vector2(-161, -1070),
+			Chair.ChairType.Up => new Vector2(-400, -700),
+			Chair.ChairType.Left => new Vector2(61 + _leftAndRightXOffset, -1070),
+			Chair.ChairType.Right => new Vector2(-261 + _leftAndRightXOffset, -1070),
 			_ => new Vector2(0, -150),
 		};
-    }
+	}
+	private void DecideThrowRubbish()
+	{
+		float throwChance = 0.1f;
+		bool willThrow = GD.Randf() < throwChance;
+		if (!willThrow) return;
+		PackedScene rubbishScene = Probability.RunUniformChoose(RubbishScenes);
+		Node2D instance = rubbishScene.Instantiate<Node2D>();
+		if (TargetChairType == Chair.ChairType.Up)
+		{
+			instance.GlobalPosition = TargetChairPosition + Vector2.Right * GD.RandRange(-300, 300);
+		}
+		else if (TargetChairType == Chair.ChairType.Left)
+		{
+			float angle = (float)GD.RandRange(-Mathf.Pi / 2, Mathf.Pi / 2);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Left.Rotated(angle) * GD.RandRange(150, 300);
+		}
+		else
+		{
+			float angle = (float)GD.RandRange(-Mathf.Pi / 2, Mathf.Pi / 2);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Right.Rotated(angle) * GD.RandRange(150, 300);
+		}
+		GetTree().CurrentScene.AddChild(instance);
+	}
 	public override async void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
@@ -99,7 +126,7 @@ public partial class Customer : CharacterBody2D
 		AudioManager.Instance.LoadSFX("Satisfied", "res://Assets/SoundFX/Satisfied2.mp3");
 		AudioManager.Instance.LoadSFX("Wrong", "res://Assets/SoundFX/Wrong3.mp3");
 		AudioManager.Instance.LoadSFX("Coin", "res://Assets/SoundFX/Coin.mp3");
-		await ToSignal(GetTree().CreateTimer(2), "timeout");
+		await ToSignal(GetTree().CreateTimer(2f), SceneTreeTimer.SignalName.Timeout);
 		MoveTo(TargetChairPosition);
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 	}
@@ -107,18 +134,19 @@ public partial class Customer : CharacterBody2D
 	{
 		if (cuisine.CuisineName == DesiredCuisine.CuisineName)
 		{
-			GD.Print("顾客收到了正确的菜肴: " + cuisine.CuisineName);
 			AudioManager.Instance.PlaySFX("Satisfied");
 			IsDelivered = true;
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.CustomerSatisfied);
 			await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
-			Leave();
+			cuisine.OnDelivered(1 + (float)PatienceTimer.TimeLeft / _patienceTime);
+			DecideThrowRubbish();
 		}
 		else
 		{
-			Leave();
 			AudioManager.Instance.PlaySFX("Wrong");
-			GD.Print("顾客收到了错误的菜肴: " + cuisine.CuisineName + "，期望的是: " + DesiredCuisine.CuisineName);
+			GameData.Instance.NegativeViews++;
 		}
+		Leave();
 	}
 	public void ToggleHighlight(bool enable)
 	{
@@ -191,7 +219,7 @@ public partial class Customer : CharacterBody2D
 		IsLeaving = true;
 		if (IsDelivered)
 			AudioManager.Instance.PlaySFX("Coin");
-		
+
 		OrderDisplayPanel.Visible = false;
 		EmitSignal(SignalName.CustomerLeft);
 		GetTree().CreateTimer(20f).Timeout += () =>

@@ -14,81 +14,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScoreMarginContainer" type="MarginContainer" parent="InGameUIControl"]
+[node name="MarginContainer1" type="MarginContainer" parent="InGameUIControl"]
 layout_mode = 1
-offset_right = 1.0
-offset_bottom = 50.0
+offset_right = 223.0
+offset_bottom = 196.0
+theme_override_constants/margin_left = 50
 
-[node name="ColorRect" type="ColorRect" parent="InGameUIControl/ScoreMarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/MarginContainer1"]
 layout_mode = 2
-color = Color(0, 0, 0, 1)
+theme_override_constants/separation = 19
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/ScoreMarginContainer"]
-layout_mode = 2
-
-[node name="ScoreTextLabel" type="Label" parent="InGameUIControl/ScoreMarginContainer/VBoxContainer"]
+[node name="DayDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer1/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-text = "FUCK"
+text = "第 0721 天"
 label_settings = ExtResource("1_iybee")
 
-[node name="ScoreDisplayLabel" type="Label" parent="InGameUIControl/ScoreMarginContainer/VBoxContainer"]
+[node name="RemainingTimeDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer1/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-text = "FUCKYOU"
+text = "9 分钟"
 label_settings = ExtResource("1_iybee")
 
-[node name="TimeMarginContainer" type="MarginContainer" parent="InGameUIControl"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-grow_horizontal = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/TimeMarginContainer"]
-layout_mode = 2
-
-[node name="DayDisplayLabel" type="Label" parent="InGameUIControl/TimeMarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "HELLO"
-label_settings = ExtResource("1_iybee")
-
-[node name="RemainingTimeDisplayLabel" type="Label" parent="InGameUIControl/TimeMarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "aaaaa"
-label_settings = ExtResource("1_iybee")
-
-[node name="NegativeMarginContainer" type="MarginContainer" parent="InGameUIControl"]
+[node name="MarginContainer2" type="MarginContainer" parent="InGameUIControl"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -176.0
+offset_bottom = 164.0
 grow_horizontal = 0
+theme_override_constants/margin_right = 50
 
-[node name="NegativeViewsDisplayLabel" type="Label" parent="InGameUIControl/NegativeMarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/MarginContainer2"]
+layout_mode = 2
+
+[node name="ScoreDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "NEADW"
+text = "得分 114514"
 label_settings = ExtResource("1_iybee")
 
-[node name="EnergyGaugeMarginContainer" type="MarginContainer" parent="InGameUIControl"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="EnergyGauge" type="ProgressBar" parent="InGameUIControl/EnergyGaugeMarginContainer"]
+[node name="NegativeViewsDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-show_percentage = false
+text = "差评 1919810"
+label_settings = ExtResource("1_iybee")
