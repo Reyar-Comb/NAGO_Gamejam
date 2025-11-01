@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://wtsiwcmt14j2"]
+[gd_scene load_steps=5 format=3 uid="uid://wtsiwcmt14j2"]
 
 [ext_resource type="Texture2D" uid="uid://crno5bxvlg8tm" path="res://Assets/RestaurantItems/PickupCounterBackground.png" id="1_ff7m8"]
 [ext_resource type="Script" uid="uid://dpgnum17kagv8" path="res://Restaurant/RestaurantItems/PickupCounter/PickupCounter.cs" id="1_lek1m"]
 [ext_resource type="Texture2D" uid="uid://dmudcvwrn8mjb" path="res://Assets/RestaurantItems/PickupCounter.png" id="2_rld2m"]
 [ext_resource type="PackedScene" uid="uid://bjqmobovkfrpx" path="res://Restaurant/RestaurantItems/PickupCounter/PickupPoint.tscn" id="4_be0di"]
-[ext_resource type="PackedScene" uid="uid://ndxerp578c7l" path="res://Restaurant/RestaurantItems/BadItems/BananaPeel.tscn" id="6_p3cb6"]
-[ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="10_byqfj"]
 
 [node name="PickupCounter" type="Node2D"]
 script = ExtResource("1_lek1m")
@@ -19,24 +17,21 @@ texture = ExtResource("2_rld2m")
 [node name="PickupPoints" type="Node2D" parent="."]
 
 [node name="PickupPoint" parent="PickupPoints" instance=ExtResource("4_be0di")]
-position = Vector2(374, 165)
+position = Vector2(-384, 165)
+CuisineName = "Roast Goose"
 
 [node name="PickupPoint2" parent="PickupPoints" instance=ExtResource("4_be0di")]
-position = Vector2(191, 165)
+position = Vector2(-197, 165)
+CuisineName = "Wonton Noodles"
 
 [node name="PickupPoint3" parent="PickupPoints" instance=ExtResource("4_be0di")]
 position = Vector2(-1, 165)
+CuisineName = "Pineapple Bun"
 
 [node name="PickupPoint4" parent="PickupPoints" instance=ExtResource("4_be0di")]
-position = Vector2(-197, 165)
+position = Vector2(191, 165)
+CuisineName = "Rice Rolls"
 
 [node name="PickupPoint5" parent="PickupPoints" instance=ExtResource("4_be0di")]
-position = Vector2(-384, 165)
-
-[node name="Player" parent="." instance=ExtResource("10_byqfj")]
-position = Vector2(-245, 499)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="BananaPeel" parent="." instance=ExtResource("6_p3cb6")]
-position = Vector2(-447, 698)
+position = Vector2(374, 165)
+CuisineName = "Milk Tea"

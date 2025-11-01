@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bo8kkymrp8dh4"]
+[gd_scene load_steps=21 format=3 uid="uid://bo8kkymrp8dh4"]
 
 [ext_resource type="PackedScene" uid="uid://ds83mf3sm4dvs" path="res://Customer/Customer.tscn" id="1_iy3b2"]
 [ext_resource type="Shader" uid="uid://cpaas03qnjjnb" path="res://UI/UIResouce/WhiteBorder.gdshader" id="2_jaww5"]
@@ -6,10 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://d2ajjes2f7mln" path="res://Assets/Character/Customer3SitUp.png" id="4_t4iv2"]
 [ext_resource type="Texture2D" uid="uid://cfwv3sxa3oxk" path="res://Assets/Character/Customer3.png" id="5_pqkru"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dimh2"]
+size = Vector2(814, 748)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8wsgp"]
 resource_local_to_scene = true
 shader = ExtResource("2_jaww5")
-shader_parameter/outline_width = 1.0
+shader_parameter/outline_width = 20.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
@@ -150,6 +153,11 @@ animations = [{
 
 [node name="Customer" instance=ExtResource("1_iy3b2")]
 
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -338)
+shape = SubResource("RectangleShape2D_dimh2")
+disabled = false
+
 [node name="AnimatedSprite2D" parent="." index="2"]
 material = SubResource("ShaderMaterial_8wsgp")
 position = Vector2(4, -219)
@@ -157,7 +165,7 @@ scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_ul2mq")
 animation = &"SitRight"
 
-[node name="VarStorage" parent="." index="6" node_paths=PackedStringArray("_nodeStorage")]
+[node name="VarStorage" parent="." index="5" node_paths=PackedStringArray("_nodeStorage")]
 _nodeStorage = {
 "AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
 "Customer": NodePath("..")

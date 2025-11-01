@@ -6,22 +6,24 @@ using System.Linq;
 public partial class PlayerUniversalState : State
 {
 	private Player _player;
-	private Area2D _pickupArea;
+	private Area2D _interactArea;
 	private List<PickupPoint> _nearbyPickupPoints = new();
 	private PickupPoint _highlightedPickupPoint;
+	private List<Customer> _nearbyCustomers = new();
+	private Customer _highlightedCustomer;
 	protected override void ReadyBehavior()
 	{
 		_player = Storage.GetNode<Player>("Player");
-		_pickupArea = Storage.GetNode<Area2D>("PickupArea");
-		_pickupArea.BodyEntered += OnBodyEntered;
-		_pickupArea.BodyExited += OnBodyExited;
+		_interactArea = Storage.GetNode<Area2D>("InteractArea");
+		_interactArea.BodyEntered += OnBodyEntered;
+		_interactArea.BodyExited += OnBodyExited;
 	}
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body is PickupPoint pickupPoint && pickupPoint.AssignedCuisine != null)
-		{
 			_nearbyPickupPoints.Add(pickupPoint);
-		}
+		if (body is Customer customer && customer.IsSeated && !customer.IsDelivered && !customer.IsLeaving)
+			_nearbyCustomers.Add(customer);
 	}
 	private void OnBodyExited(Node2D body)
 	{
@@ -30,19 +32,35 @@ public partial class PlayerUniversalState : State
 			_nearbyPickupPoints.Remove(pickupPoint);
 			pickupPoint.ToggleHighlight(false);
 		}
+		if (body is Customer customer)
+		{
+			_nearbyCustomers.Remove(customer);
+			customer.ToggleHighlight(false);
+		}
 	}
 	protected override void FrameUpdate(double delta)
 	{
-		UpdateHighlight();
-		if (Input.IsActionJustPressed("Interact") && _highlightedPickupPoint != null)
+		UpdatePickupPointHighlight();
+		UpdateCustomerHighlight();
+		if (Input.IsActionJustPressed("Interact"))
 		{
-			_player.CurrentCuisine = _highlightedPickupPoint.AssignedCuisine;
-			_highlightedPickupPoint.AssignedCuisine = null;
-			_nearbyPickupPoints.Remove(_highlightedPickupPoint);
-			_highlightedPickupPoint.ToggleHighlight(false);
+			if (_player.CurrentCuisine == null && _highlightedPickupPoint != null)
+			{
+				_player.CurrentCuisine = _highlightedPickupPoint.AssignedCuisine;
+				_highlightedPickupPoint.AssignedCuisine = null;
+				_nearbyPickupPoints.Remove(_highlightedPickupPoint);
+				_highlightedPickupPoint.ToggleHighlight(false);
+			}
+			else if (_player.CurrentCuisine != null && _highlightedCustomer != null)
+			{
+				_highlightedCustomer.ReceiveCuisine(_player.CurrentCuisine);
+				_nearbyCustomers.Remove(_highlightedCustomer);
+				_highlightedCustomer.ToggleHighlight(false);
+				_player.CurrentCuisine = null;
+			}
 		}
 	}
-	private void UpdateHighlight()
+	private void UpdatePickupPointHighlight()
 	{
 		if (_nearbyPickupPoints.Count == 0)
 		{
@@ -53,9 +71,36 @@ public partial class PlayerUniversalState : State
 			a.GlobalPosition.DistanceTo(_player.GlobalPosition)
 			.CompareTo(b.GlobalPosition.DistanceTo(_player.GlobalPosition))
 		);
+		if (_player.CurrentCuisine != null)
+		{
+			_highlightedPickupPoint = null;
+			return;
+		}
 		_highlightedPickupPoint = _nearbyPickupPoints[0];
 		_highlightedPickupPoint.ToggleHighlight(true);
 		for (int i = 1; i < _nearbyPickupPoints.Count; i++)
 			_nearbyPickupPoints[i].ToggleHighlight(false);
+	}
+	private void UpdateCustomerHighlight()
+	{
+		if (_nearbyCustomers.Count == 0)
+		{
+			_highlightedCustomer = null;
+			return;
+		}
+		GD.Print("Nearby Customers Count: " + _nearbyCustomers.Count);
+		_nearbyCustomers.Sort((a, b) =>
+			a.CollisionShapePos.DistanceTo(_player.GlobalPosition)
+			.CompareTo(b.CollisionShapePos.DistanceTo(_player.GlobalPosition))
+		);
+		if (_player.CurrentCuisine == null)
+		{
+			_highlightedCustomer = null;
+			return;
+		}
+		_highlightedCustomer = _nearbyCustomers[0];
+		_highlightedCustomer.ToggleHighlight(true);
+		for (int i = 1; i < _nearbyCustomers.Count; i++)
+			_nearbyCustomers[i].ToggleHighlight(false);
 	}
 }

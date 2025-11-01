@@ -1,9 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://ndxerp578c7l"]
+[gd_scene load_steps=3 format=3 uid="uid://ndxerp578c7l"]
 
 [ext_resource type="Texture2D" uid="uid://jr8s6ch2181c" path="res://Assets/Misc/BadItems/BananaPeel.png" id="1_dhp8b"]
 
-[node name="BananaPeel" type="Node2D"]
-scale = Vector2(0.7, 0.7)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dhp8b"]
+size = Vector2(188.5715, 74.285736)
+
+[node name="BananaPeel" type="Area2D" groups=["BananaPeel"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8.174349e-06, 37.14284)
+scale = Vector2(0.9999994, 0.9999994)
+shape = SubResource("RectangleShape2D_dhp8b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("1_dhp8b")

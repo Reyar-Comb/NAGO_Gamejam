@@ -26,6 +26,7 @@ public partial class PlayerMoveControl : State
 	private Marker2D _rightHoldMarker;
 	private Marker2D _downHoldMarker;
 	private Sprite2D _cuisineDisplaySprite;
+	private Area2D _collisionArea;
 	private List<string> _directionStack = new();
 	protected override void ReadyBehavior()
 	{
@@ -36,6 +37,16 @@ public partial class PlayerMoveControl : State
 		_downHoldMarker = Storage.GetNode<Marker2D>("DownHoldMarker");
 		_stateTree = Storage.GetNode<StateTree>("StateTree");
 		_cuisineDisplaySprite = Storage.GetNode<Sprite2D>("CuisineDisplaySprite");
+		_collisionArea = Storage.GetNode<Area2D>("CollisionArea");
+		_collisionArea.AreaEntered += OnCollisionAreaEntered;
+	}
+	private void OnCollisionAreaEntered(Area2D area)
+	{
+		if (area.IsInGroup("BananaPeel"))
+		{
+			AskTransit("Slip");
+			area.QueueFree();
+		}
 	}
 	protected override void PhysicsUpdate(double delta)
 	{

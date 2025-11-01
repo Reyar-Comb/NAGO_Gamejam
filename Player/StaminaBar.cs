@@ -9,6 +9,7 @@ public partial class StaminaBar : Sprite2D
 	[Export] public float StaminaRegenDelay = 1.0f;
 	[Export] public float StaminaTweenDuration = 0.1f;
 	[Export] public Timer StaminaRegenDelayTimer = null;
+	[Export] public VarStorage Storage = null;
 	public float Value
 	{
 		get => _staminaBarMaterial.GetShaderParameter("current_value").As<float>();
@@ -48,6 +49,7 @@ public partial class StaminaBar : Sprite2D
 	}
 	public override void _Process(double delta)
 	{
+		if (!Storage.GetVariant<bool>("CanDash")) return;
 		if (_canRegen)
 			RegenStamina(delta);
 		if (Input.IsActionPressed("Dash"))

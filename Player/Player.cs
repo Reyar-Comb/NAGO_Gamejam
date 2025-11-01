@@ -10,25 +10,20 @@ public partial class Player : CharacterBody2D
 		get => field;
 		set
 		{
-			if (value == null)
-			{
-				GD.PushError("Player: Receiving null Cuisine!");
-				return;
-			}
-			if (value.CuisineTexture == null)
-			{
-				GD.PushError("Player: Received Cuisine has no texture!");
-				return;
-			}
-			if (string.IsNullOrEmpty(value.CuisineName))
-			{
-				GD.PushError("Player: Received Cuisine has no name!");
-				return;
-			}
 			field = value;
-			GD.Print($"Player: Updating Cuisine Display to {field.CuisineName}");
-			field.OnCollected();
-			CuisineDisplaySprite.Texture = field.CuisineTexture;
+			if (value == null)
+				GD.PushWarning("Player: Receiving null Cuisine! Is this intended?");
+			
+			if (value?.CuisineTexture == null)
+			{
+				GD.PushWarning("Player: Received Cuisine has no texture! Is this intended?");
+				CuisineDisplaySprite.Texture = null;
+			}
+			if (string.IsNullOrEmpty(value?.CuisineName))
+				GD.PushWarning("Player: Received Cuisine has no name! Is this intended?");
+			
+			field?.OnCollected();
+			CuisineDisplaySprite.Texture = field?.CuisineTexture;
 		}
 	}
 }

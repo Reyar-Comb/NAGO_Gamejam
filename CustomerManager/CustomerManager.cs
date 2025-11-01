@@ -60,6 +60,12 @@ public partial class CustomerManager : Node
 		// Add the customer to the scene tree
 		GetTree().CurrentScene.GetNode<Node2D>("CustomerContainer").AddChild(customerInstance);
 
+		customerInstance.CustomerLeft += () =>
+		{
+			targetChair.IsOccupied = false;
+			AvailableChairList.Add(targetChair);
+			GD.Print("CustomerManager: Customer has left. Chair is now available.");
+		};
 		GD.Print("CustomerManager: Spawned a new customer at chair position.");
 	}
 	private T GetRandomElement<[MustBeVariant] T>(Godot.Collections.Array<T> array)

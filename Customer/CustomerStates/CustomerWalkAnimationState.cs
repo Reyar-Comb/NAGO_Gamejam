@@ -40,7 +40,7 @@ public partial class CustomerWalkAnimationState : State
 		}
 		else if (_customer.Velocity == Vector2.Zero)
 		{
-			if (_customer.IsSeated)
+			if (_customer.IsSeated && !_customer.IsLeaving)
 			{
 				AskTransit("Sit");
 				return;

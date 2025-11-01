@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ds83mf3sm4dvs"]
+[gd_scene load_steps=11 format=3 uid="uid://ds83mf3sm4dvs"]
 
 [ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
 [ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bk8rt0dw3k3ut" path="res://StateTree/VarStorage.cs" id="8_26n4y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ms251"]
+radius = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i5y8d"]
 animations = [{
@@ -19,10 +20,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_k6pke"]
-radius = 350.05142
-
 [node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer", "CuisineEatingTimer", "AnimatedSprite")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_47pxv")
 NavigationManager = NodePath("NavigationManager")
 PatienceTimer = NodePath("Timers/PatienceTimer")
@@ -40,11 +40,7 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("3_ms251")
 sprite_frames = SubResource("SpriteFrames_i5y8d")
-
-[node name="DetectArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea"]
-shape = SubResource("CircleShape2D_k6pke")
+animation = &"WalkLeft"
 
 [node name="Timers" type="Node" parent="."]
 
@@ -79,9 +75,7 @@ metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 script = ExtResource("8_26n4y")
 _nodeStorage = {
 "AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"CollisionShape2D": NodePath("../CollisionShape2D"),
 "Customer": NodePath("..")
 }
 metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
-
-[connection signal="body_entered" from="DetectArea" to="." method="OnBodyEntered"]
-[connection signal="body_exited" from="DetectArea" to="." method="OnBodyExited"]

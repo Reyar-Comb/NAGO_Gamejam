@@ -10,7 +10,7 @@ public partial class Chair : Node2D
 		Right
 	}
 	[Export] public ChairType Type;
-	public bool IsOccupied { get; private set; } = false;
+	public bool IsOccupied { get; set; } = false;
 
 	public void Occupy()
 	{

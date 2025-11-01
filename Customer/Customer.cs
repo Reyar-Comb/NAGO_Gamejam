@@ -4,27 +4,17 @@ using System.Threading.Tasks;
 
 public partial class Customer : CharacterBody2D
 {
+	[Signal] public delegate void CustomerLeftEventHandler();
 	[Export] public float Speed = 300f;
 	[Export] public NavigationManager NavigationManager;
 	[Export] public Timer PatienceTimer;
 	[Export] public Timer CuisineEatingTimer;
 	[Export] public float CuisineEatingTime = 5f;
 	[Export] public AnimatedSprite2D AnimatedSprite;
-	
+	public Vector2 CollisionShapePos => GetNode<CollisionShape2D>("CollisionShape2D").GlobalPosition;
 	public Chair.ChairType TargetChairType;
-	public Cuisine DesiredCuisine;
-	public bool IsSeated
-	{
-		get => field;
-		set
-		{
-			if (field == value)
-				return;
-			field = value;
-			if (field)
-				OnSeated();
-		}
-	} = false;
+	public Cuisine DesiredCuisine { get; private set; }
+	public bool IsSeated = false;
 	public bool IsOrdered
 	{
 		get => field;
@@ -52,35 +42,38 @@ public partial class Customer : CharacterBody2D
 			}
 		}
 	} = false;
+	public bool IsLeaving = false;
 	public Vector2 TargetChairPosition;
 	private Vector2[] path = Array.Empty<Vector2>();
 	private int _currentStep = 0;
-	private ShaderMaterial _customerShaderMaterial = null;
+	private ShaderMaterial CustomerShaderMaterial => GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material as ShaderMaterial;
 	private bool _isPlayerNearby = false;
 	public override async void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 		PatienceTimer.Timeout += OnPatienceTimeout;
 		CuisineEatingTimer.Timeout += OnCuisineFinished;
-		_customerShaderMaterial = GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material as ShaderMaterial;
 
 		await ToSignal(GetTree().CreateTimer(2), "timeout");
 		MoveTo(TargetChairPosition);
+		DesiredCuisine = Cuisine.GetRandomCuisine();
 	}
-	private void ToggleWhiteBorder(bool enable)
+	public void ReceiveCuisine(Cuisine cuisine)
 	{
-		_customerShaderMaterial.SetShaderParameter("outline_enabled", enable);
+		if (cuisine.CuisineName == DesiredCuisine.CuisineName)
+		{
+			GD.Print("顾客收到了正确的菜肴: " + cuisine.CuisineName);
+			IsDelivered = true;
+		}
+		else
+		{
+			Leave();
+			GD.Print("顾客收到了错误的菜肴: " + cuisine.CuisineName + "，期望的是: " + DesiredCuisine.CuisineName);
+		}
 	}
-	private void OnBodyEntered(Node2D body)
+	public void ToggleHighlight(bool enable)
 	{
-		_isPlayerNearby = true;
-		if (body is not Player || !IsSeated || IsDelivered) return;
-		ToggleWhiteBorder(true);
-	}
-	private void OnBodyExited(Node2D body)
-	{
-		_isPlayerNearby = false;
-		ToggleWhiteBorder(false);
+		CustomerShaderMaterial.SetShaderParameter("outline_enabled", enable);
 	}
 	public void MoveTo(Vector2 targetPosition)
 	{
@@ -142,12 +135,8 @@ public partial class Customer : CharacterBody2D
 	public void Leave()
 	{
 		GD.Print("顾客离开餐厅。");
-	}
-	public void OnSeated()
-	{
-		this.Scale = new Vector2(0.55f, 0.55f);
-		
-		
+		IsLeaving = true;
+		EmitSignal(SignalName.CustomerLeft);
 	}
 	protected virtual void OnOrdered() { }
 	protected virtual void OnCuisineDelivered() { }

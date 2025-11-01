@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=49 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
@@ -14,6 +14,8 @@
 [ext_resource type="Shader" uid="uid://bykcvbhvcxov6" path="res://UI/UIResouce/CircularProgressBar.gdshader" id="10_5wa8t"]
 [ext_resource type="Script" uid="uid://crkrpw08wksgv" path="res://Player/PlayerStates/PlayerDashState.cs" id="10_v0k0e"]
 [ext_resource type="Script" uid="uid://cdj06y6nspiin" path="res://Player/PlayerStates/PlayerPlayWalkAnimation.cs" id="12_3mea3"]
+[ext_resource type="PackedScene" uid="uid://ksdmyfduuqxt" path="res://Player/Trail.tscn" id="14_3mea3"]
+[ext_resource type="Script" uid="uid://bm37odb3sjs2t" path="res://Player/PlayerStates/PlayerSlipState.cs" id="16_7v5gs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evw08"]
 atlas = ExtResource("2_7v5gs")
@@ -291,10 +293,13 @@ shader_parameter/width = 0.1
 shader_parameter/antialiasing = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lat"]
-size = Vector2(128, 128)
+size = Vector2(128, 89)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dm7nj"]
 radius = 266.75082
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v5gs"]
+size = Vector2(128, 89)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite") groups=["Player"]]
 script = ExtResource("1_q3lat")
@@ -319,7 +324,7 @@ scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_v0k0e")
 animation = &"HoldCuisineWalkHorizontal"
 
-[node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer")]
+[node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer", "Storage")]
 material = SubResource("ShaderMaterial_p7tob")
 position = Vector2(-182, -81.00001)
 scale = Vector2(1.26957, 1.3092836)
@@ -328,41 +333,54 @@ script = ExtResource("3_tok1r")
 StaminaRegenRate = 20.0
 StaminaTweenDuration = 0.2
 StaminaRegenDelayTimer = NodePath("../../Timers/StaminRegenDelayTimer")
+Storage = NodePath("../../VarStorage")
 
 [node name="CuisineDisplaySprite" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(-3, 31)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 200.5)
 shape = SubResource("RectangleShape2D_q3lat")
 
-[node name="PickupArea" type="Area2D" parent="."]
+[node name="InteractArea" type="Area2D" parent="."]
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("CircleShape2D_dm7nj")
+
+[node name="CollisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+position = Vector2(0, 200.5)
+shape = SubResource("RectangleShape2D_7v5gs")
 
 [node name="Timers" type="Node" parent="."]
 
 [node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="DashTrailTimer" type="Timer" parent="Timers"]
+
 [node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
 script = ExtResource("8_5wa8t")
 _initialVariantStorage = Dictionary[String, Variant]({
 "AnimationSpeedMultiplier": 1.0,
+"CanDash": true,
 "DashAnimationSpeedMultiplier": 2.0,
 "HeadingRight": false,
 "HeadingUp": false,
 "LastRemovedDirection": "",
-"Speed": 500.0,
-"SpeedMultiplier": 2.0
+"Speed": 700.0,
+"SpeedMultiplier": 3.0
 })
 _nodeStorage = {
 "AnimatedSprite": NodePath("../Sprites/AnimatedSprite2D"),
+"CollisionArea": NodePath("../CollisionArea"),
 "CuisineDisplaySprite": NodePath("../Sprites/CuisineDisplaySprite"),
 "DownHoldMarker": NodePath("../Markers/DownHoldMarker"),
+"InteractArea": NodePath("../InteractArea"),
 "LeftHoldMarker": NodePath("../Markers/LeftHoldMarker"),
-"PickupArea": NodePath("../PickupArea"),
 "Player": NodePath(".."),
 "RightHoldMarker": NodePath("../Markers/RightHoldMarker"),
 "StaminaBar": NodePath("../Sprites/StaminaBar"),
@@ -396,12 +414,20 @@ script = ExtResource("9_0j2ni")
 Storage = NodePath("../../../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 
-[node name="Dash" type="Node" parent="StateTree/Universal/MoveControl/PlayWalkAnimation" node_paths=PackedStringArray("Storage")]
+[node name="Dash" type="Node" parent="StateTree/Universal/MoveControl/PlayWalkAnimation" node_paths=PackedStringArray("DashTrailTimer", "Storage")]
 script = ExtResource("10_v0k0e")
+TrailScene = ExtResource("14_3mea3")
+DashTrailTimer = NodePath("../../../../../Timers/DashTrailTimer")
+DashTrailInterval = 0.05
 Storage = NodePath("../../../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 
 [node name="Idle" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
 script = ExtResource("7_v0k0e")
 Storage = NodePath("../../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Slip" type="Node" parent="StateTree/Universal" node_paths=PackedStringArray("Storage")]
+script = ExtResource("16_7v5gs")
+Storage = NodePath("../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
