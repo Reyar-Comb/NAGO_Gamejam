@@ -14,7 +14,14 @@ public partial class Customer : CharacterBody2D
 	public Vector2 CollisionShapePos => GetNode<CollisionShape2D>("CollisionShape2D").GlobalPosition;
 	public Chair.ChairType TargetChairType;
 	public Cuisine DesiredCuisine { get; private set; }
-	public bool IsSeated = false;
+	public bool IsSeated
+	{
+		get => field;
+		set
+        {
+            
+        }
+	} = false;
 	public bool IsOrdered
 	{
 		get => field;
