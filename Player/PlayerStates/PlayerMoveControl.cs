@@ -47,6 +47,26 @@ public partial class PlayerMoveControl : State
 			AskTransit("Slip");
 			area.QueueFree();
 		}
+		if (area.IsInGroup("WaterPuddle"))
+		{
+			AskTransit("Slip");
+			float speedMultiplier = Storage.GetVariant<float>("SpeedMultiplier");
+			float dashAnimationSpeedMultiplier = Storage.GetVariant<float>("DashAnimationSpeedMultiplier");
+			float speed = Storage.GetVariant<float>("Speed");
+			Storage.SetVariant("Speed", speed * 0.8f);
+			Storage.SetVariant("SpeedMultiplier", 1f);
+			Storage.SetVariant("DashAnimationSpeedMultiplier", 1);
+			GetTree().CreateTimer(2f).Timeout += () =>
+			{
+				Storage.SetVariant("Speed", speed);
+			};
+			GetTree().CreateTimer(10f).Timeout += () =>
+			{
+				Storage.SetVariant("SpeedMultiplier", speedMultiplier);
+				Storage.SetVariant("DashAnimationSpeedMultiplier", dashAnimationSpeedMultiplier);
+			};
+			area.QueueFree();
+		}
 	}
 	protected override void PhysicsUpdate(double delta)
 	{

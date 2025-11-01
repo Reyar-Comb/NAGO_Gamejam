@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ndxerp578c7l"]
+[gd_scene load_steps=4 format=3 uid="uid://ndxerp578c7l"]
 
+[ext_resource type="Script" uid="uid://c3trlrwmap5wl" path="res://Restaurant/RestaurantItems/BadItems/BananaPeel.cs" id="1_bg1qf"]
 [ext_resource type="Texture2D" uid="uid://jr8s6ch2181c" path="res://Assets/Misc/BadItems/BananaPeel.png" id="1_dhp8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dhp8b"]
 size = Vector2(188.5715, 74.285736)
 
 [node name="BananaPeel" type="Area2D" groups=["BananaPeel"]]
+script = ExtResource("1_bg1qf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8.174349e-06, 37.14284)

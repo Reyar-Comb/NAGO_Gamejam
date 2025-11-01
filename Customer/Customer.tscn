@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://ds83mf3sm4dvs"]
+[gd_scene load_steps=22 format=3 uid="uid://ds83mf3sm4dvs"]
 
 [ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
+[ext_resource type="PackedScene" uid="uid://ndxerp578c7l" path="res://Restaurant/RestaurantItems/BadItems/BananaPeel.tscn" id="2_2t0yb"]
 [ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
 [ext_resource type="Material" uid="uid://du1va1amly4c0" path="res://UI/UIResouce/WhiteBorderShaderMaterial.tres" id="3_ms251"]
 [ext_resource type="Texture2D" uid="uid://cn3yvv0o0kfu5" path="res://Assets/Character/Customer1SitUp.png" id="4_cq8yd"]
@@ -66,6 +67,7 @@ PatienceTimer = NodePath("Timers/PatienceTimer")
 CuisineEatingTimer = NodePath("Timers/CuisineEatingTimer")
 AnimatedSprite = NodePath("AnimatedSprite2D")
 OrderDisplayPanel = NodePath("Offset/Panel")
+RubbishScenes = Array[PackedScene]([ExtResource("2_2t0yb")])
 
 [node name="NavigationManager" type="Node" parent="."]
 script = ExtResource("2_k6pke")

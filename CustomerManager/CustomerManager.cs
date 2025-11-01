@@ -9,11 +9,12 @@ public partial class CustomerManager : Node
 	[Export] public Godot.Collections.Array<Chair> ChairList = new();
 	[Export] public Godot.Collections.Array<Vector2> SpawnPositions = new();
 	[Export] public float InitialSpawnInterval = 10f;
+	[Export] public float MinSpawnInterval = 2f;
 	[Export] public Timer CustomerSpawnTimer;
 	public Godot.Collections.Array<Chair> AvailableChairList = new();
 	public float SpawnInterval => Mathf.Max(
-		InitialSpawnInterval - (GameData.Instance.Level - 1) * 0.5f,
-		3f);
+		InitialSpawnInterval - (GameData.Instance.Day - 1) * 0.5f,
+		MinSpawnInterval);
 	
 	public override async void _Ready()
 	{

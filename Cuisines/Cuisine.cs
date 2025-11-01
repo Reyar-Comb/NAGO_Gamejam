@@ -4,6 +4,7 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class Cuisine : Resource
 {
+    [Export] public int BaseScore = 10;
     public virtual string CuisineName { get; }
     public Texture2D CuisineTexture
     {
@@ -16,8 +17,10 @@ public partial class Cuisine : Resource
     }
     protected virtual string TexturePath { get; }
     protected static Dictionary<string, Cuisine> CuisineDictionary = new();
-    public virtual void OnCollected() { }
-    public virtual void OnDelivered() { }
+    public virtual void OnDelivered(float multiplier)
+    {
+        GameData.Instance.Score += (int)((BaseScore + (GameData.Instance.Day - 1) * 2) * multiplier);
+    }
     static Cuisine()
     {
         var cuisineTypes = AppDomain.CurrentDomain.GetAssemblies();

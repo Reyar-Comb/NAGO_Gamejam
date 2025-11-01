@@ -4,11 +4,73 @@ using System;
 public partial class GameData : Node
 {
     public static GameData Instance { get; private set; }
-    public int Score = 0;
-    public int Level = 1;
-    public int NegativeViews = 0;
-    public override void _Ready()
+    public int Score
+    {
+        get => field;
+        set
+        {
+            field = value;
+            SignalBus.Instance.EmitSignal(SignalBus.SignalName.ScoreUpdated, field);
+        }
+    } = 0;
+    public int Day
+    {
+        get => field;
+        set
+        {
+            field = value;
+            SignalBus.Instance.EmitSignal(SignalBus.SignalName.DayChanged, field);
+        }
+    } = 1;
+    public int NegativeViews
+    {
+        get => field;
+        set
+        {
+            field = value;
+            SignalBus.Instance.EmitSignal(SignalBus.SignalName.NegativeViewsReceived, field);
+        }
+    } = 0;
+    public float RemainingTimeInSeconds
+    {
+        get => field;
+        set
+        {
+            field = value;
+            SignalBus.Instance.EmitSignal(SignalBus.SignalName.TimeUpdated, field);
+        }
+    } = 600;
+    public override async void _Ready()
     {
         Instance = this;
+        await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
+        UpdateInGameDisplay();
+        GetTree().SceneChanged += async () =>
+        {
+            RemainingTimeInSeconds = 600;
+            NegativeViews = 0;
+            Day++;
+            await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
+            UpdateInGameDisplay();
+        };
+    }
+    public void ResetGameData()
+    {
+        Score = 0;
+        Day = 1;
+        NegativeViews = 0;
+        RemainingTimeInSeconds = 600;
+        UpdateInGameDisplay();
+    }
+    private void UpdateInGameDisplay()
+    {
+        Score = Score;
+        NegativeViews = NegativeViews;
+        Day = Day;
+        RemainingTimeInSeconds = RemainingTimeInSeconds;
+    }
+    public override void _Process(double delta)
+    {
+        RemainingTimeInSeconds -= (float)delta;
     }
 }

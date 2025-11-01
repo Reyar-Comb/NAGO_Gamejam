@@ -22,7 +22,6 @@ public partial class Player : CharacterBody2D
 			if (string.IsNullOrEmpty(value?.CuisineName))
 				GD.PushWarning("Player: Received Cuisine has no name! Is this intended?");
 			
-			field?.OnCollected();
 			CuisineDisplaySprite.Texture = field?.CuisineTexture;
 		}
 	}

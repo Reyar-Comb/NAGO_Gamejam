@@ -372,7 +372,8 @@ _initialVariantStorage = Dictionary[String, Variant]({
 "HeadingUp": false,
 "LastRemovedDirection": "",
 "Speed": 700.0,
-"SpeedMultiplier": 3.0
+"SpeedMultiplier": 3.0,
+"StaminaDecreaseMultiplier": 1.0
 })
 _nodeStorage = {
 "AnimatedSprite": NodePath("../Sprites/AnimatedSprite2D"),

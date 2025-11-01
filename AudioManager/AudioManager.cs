@@ -36,8 +36,6 @@ public partial class AudioManager : Node
 		if (Instance == null)
 		{
 			Instance = this;
-			// 确保切换场景时不被销毁
-			ProcessMode = ProcessModeEnum.Always;
 		}
 		else
 		{

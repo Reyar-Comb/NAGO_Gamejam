@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3j8cakdprqds"]
+
+[ext_resource type="Script" uid="uid://lpr7b3qaypvu" path="res://UI/InGameMenu/InGameMenu.cs" id="1_rn23e"]
+[ext_resource type="Theme" uid="uid://o2vhntpihssc" path="res://UI/UIResouce/UITheme.tres" id="1_tak8a"]
+[ext_resource type="Texture2D" uid="uid://b4kpvlmovdfki" path="res://Assets/UI/PauseMenu.png" id="2_860qj"]
+[ext_resource type="Texture2D" uid="uid://b7tawocuq62a0" path="res://Assets/UI/Continue.png" id="3_p8d27"]
+[ext_resource type="Texture2D" uid="uid://bpx5xeq02q1en" path="res://Assets/UI/Restart.png" id="4_eefn2"]
+[ext_resource type="Script" uid="uid://dpafl6tjpeqsn" path="res://UI/InGameMenu/ContinueButton.cs" id="4_hh5ln"]
+[ext_resource type="Texture2D" uid="uid://b26bl8i542ewl" path="res://Assets/UI/Settings.png" id="5_s0ark"]
+[ext_resource type="Texture2D" uid="uid://fpllu4f3ike8" path="res://Assets/UI/Exit.png" id="6_h2juf"]
+[ext_resource type="Script" uid="uid://b7eur2yyrlu7u" path="res://UI/InGameMenu/RestartButton.cs" id="6_rn23e"]
+[ext_resource type="Script" uid="uid://cmhsrhiny0j0a" path="res://UI/InGameMenu/SettingsButton.cs" id="8_2qrxl"]
+[ext_resource type="Script" uid="uid://dei6mq2ovnr27" path="res://UI/InGameMenu/ExitButton.cs" id="10_qvchc"]
+
+[node name="InGameMenu" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_rn23e")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tak8a")
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.44705883)
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_860qj")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Control" type="Control" parent="Control/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/TextureRect/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -269.0
+offset_top = -452.0
+offset_right = 269.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 195
+theme_override_constants/margin_right = 90
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TextureRect/Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 129
+
+[node name="Continue" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("3_p8d27")
+script = ExtResource("4_hh5ln")
+
+[node name="Restart" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("4_eefn2")
+script = ExtResource("6_rn23e")
+
+[node name="Settings" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("5_s0ark")
+script = ExtResource("8_2qrxl")
+
+[node name="Exit" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("6_h2juf")
+script = ExtResource("10_qvchc")

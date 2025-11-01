@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=4 uid="uid://i3vol5ye486g"]
+[gd_scene load_steps=24 format=4 uid="uid://i3vol5ye486g"]
 
 [ext_resource type="PackedScene" uid="uid://51vopsq0t4ij" path="res://CustomerManager/CustomerManager.tscn" id="1_nryb2"]
 [ext_resource type="Script" uid="uid://brxcmsndqnude" path="res://MainScene/test/TestMainScene.cs" id="1_ulsfy"]
 [ext_resource type="Texture2D" uid="uid://bmt1wqneoxhpw" path="res://Assets/RestaurantItems/EmptyRestaurant.png" id="1_wfp3b"]
 [ext_resource type="Texture2D" uid="uid://vbolfyqvq3p5" path="res://Assets/RestaurantItems/CatTable.png" id="2_0pkbk"]
+[ext_resource type="PackedScene" uid="uid://c3j8cakdprqds" path="res://UI/InGameMenu.tscn" id="3_8sqfm"]
 [ext_resource type="Texture2D" uid="uid://hyktu2l1c02u" path="res://Assets/RestaurantItems/Fridge.png" id="3_gxbou"]
 [ext_resource type="PackedScene" uid="uid://bkttw1fa0hwiy" path="res://Customer/Customer1/Customer1.tscn" id="3_ulsfy"]
 [ext_resource type="Texture2D" uid="uid://3hjwhwat1740" path="res://Assets/RestaurantItems/Refrigerator.png" id="4_1svh2"]
@@ -17,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="13_nryb2"]
 [ext_resource type="PackedScene" uid="uid://11it6dhr5qar" path="res://Restaurant/RestaurantItems/TableWithChairs.tscn" id="13_ulsfy"]
 [ext_resource type="PackedScene" uid="uid://ndxerp578c7l" path="res://Restaurant/RestaurantItems/BadItems/BananaPeel.tscn" id="17_lds1c"]
+[ext_resource type="PackedScene" uid="uid://qau8f4xvrh45" path="res://UI/InGameDisplay.tscn" id="18_b621j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nryb2"]
 texture = ExtResource("13_eab41")
@@ -367,12 +369,17 @@ y_sort_enabled = true
 script = ExtResource("1_ulsfy")
 CustomerManager = NodePath("CustomerManager")
 
+[node name="InGameDisplay" parent="." instance=ExtResource("18_b621j")]
+unique_name_in_owner = true
+
+[node name="InGameMenu" parent="." instance=ExtResource("3_8sqfm")]
+
 [node name="CustomerManager" parent="." node_paths=PackedStringArray("ChairList", "CustomerSpawnTimer") instance=ExtResource("1_nryb2")]
 unique_name_in_owner = true
 CustomerList = Array[PackedScene]([ExtResource("3_ulsfy"), ExtResource("4_gnhcv"), ExtResource("5_lds1c")])
 ChairList = [NodePath("../Offset/Tables/TableWithChairsTopLeft/ChairUp"), NodePath("../Offset/Tables/TableWithChairsTopLeft/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsTopLeft/ChairRight"), NodePath("../Offset/Tables/TableWithChairsTopRight/ChairUp"), NodePath("../Offset/Tables/TableWithChairsTopRight/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsTopRight/ChairRight"), NodePath("../Offset/Tables/TableWithChairsBottomLeft/ChairUp"), NodePath("../Offset/Tables/TableWithChairsBottomLeft/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsBottomLeft/ChairRight"), NodePath("../Offset/Tables/TableWithChairsBottomRight/ChairUp"), NodePath("../Offset/Tables/TableWithChairsBottomRight/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsBottomRight/ChairRight")]
 SpawnPositions = Array[Vector2]([Vector2(-128, 1536), Vector2(3072, 1536)])
-InitialSpawnInterval = 3.0
+InitialSpawnInterval = 0.01
 CustomerSpawnTimer = NodePath("CustomerSpawnTimer")
 
 [node name="CustomerSpawnTimer" type="Timer" parent="CustomerManager"]
