@@ -1,8 +1,7 @@
-[gd_scene load_steps=42 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=45 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
-[ext_resource type="Texture2D" uid="uid://3xtfips564ho" path="res://Assets/Character/PlayerNormalAndHoldingCuisineSpriteSheet.png" id="2_3mea3"]
 [ext_resource type="Texture2D" uid="uid://4vjdtioododl" path="res://Assets/Character/Player.png" id="2_7v5gs"]
 [ext_resource type="Script" uid="uid://dxintdrx5ddm8" path="res://Player/StaminaBar.cs" id="3_tok1r"]
 [ext_resource type="Script" uid="uid://bnasen8oklvj8" path="res://StateTree/StateTree.cs" id="4_s1rgi"]
@@ -52,36 +51,52 @@ region = Rect2(598, 640, 598, 640)
 atlas = ExtResource("2_7v5gs")
 region = Rect2(1196, 640, 598, 640)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mea3"]
+atlas = ExtResource("2_7v5gs")
+region = Rect2(0, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v5gs"]
+atlas = ExtResource("2_7v5gs")
+region = Rect2(598, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ib3vm"]
+atlas = ExtResource("2_7v5gs")
+region = Rect2(1196, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm7nj"]
+atlas = ExtResource("5_8sa4y")
+region = Rect2(598, 0, 598, 640)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_8sa4y"]
-atlas = ExtResource("2_3mea3")
-region = Rect2(0, 1287, 768, 1287)
+atlas = ExtResource("5_8sa4y")
+region = Rect2(598, 640, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3nb2p"]
-atlas = ExtResource("2_3mea3")
-region = Rect2(768, 1287, 768, 1287)
+atlas = ExtResource("5_8sa4y")
+region = Rect2(598, 1920, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7xyo"]
-atlas = ExtResource("2_3mea3")
-region = Rect2(1536, 1287, 768, 1287)
+atlas = ExtResource("5_8sa4y")
+region = Rect2(0, 0, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x70vp"]
 atlas = ExtResource("5_8sa4y")
-region = Rect2(914, 0, 914, 946)
+region = Rect2(598, 0, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wo5nf"]
 atlas = ExtResource("5_8sa4y")
-region = Rect2(1828, 0, 914, 946)
+region = Rect2(1196, 0, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgaaw"]
-atlas = ExtResource("2_7v5gs")
+atlas = ExtResource("5_8sa4y")
 region = Rect2(0, 640, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gv3fu"]
-atlas = ExtResource("2_7v5gs")
+atlas = ExtResource("5_8sa4y")
 region = Rect2(598, 640, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xu7fl"]
-atlas = ExtResource("2_7v5gs")
+atlas = ExtResource("5_8sa4y")
 region = Rect2(1196, 640, 598, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_78fhc"]
@@ -160,14 +175,26 @@ animations = [{
 "name": &"HoldCuisineWalkHorizontal",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mea3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v5gs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ib3vm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v5gs")
+}],
 "loop": true,
 "name": &"HoldCuisineWalkUp",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8sa4y")
+"texture": SubResource("AtlasTexture_dm7nj")
 }],
 "loop": false,
 "name": &"IdleDown",
@@ -175,7 +202,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3nb2p")
+"texture": SubResource("AtlasTexture_8sa4y")
 }],
 "loop": false,
 "name": &"IdleHorizontal",
@@ -183,7 +210,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d7xyo")
+"texture": SubResource("AtlasTexture_3nb2p")
 }],
 "loop": false,
 "name": &"IdleUp",
@@ -191,10 +218,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_d7xyo")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_x70vp")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wo5nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x70vp")
 }],
 "loop": true,
 "name": &"WalkDown",
@@ -209,6 +242,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xu7fl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv3fu")
 }],
 "loop": true,
 "name": &"WalkHorizontal",
@@ -234,7 +270,7 @@ animations = [{
 
 [sub_resource type="Gradient" id="Gradient_v0k0e"]
 offsets = PackedFloat32Array(0.008230452, 0.51028806, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.49019608, 0.6392157, 0.19607843, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.49019608, 0.6392157, 0.19607843, 1, 1, 1, 1, 1, 0.49019608, 0.6392157, 0.19607843, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5wa8t"]
 gradient = SubResource("Gradient_v0k0e")
@@ -261,18 +297,29 @@ size = Vector2(128, 128)
 script = ExtResource("1_q3lat")
 CuisineDisplaySprite = NodePath("Sprites/CuisineDisplaySprite")
 
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="LeftHoldMarker" type="Marker2D" parent="Markers"]
+position = Vector2(-51, 37)
+scale = Vector2(352.0935, 16.21222)
+
+[node name="RightHoldMarker" type="Marker2D" parent="Markers"]
+position = Vector2(51, 37)
+
+[node name="DownHoldMarker" type="Marker2D" parent="Markers"]
+position = Vector2(0, 31)
+
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
-scale = Vector2(0.5130208, 0.5130208)
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_v0k0e")
-animation = &"HoldCuisineWalkUp"
-frame_progress = 0.11326777
+animation = &"WalkUp"
 
 [node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer")]
 material = SubResource("ShaderMaterial_p7tob")
-position = Vector2(-247, -156)
-scale = Vector2(1.5992316, 1.6492573)
+position = Vector2(-182, -81.00001)
+scale = Vector2(1.26957, 1.3092836)
 texture = ExtResource("1_3qydi")
 script = ExtResource("3_tok1r")
 StaminaRegenRate = 20.0
@@ -280,7 +327,8 @@ StaminaTweenDuration = 0.2
 StaminaRegenDelayTimer = NodePath("../../Timers/StaminRegenDelayTimer")
 
 [node name="CuisineDisplaySprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(89, -13)
+position = Vector2(-3, 31)
+scale = Vector2(0.6, 0.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_q3lat")
@@ -298,7 +346,11 @@ _initialVariantStorage = Dictionary[String, Variant]({
 })
 _nodeStorage = {
 "AnimatedSprite": NodePath("../Sprites/AnimatedSprite2D"),
+"CuisineDisplaySprite": NodePath("../Sprites/CuisineDisplaySprite"),
+"DownHoldMarker": NodePath("../Markers/DownHoldMarker"),
+"LeftHoldMarker": NodePath("../Markers/LeftHoldMarker"),
 "Player": NodePath(".."),
+"RightHoldMarker": NodePath("../Markers/RightHoldMarker"),
 "StaminaBar": NodePath("../Sprites/StaminaBar"),
 "StateTree": NodePath("../StateTree")
 }

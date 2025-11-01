@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://wtsiwcmt14j2"]
+
+[ext_resource type="Texture2D" uid="uid://crno5bxvlg8tm" path="res://Assets/RestaurantItems/PickupCounterBackground.png" id="1_ff7m8"]
+[ext_resource type="Script" uid="uid://dpgnum17kagv8" path="res://Restaurant/RestaurantItems/PickupCounter/PickupCounter.cs" id="1_lek1m"]
+[ext_resource type="Texture2D" uid="uid://dmudcvwrn8mjb" path="res://Assets/RestaurantItems/PickupCounter.png" id="2_rld2m"]
+[ext_resource type="Texture2D" uid="uid://wccraok22ajd" path="res://Assets/Cuisines/RoastGoose.png" id="3_8uees"]
+[ext_resource type="Script" uid="uid://bv6dlcg7aoj0g" path="res://Restaurant/RestaurantItems/PickupCounter/PickupPoint.cs" id="3_rld2m"]
+[ext_resource type="Texture2D" uid="uid://bggbywq2nde0y" path="res://Assets/Cuisines/WontonNoodles.png" id="5_xyvyk"]
+[ext_resource type="Texture2D" uid="uid://8gmsu2lg2bg2" path="res://Assets/Cuisines/PineappleBun.png" id="6_weend"]
+[ext_resource type="Texture2D" uid="uid://dyuqshpby8utc" path="res://Assets/Cuisines/RiceRolls.png" id="7_w57u6"]
+[ext_resource type="Texture2D" uid="uid://d4ggl6cc1qrm0" path="res://Assets/Cuisines/MilkTea.png" id="8_uslvn"]
+
+[node name="PickupCounter" type="Node2D"]
+script = ExtResource("1_lek1m")
+
+[node name="PickupCounterbackgroundSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ff7m8")
+
+[node name="PickupCounterSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_rld2m")
+
+[node name="PickupPoints" type="Node2D" parent="."]
+
+[node name="PickupPoint" type="Sprite2D" parent="PickupPoints"]
+position = Vector2(-384, 156)
+texture = ExtResource("3_8uees")
+script = ExtResource("3_rld2m")
+metadata/_custom_type_script = "uid://bv6dlcg7aoj0g"
+
+[node name="PickupPoint2" type="Sprite2D" parent="PickupPoints"]
+position = Vector2(-201, 156)
+texture = ExtResource("5_xyvyk")
+script = ExtResource("3_rld2m")
+metadata/_custom_type_script = "uid://bv6dlcg7aoj0g"
+
+[node name="PickupPoint3" type="Sprite2D" parent="PickupPoints"]
+position = Vector2(-7, 156)
+texture = ExtResource("6_weend")
+script = ExtResource("3_rld2m")
+metadata/_custom_type_script = "uid://bv6dlcg7aoj0g"
+
+[node name="PickupPoint4" type="Sprite2D" parent="PickupPoints"]
+position = Vector2(188, 156)
+texture = ExtResource("7_w57u6")
+script = ExtResource("3_rld2m")
+metadata/_custom_type_script = "uid://bv6dlcg7aoj0g"
+
+[node name="PickupPoint5" type="Sprite2D" parent="PickupPoints"]
+position = Vector2(374, 156)
+texture = ExtResource("8_uslvn")
+script = ExtResource("3_rld2m")
+metadata/_custom_type_script = "uid://bv6dlcg7aoj0g"

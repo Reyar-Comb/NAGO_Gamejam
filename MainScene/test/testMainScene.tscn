@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dmm824jp7r87m" path="res://Assets/RestaurantItems/Calendar.png" id="5_06o6i"]
 [ext_resource type="Texture2D" uid="uid://blkaf4pvq4124" path="res://Assets/RestaurantItems/ChineseKnot.png" id="6_frvei"]
 [ext_resource type="Texture2D" uid="uid://cfrur7vi2yhqb" path="res://Assets/RestaurantItems/Fan.png" id="7_nryb2"]
-[ext_resource type="PackedScene" uid="uid://wtsiwcmt14j2" path="res://Restaurant/RestaurantItems/PickupCounter.tscn" id="9_frvei"]
+[ext_resource type="PackedScene" uid="uid://wtsiwcmt14j2" path="res://Restaurant/RestaurantItems/PickupCounter/PickupCounter.tscn" id="9_frvei"]
 [ext_resource type="PackedScene" uid="uid://ds83mf3sm4dvs" path="res://Customer/Customer.tscn" id="11_ulsfy"]
 [ext_resource type="Texture2D" uid="uid://chqc8x6t38uyi" path="res://test_astar/TX Tileset Ground.png" id="13_eab41"]
 [ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="13_nryb2"]

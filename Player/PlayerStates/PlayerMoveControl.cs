@@ -22,12 +22,20 @@ public partial class PlayerMoveControl : State
 	private Player _player;
 	private AnimatedSprite2D _sprite;
 	private StateTree _stateTree;
+	private Marker2D _leftHoldMarker;
+	private Marker2D _rightHoldMarker;
+	private Marker2D _downHoldMarker;
+	private Sprite2D _cuisineDisplaySprite;
 	private List<string> _directionStack = new();
 	protected override void ReadyBehavior()
 	{
 		_player = Storage.GetNode<Player>("Player");
 		_sprite = Storage.GetNode<AnimatedSprite2D>("AnimatedSprite");
+		_leftHoldMarker = Storage.GetNode<Marker2D>("LeftHoldMarker");
+		_rightHoldMarker = Storage.GetNode<Marker2D>("RightHoldMarker");
+		_downHoldMarker = Storage.GetNode<Marker2D>("DownHoldMarker");
 		_stateTree = Storage.GetNode<StateTree>("StateTree");
+		_cuisineDisplaySprite = Storage.GetNode<Sprite2D>("CuisineDisplaySprite");
 	}
 	protected override void PhysicsUpdate(double delta)
 	{
@@ -47,6 +55,28 @@ public partial class PlayerMoveControl : State
 
 		_player.Velocity = velocity;
 		_player.MoveAndSlide();
+	}
+	protected override void FrameUpdate(double delta)
+	{
+		if (_player.CurrentCuisine is null) return;
+		switch (GetLastDirection())
+		{
+			case "Left":
+				_cuisineDisplaySprite.GlobalPosition = _leftHoldMarker.GlobalPosition;
+				_cuisineDisplaySprite.Visible = true;
+				break;
+			case "Right":
+				_cuisineDisplaySprite.GlobalPosition = _rightHoldMarker.GlobalPosition;
+				_cuisineDisplaySprite.Visible = true;
+				break;
+			case "Down":
+				_cuisineDisplaySprite.GlobalPosition = _downHoldMarker.GlobalPosition;
+				_cuisineDisplaySprite.Visible = true;
+				break;
+			case "Up":
+				_cuisineDisplaySprite.Visible = false;
+				break;
+		}
 	}
 	private void SetHeadings(Vector2 direction)
 	{
@@ -75,7 +105,6 @@ public partial class PlayerMoveControl : State
 		{
 			_directionStack.Remove(action);
 			Storage.SetVariant("LastRemovedDirection", action);
-			GD.Print($"Last Removed Direction: {action}");
 		}
 	}
 	public string GetLastDirection()
