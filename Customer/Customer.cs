@@ -122,11 +122,12 @@ public partial class Customer : CharacterBody2D
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 		PatienceTimer.Timeout += OnPatienceTimeout;
 		CuisineEatingTimer.Timeout += OnCuisineFinished;
-
+		Visible = false;
 		AudioManager.Instance.LoadSFX("Satisfied", "res://Assets/SoundFX/Satisfied2.mp3");
 		AudioManager.Instance.LoadSFX("Wrong", "res://Assets/SoundFX/Wrong3.mp3");
 		AudioManager.Instance.LoadSFX("Coin", "res://Assets/SoundFX/Coin.mp3");
 		await ToSignal(GetTree().CreateTimer(2f), SceneTreeTimer.SignalName.Timeout);
+		Visible = true;
 		MoveTo(TargetChairPosition);
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 	}

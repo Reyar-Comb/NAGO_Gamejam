@@ -3,6 +3,7 @@ using System;
 [GlobalClass]
 public partial class PickupPoint : StaticBody2D
 {
+    [Signal] public delegate void CuisineSpawnedEventHandler();
     [Export] public string CuisineName = "";
     [Export] public float RespawnTime = 2.0f;
     private Sprite2D Sprite => GetNode<Sprite2D>("Sprite2D");

@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://qau8f4xvrh45"]
 
 [ext_resource type="LabelSettings" uid="uid://du3tjffftumx3" path="res://UI/UIResouce/LabelSettings.tres" id="1_iybee"]
-[ext_resource type="Script" uid="uid://dtrimc2h6b4jg" path="res://UI/InGameUi.cs" id="1_v4w3m"]
+[ext_resource type="Script" uid="uid://dtrimc2h6b4jg" path="res://UI/InGameDisplay.cs" id="1_v4w3m"]
 
-[node name="InGameUI" type="CanvasLayer"]
+[node name="InGameDisplay" type="CanvasLayer"]
 script = ExtResource("1_v4w3m")
 
-[node name="InGameUIControl" type="Control" parent="."]
+[node name="InGameDisplayControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,29 +14,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer1" type="MarginContainer" parent="InGameUIControl"]
+[node name="MarginContainer1" type="MarginContainer" parent="InGameDisplayControl"]
 layout_mode = 1
 offset_right = 223.0
 offset_bottom = 196.0
 theme_override_constants/margin_left = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/MarginContainer1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameDisplayControl/MarginContainer1"]
 layout_mode = 2
 theme_override_constants/separation = 19
 
-[node name="DayDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer1/VBoxContainer"]
+[node name="DayDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer1/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "第 0721 天"
 label_settings = ExtResource("1_iybee")
 
-[node name="RemainingTimeDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer1/VBoxContainer"]
+[node name="RemainingTimeDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer1/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "9 分钟"
 label_settings = ExtResource("1_iybee")
 
-[node name="MarginContainer2" type="MarginContainer" parent="InGameUIControl"]
+[node name="MarginContainer2" type="MarginContainer" parent="InGameDisplayControl"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -46,16 +46,16 @@ offset_bottom = 164.0
 grow_horizontal = 0
 theme_override_constants/margin_right = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameUIControl/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameDisplayControl/MarginContainer2"]
 layout_mode = 2
 
-[node name="ScoreDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer2/VBoxContainer"]
+[node name="ScoreDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "得分 114514"
 label_settings = ExtResource("1_iybee")
 
-[node name="NegativeViewsDisplayLabel" type="Label" parent="InGameUIControl/MarginContainer2/VBoxContainer"]
+[node name="NegativeViewsDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "差评 1919810"

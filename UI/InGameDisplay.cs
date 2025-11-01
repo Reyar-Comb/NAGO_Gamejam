@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class InGameUi : CanvasLayer
+public partial class InGameDisplay : CanvasLayer
 {
 	private Label _scoreDisplayLabel = null;
 	private Label _negativeViewsDisplayLabel = null;
@@ -22,10 +22,10 @@ public partial class InGameUi : CanvasLayer
 		SignalBus.Instance.TimeUpdated += OnTimeUpdated;
 	}
 	public override void _Ready()
-    {
+	{
 		InitializeNodeReferences();
 		ConnectSignals();
-    }
+	}
 	public override void _Process(double delta)
 	{
 	}
@@ -47,5 +47,5 @@ public partial class InGameUi : CanvasLayer
 		int minutes = (int)(remainingTime / 60);
 		int seconds = (int)(remainingTime % 60);
 		_remainingTimeDisplayLabel.Text = $"{minutes} : {seconds}";
-    }
+	}
 }

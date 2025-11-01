@@ -44,17 +44,25 @@ public partial class GameData : Node
     {
         Instance = this;
         await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
-        UpdateInGameUi();
+        UpdateInGameDisplay();
         GetTree().SceneChanged += async () =>
         {
             RemainingTimeInSeconds = 600;
             NegativeViews = 0;
             Day++;
             await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
-            UpdateInGameUi();
+            UpdateInGameDisplay();
         };
     }
-    private void UpdateInGameUi()
+    public void ResetGameData()
+    {
+        Score = 0;
+        Day = 1;
+        NegativeViews = 0;
+        RemainingTimeInSeconds = 600;
+        UpdateInGameDisplay();
+    }
+    private void UpdateInGameDisplay()
     {
         Score = Score;
         NegativeViews = NegativeViews;
@@ -64,6 +72,5 @@ public partial class GameData : Node
     public override void _Process(double delta)
     {
         RemainingTimeInSeconds -= (float)delta;
-        SignalBus.Instance.EmitSignal(SignalBus.SignalName.TimeUpdated, RemainingTimeInSeconds);
     }
 }

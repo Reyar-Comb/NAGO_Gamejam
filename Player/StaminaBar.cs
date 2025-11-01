@@ -36,6 +36,7 @@ public partial class StaminaBar : Sprite2D
 	private Tween _staminaTween = null;
 	private bool _canRegen = true;
 	private ShaderMaterial _staminaBarMaterial = null;
+	private Vector2 _lastPos = Vector2.Zero;
 	private void SetInitialShaderParameters()
 	{
 		_staminaBarMaterial.SetShaderParameter("max_value", MaxStamina);
@@ -56,7 +57,9 @@ public partial class StaminaBar : Sprite2D
 	}
 	public override void _Process(double delta)
 	{
-		if (!Storage.GetVariant<bool>("CanDash")) return;
+		Vector2 velocity = (GlobalPosition - _lastPos) / (float)delta;
+		_lastPos = GlobalPosition;
+		if (!Storage.GetVariant<bool>("CanDash") || velocity.Length() < 1f) return;
 		if (_canRegen)
 			RegenStamina(delta);
 		if (Input.IsActionPressed("Dash"))

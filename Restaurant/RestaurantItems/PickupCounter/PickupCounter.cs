@@ -3,13 +3,19 @@ using System;
 
 public partial class PickupCounter : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
+	[Export] public Node2D PickupPointContainer;
+	[Export] public float ChefPopupChance = 0.3f;
 	public override void _Ready()
 	{
+		foreach (Node2D child in PickupPointContainer.GetChildren())
+		{
+			if (child is PickupPoint pickupPoint)
+			{
+				pickupPoint.Connect(PickupPoint.SignalName.CuisineSpawned, Callable.From(OnCuisineSpawned));
+			}
+		}
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void OnCuisineSpawned()
 	{
 	}
 }

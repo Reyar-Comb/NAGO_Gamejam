@@ -1,4 +1,15 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://o2vhntpihssc"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://o2vhntpihssc"]
+
+[ext_resource type="Texture2D" uid="uid://bggbywq2nde0y" path="res://Assets/Cuisines/WontonNoodles.png" id="1_avet8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fkhj"]
+bg_color = Color(0.45914054, 0.6161844, 0.7796507, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gfum"]
+bg_color = Color(0.66461706, 0.5881992, 0.47831142, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p80tf"]
+texture = ExtResource("1_avet8")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvrd1"]
 bg_color = Color(1, 1, 1, 1)
@@ -18,5 +29,8 @@ thickness = 10
 vertical = true
 
 [resource]
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_5fkhj")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_8gfum")
+HSlider/styles/slider = SubResource("StyleBoxTexture_p80tf")
 Panel/styles/panel = SubResource("StyleBoxFlat_jvrd1")
 VSeparator/styles/separator = SubResource("StyleBoxLine_avet8")
