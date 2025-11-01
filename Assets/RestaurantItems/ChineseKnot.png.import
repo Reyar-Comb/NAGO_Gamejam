@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmt1wqneoxhpw"
-path="res://.godot/imported/EmptyRestaurant.png-1ef056c6431369e56a6ef1cc5c29d898.ctex"
+uid="uid://blkaf4pvq4124"
+path="res://.godot/imported/ChineseKnot.png-f4ec144e81eb5cc8cb1443f1c90843db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/EmptyRestaurant.png"
-dest_files=["res://.godot/imported/EmptyRestaurant.png-1ef056c6431369e56a6ef1cc5c29d898.ctex"]
+source_file="res://Assets/RestaurantItems/ChineseKnot.png"
+dest_files=["res://.godot/imported/ChineseKnot.png-f4ec144e81eb5cc8cb1443f1c90843db.ctex"]
 
 [params]
 

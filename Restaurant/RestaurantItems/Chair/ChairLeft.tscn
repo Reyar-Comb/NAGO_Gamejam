@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b78ytt74wy1ak"]
+
+[ext_resource type="Script" uid="uid://bswx1rx4vf74t" path="res://Restaurant/RestaurantItems/Chair/Chair.cs" id="1_4cqlq"]
+[ext_resource type="Texture2D" uid="uid://cobhhrhhu2nyn" path="res://Assets/RestaurantItems/ChairLeft.png" id="2_ngaq2"]
+
+[node name="ChairLeft" type="Node2D"]
+script = ExtResource("1_4cqlq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(256, 0)
+texture = ExtResource("2_ngaq2")

@@ -50,7 +50,7 @@ public partial class Customer : CharacterBody2D
 	} = false;
 	public Vector2 TargetChairPosition;
 	private Vector2[] path = Array.Empty<Vector2>();
-	private int currentStep = 0;
+	private int _currentStep = 0;
 	private ShaderMaterial _customerShaderMaterial = null;
 	private bool _isPlayerNearby = false;
 	public override void _Ready()
@@ -78,7 +78,7 @@ public partial class Customer : CharacterBody2D
 	public void MoveTo(Vector2 targetPosition)
 	{
 		path = NavigationManager.GetPath(GlobalPosition, targetPosition);
-		currentStep = 0;
+		_currentStep = 0;
 
 		if (path.Length > 0)
 		{
@@ -92,21 +92,21 @@ public partial class Customer : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (path.Length == 0 || currentStep >= path.Length)
+		if (path.Length == 0 || _currentStep >= path.Length)
 		{
 			Velocity = Vector2.Zero;
 			return;
 		}
 
-		Vector2 target = path[currentStep];
+		Vector2 target = path[_currentStep];
 		Vector2 direction = (target - GlobalPosition).Normalized();
 		Velocity = direction * Speed;
 
 		if (GlobalPosition.DistanceTo(target) < 5f)
 		{
-			currentStep++;
+			_currentStep++;
 
-			if (currentStep >= path.Length)
+			if (_currentStep >= path.Length)
 			{
 				GD.Print("顾客到达餐桌！");
 				path = Array.Empty<Vector2>();

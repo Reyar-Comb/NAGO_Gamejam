@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr5f0y3limg0k"]
+
+[ext_resource type="Texture2D" uid="uid://1mbvae7ie44p" path="res://Assets/RestaurantItems/Table.png" id="1_0gitk"]
+[ext_resource type="Texture2D" uid="uid://dqug1ugns2nxx" path="res://Assets/RestaurantItems/TissueBox.png" id="2_qtj0h"]
+[ext_resource type="Texture2D" uid="uid://dw17idtr02wym" path="res://Assets/RestaurantItems/FlowerPot.png" id="3_voop6"]
+
+[node name="Table" type="Node2D"]
+
+[node name="TableSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_0gitk")
+
+[node name="TissueBoxSprite" type="Sprite2D" parent="."]
+position = Vector2(125, 101)
+texture = ExtResource("2_qtj0h")
+
+[node name="FlowerPotSprite" type="Sprite2D" parent="."]
+position = Vector2(-62, 42)
+scale = Vector2(0.45929492, 0.45929492)
+texture = ExtResource("3_voop6")

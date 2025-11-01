@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfrur7vi2yhqb"
-path="res://.godot/imported/Fan.png-f3d8c1d768f58b5b17d8adad770fa8f0.ctex"
+uid="uid://bmt1wqneoxhpw"
+path="res://.godot/imported/EmptyRestaurant.png-a1d35184139e2fabf38719c207321685.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Fan.png"
-dest_files=["res://.godot/imported/Fan.png-f3d8c1d768f58b5b17d8adad770fa8f0.ctex"]
+source_file="res://Assets/RestaurantItems/EmptyRestaurant.png"
+dest_files=["res://.godot/imported/EmptyRestaurant.png-a1d35184139e2fabf38719c207321685.ctex"]
 
 [params]
 

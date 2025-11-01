@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://wtsiwcmt14j2"]
+
+[ext_resource type="Texture2D" uid="uid://crno5bxvlg8tm" path="res://Assets/RestaurantItems/PickupCounterBackground.png" id="1_ff7m8"]
+[ext_resource type="Texture2D" uid="uid://dmudcvwrn8mjb" path="res://Assets/RestaurantItems/PickupCounter.png" id="2_rld2m"]
+
+[node name="PickupCounter" type="Node2D"]
+
+[node name="PickupCounterbackgroundSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ff7m8")
+
+[node name="PickupCounterSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_rld2m")

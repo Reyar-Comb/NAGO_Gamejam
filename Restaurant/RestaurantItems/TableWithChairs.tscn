@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://11it6dhr5qar"]
+
+[ext_resource type="PackedScene" uid="uid://b3dfrgtlocs7h" path="res://Restaurant/RestaurantItems/Chair/ChairUp.tscn" id="1_u45oq"]
+[ext_resource type="PackedScene" uid="uid://b78ytt74wy1ak" path="res://Restaurant/RestaurantItems/Chair/ChairLeft.tscn" id="2_bevv7"]
+[ext_resource type="PackedScene" uid="uid://c56xneojvq66t" path="res://Restaurant/RestaurantItems/Chair/ChairRight.tscn" id="3_4sgmk"]
+[ext_resource type="PackedScene" uid="uid://dr5f0y3limg0k" path="res://Restaurant/RestaurantItems/Table/Table.tscn" id="4_7es0t"]
+
+[node name="TableWithChairs" type="Node2D"]
+
+[node name="ChairUp" parent="." instance=ExtResource("1_u45oq")]
+position = Vector2(0, -256)
+
+[node name="ChairLeft" parent="." instance=ExtResource("2_bevv7")]
+position = Vector2(-256, 0)
+
+[node name="ChairRight" parent="." instance=ExtResource("3_4sgmk")]
+position = Vector2(256, 0)
+
+[node name="Table" parent="." instance=ExtResource("4_7es0t")]

@@ -6,6 +6,7 @@ public partial class CustomerManager : Node
 {
     [Export] public Godot.Collections.Array<PackedScene> CustomerList = new();
     [Export] public Godot.Collections.Array<Chair> ChairList = new();
+    [Export] public Godot.Collections.Array<Vector2> SpawnPositions = new();
     public Godot.Collections.Array<Chair> AvailableChairList = new();
     public static CustomerManager Instance { get; private set; }
     public override void _Ready()
@@ -33,25 +34,33 @@ public partial class CustomerManager : Node
             return;
         }
 
-        Chair TargetChair = null;
+        Chair targetChair = null;
 
-        var randomChairIndex = GD.Randi() % AvailableChairList.Count;
-        TargetChair = AvailableChairList[(int)randomChairIndex];
-        AvailableChairList.Remove(TargetChair);
+        targetChair = GetRandomElement(AvailableChairList);
+        AvailableChairList.Remove(targetChair);
 
         // Instantiate a random customer
-        var randomIndex = GD.Randi() % CustomerList.Count;
-        var customerScene = CustomerList[(int)randomIndex];
-        var customerInstance = customerScene.Instantiate<Node2D>();
+        var customerScene = GetRandomElement(CustomerList);
+        var customerInstance = customerScene.Instantiate<Customer>();
 
         // Position the customer at the chair's location
-        customerInstance.GlobalPosition = new Vector2(0, 0);
+        customerInstance.GlobalPosition = GetRandomElement(SpawnPositions);
 
-        customerInstance.Set("TargetChairPosition", TargetChair.GlobalPosition);
+        customerInstance.TargetChairPosition = targetChair.GlobalPosition;
 
         // Add the customer to the scene tree
         GetTree().CurrentScene.AddChild(customerInstance);
 
         GD.Print("CustomerManager: Spawned a new customer at chair position.");
+    }
+    private T GetRandomElement<[MustBeVariant] T>(Godot.Collections.Array<T> array)
+    {
+        if (array.Count == 0)
+        {
+            GD.PushError("CustomerManager: Attempted to get random element from an empty array.");
+            return default;
+        }
+        var randomIndex = GD.Randi() % array.Count;
+        return array[(int)randomIndex];
     }
 }

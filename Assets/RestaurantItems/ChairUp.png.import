@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmm824jp7r87m"
-path="res://.godot/imported/Calendar.png-3be8ca60e772814f98c8338dea2c39ac.ctex"
+uid="uid://8hacqfji7l7s"
+path="res://.godot/imported/ChairUp.png-b4e64de313ec8257ee3fc1db663d1fa2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Calendar.png"
-dest_files=["res://.godot/imported/Calendar.png-3be8ca60e772814f98c8338dea2c39ac.ctex"]
+source_file="res://Assets/RestaurantItems/ChairUp.png"
+dest_files=["res://.godot/imported/ChairUp.png-b4e64de313ec8257ee3fc1db663d1fa2.ctex"]
 
 [params]
 
