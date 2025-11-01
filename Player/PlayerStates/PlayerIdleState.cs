@@ -43,6 +43,7 @@ public partial class PlayerIdleState : State
 
     protected override void FrameUpdate(double delta)
     {
+        DecideAnimationPlay();
         if (!Mathf.IsZeroApprox(_player.Velocity.Length()))
         {
             AskTransit("Walk");

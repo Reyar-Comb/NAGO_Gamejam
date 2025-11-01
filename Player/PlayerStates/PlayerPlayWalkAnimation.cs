@@ -22,7 +22,6 @@ public partial class PlayerPlayWalkAnimation : State
 	{
 		if (_player.CurrentCuisine is not null)
 			animationName = "HoldCuisine" + animationName;
-		
 		if (_sprite.Animation != animationName)
 			_sprite.Play(animationName, AnimationSpeedMultiplier);
 	}
