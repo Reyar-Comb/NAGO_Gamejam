@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://51vopsq0t4ij"]
 
 [ext_resource type="Script" uid="uid://ctc05ngonsvwq" path="res://CustomerManager/CustomerManager.cs" id="1_g0o6m"]
-[ext_resource type="PackedScene" uid="uid://bybp2rmx2mbl" path="res://Customer/Customer1.tscn" id="2_s7clp"]
+[ext_resource type="PackedScene" uid="uid://bybp2rmx2mbl" path="res://Customer/Customer1/Customer1.tscn" id="2_s7clp"]
 
 [node name="CustomerManager" type="Node"]
 script = ExtResource("1_g0o6m")
