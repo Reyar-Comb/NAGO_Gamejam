@@ -54,7 +54,6 @@ public partial class CustomerSitState : State
 				_animatedSprite.Play("SitUp");
 				break;
 		}
-		GD.Print("After: " + _animatedSprite.GlobalPosition);
 	}
 	private void OnCustomerLeft()
 	{

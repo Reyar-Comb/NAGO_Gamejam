@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://o2vhntpihssc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvrd1"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_color = Color(0, 0, 0, 0.23529412)
+shadow_size = 10
+shadow_offset = Vector2(30, 30)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_avet8"]
+color = Color(0.85, 0.85, 0.85, 1)
+grow_begin = -60.0
+grow_end = -60.0
+thickness = 10
+vertical = true
+
+[resource]
+Panel/styles/panel = SubResource("StyleBoxFlat_jvrd1")
+VSeparator/styles/separator = SubResource("StyleBoxLine_avet8")

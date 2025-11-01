@@ -1,26 +1,63 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds83mf3sm4dvs"]
+[gd_scene load_steps=21 format=3 uid="uid://ds83mf3sm4dvs"]
 
 [ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
 [ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
 [ext_resource type="Material" uid="uid://du1va1amly4c0" path="res://UI/UIResouce/WhiteBorderShaderMaterial.tres" id="3_ms251"]
+[ext_resource type="Texture2D" uid="uid://cn3yvv0o0kfu5" path="res://Assets/Character/Customer1SitUp.png" id="4_cq8yd"]
 [ext_resource type="Script" uid="uid://bnasen8oklvj8" path="res://StateTree/StateTree.cs" id="4_ms251"]
 [ext_resource type="Script" uid="uid://cxl5078s0u8sk" path="res://Customer/CustomerStates/CustomerWalkState.cs" id="5_gj5ka"]
+[ext_resource type="Texture2D" uid="uid://cmll1207cx51f" path="res://Assets/Character/Customer1SitRight.png" id="5_im1du"]
 [ext_resource type="Script" uid="uid://crpdo0ou5puty" path="res://Customer/CustomerStates/CustomerWalkAnimationState.cs" id="6_73njr"]
 [ext_resource type="Script" uid="uid://dg3kwg10l5am0" path="res://Customer/CustomerStates/CustomerSitState.cs" id="7_26n4y"]
 [ext_resource type="Script" uid="uid://bk8rt0dw3k3ut" path="res://StateTree/VarStorage.cs" id="8_26n4y"]
+[ext_resource type="Theme" uid="uid://o2vhntpihssc" path="res://UI/UIResouce/UITheme.tres" id="10_0ax7r"]
+[ext_resource type="Texture2D" uid="uid://d4ggl6cc1qrm0" path="res://Assets/Cuisines/MilkTea.png" id="11_im1du"]
+[ext_resource type="Texture2D" uid="uid://bpmt4kqnsw7bd" path="res://Assets/Misc/Hourglass.png" id="12_2t0yb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ms251"]
 radius = 0.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5rpe"]
+atlas = ExtResource("4_cq8yd")
+region = Rect2(0, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t0yb"]
+atlas = ExtResource("5_im1du")
+region = Rect2(0, 0, 1500, 1500)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_i5y8d"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5rpe")
+}],
 "loop": true,
 "name": &"WalkLeft",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2t0yb")
+}],
+"loop": true,
+"name": &"WalkLeft_1",
+"speed": 5.0
 }]
 
-[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer", "CuisineEatingTimer", "AnimatedSprite")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_20xur"]
+atlas = ExtResource("12_2t0yb")
+region = Rect2(368.8201, 257.535, 103.62689, 162.69571)
+
+[sub_resource type="SystemFont" id="SystemFont_2t0yb"]
+font_names = PackedStringArray("Gill Sans")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_20xur"]
+font = SubResource("SystemFont_2t0yb")
+font_size = 120
+font_color = Color(0.37485, 0.49, 0.2597, 1)
+
+[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer", "CuisineEatingTimer", "AnimatedSprite", "OrderDisplayPanel")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_47pxv")
@@ -28,6 +65,7 @@ NavigationManager = NodePath("NavigationManager")
 PatienceTimer = NodePath("Timers/PatienceTimer")
 CuisineEatingTimer = NodePath("Timers/CuisineEatingTimer")
 AnimatedSprite = NodePath("AnimatedSprite2D")
+OrderDisplayPanel = NodePath("Offset/Panel")
 
 [node name="NavigationManager" type="Node" parent="."]
 script = ExtResource("2_k6pke")
@@ -39,8 +77,9 @@ disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("3_ms251")
+position = Vector2(4, -219)
 sprite_frames = SubResource("SpriteFrames_i5y8d")
-animation = &"WalkLeft"
+animation = &"WalkLeft_1"
 
 [node name="Timers" type="Node" parent="."]
 
@@ -79,3 +118,56 @@ _nodeStorage = {
 "Customer": NodePath("..")
 }
 metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
+
+[node name="Offset" type="Node2D" parent="."]
+position = Vector2(-161, -1070)
+
+[node name="Panel" type="Panel" parent="Offset"]
+visible = false
+z_index = 10
+custom_minimum_size = Vector2(1000, 300)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1000.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("10_0ax7r")
+
+[node name="MarginContainer" type="MarginContainer" parent="Offset/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_right = 70
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Offset/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="CuisineIcon" type="TextureRect" parent="Offset/Panel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.75
+texture = ExtResource("11_im1du")
+stretch_mode = 4
+
+[node name="Hourglass" type="TextureRect" parent="Offset/Panel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+texture = SubResource("AtlasTexture_20xur")
+stretch_mode = 3
+
+[node name="RemainingTimeLabel" type="Label" parent="Offset/Panel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "90"
+label_settings = SubResource("LabelSettings_20xur")

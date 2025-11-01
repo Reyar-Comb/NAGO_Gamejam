@@ -4,6 +4,7 @@ using System;
 public partial class SignalBus : Node
 {
     [Signal] public delegate void ScoreUpdatedEventHandler(int newScore);
+    [Signal] public delegate void CustomerSatisfiedEventHandler();
     public static SignalBus Instance { get; private set; }
     public override void _Ready()
     {

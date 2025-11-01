@@ -10,6 +10,8 @@ public partial class StaminaBar : Sprite2D
 	[Export] public float StaminaTweenDuration = 0.1f;
 	[Export] public Timer StaminaRegenDelayTimer = null;
 	[Export] public VarStorage Storage = null;
+	[Export] public float BaseStaminaGainWhenCustomerSatisfied = 20.0f;
+	public float StaminaGainMultiplier = 1.0f;
 	public float Value
 	{
 		get => _staminaBarMaterial.GetShaderParameter("current_value").As<float>();
@@ -46,6 +48,11 @@ public partial class StaminaBar : Sprite2D
 		_staminaBarMaterial = (ShaderMaterial)Material;
 		SetInitialShaderParameters();
 		StaminaRegenDelayTimer.Timeout += OnStaminaRegenDelayTimeout;
+		SignalBus.Instance.CustomerSatisfied += OnCustomerSatisfied;
+	}
+	public override void _ExitTree()
+	{
+		SignalBus.Instance.CustomerSatisfied -= OnCustomerSatisfied;
 	}
 	public override void _Process(double delta)
 	{
@@ -58,6 +65,11 @@ public partial class StaminaBar : Sprite2D
 	public void RegenStamina(double delta)
 	{
 		CurrentStamina += StaminaRegenRate * (float)delta;
+	}
+	private void OnCustomerSatisfied()
+	{
+		float staminaGain = BaseStaminaGainWhenCustomerSatisfied * StaminaGainMultiplier;
+		CurrentStamina += staminaGain;
 	}
 	private void OnStaminaRegenDelayTimeout()
 	{

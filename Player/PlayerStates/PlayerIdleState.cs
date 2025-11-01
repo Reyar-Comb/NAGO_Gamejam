@@ -9,6 +9,7 @@ public partial class PlayerIdleState : State
     {
         _player = Storage.GetNode<Player>("Player");
         _sprite = Storage.GetNode<AnimatedSprite2D>("AnimatedSprite");
+        _sprite.Play("IdleDown");
     }
     private void TryPlay(string animationName)
     {

@@ -11,16 +11,38 @@ public partial class Customer : CharacterBody2D
 	[Export] public Timer CuisineEatingTimer;
 	[Export] public float CuisineEatingTime = 5f;
 	[Export] public AnimatedSprite2D AnimatedSprite;
+	[Export] public Panel OrderDisplayPanel;
+	[Export] public float MinPatienceTime = 10f;
+	[Export] public float MaxPatienceTime = 60f;
+	[Export] public float PatienceTimeRandomness = 5f;
+	public float CurrentBasePatienceTime => (float)Mathf.Max(
+		MaxPatienceTime - (GameData.Instance.Level - 1) * 2,
+		MinPatienceTime);
+	public float PatienceTime => (float)Mathf.Clamp(
+		CurrentBasePatienceTime + GD.RandRange(-PatienceTimeRandomness, PatienceTimeRandomness),
+		MinPatienceTime,
+		MaxPatienceTime);
 	public Vector2 CollisionShapePos => GetNode<CollisionShape2D>("CollisionShape2D").GlobalPosition;
 	public Chair.ChairType TargetChairType;
 	public Cuisine DesiredCuisine { get; private set; }
+	private Vector2 _panelOriginalPosition;
 	public bool IsSeated
 	{
 		get => field;
 		set
-        {
-            
-        }
+		{
+			if (field == value)
+				return;
+			field = value;
+			if (field)
+			{
+				OrderDisplayPanel.Visible = true;
+				GetNode<TextureRect>("%CuisineIcon").Texture = DesiredCuisine.CuisineTexture;
+				PatienceTimer.Start(PatienceTime);
+				_panelOriginalPosition = OrderDisplayPanel.Position;
+				GetNode<Node2D>("Offset").Position = DecideOrderPanelPosition();
+			}
+		}
 	} = false;
 	public bool IsOrdered
 	{
@@ -46,6 +68,8 @@ public partial class Customer : CharacterBody2D
 			{
 				OnCuisineDelivered();
 				StartCuisineEatingTimer(CuisineEatingTime);
+				OrderDisplayPanel.Visible = false;
+				PatienceTimer.Stop();
 			}
 		}
 	} = false;
@@ -55,6 +79,17 @@ public partial class Customer : CharacterBody2D
 	private int _currentStep = 0;
 	private ShaderMaterial CustomerShaderMaterial => GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material as ShaderMaterial;
 	private bool _isPlayerNearby = false;
+	private float _timeElapsed = 0f;
+	private Vector2 DecideOrderPanelPosition()
+    {
+        return TargetChairType switch
+		{
+			Chair.ChairType.Up => new Vector2(-400, -970),
+			Chair.ChairType.Left => new Vector2(161, -1070),
+			Chair.ChairType.Right => new Vector2(-161, -1070),
+			_ => new Vector2(0, -150),
+		};
+    }
 	public override async void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
@@ -131,16 +166,20 @@ public partial class Customer : CharacterBody2D
 	}
 	public override void _Process(double delta)
 	{
+		Vector2 panelOffset = Vector2.Zero;
+		if (IsSeated && !IsDelivered)
+		{
+			_timeElapsed += (float)delta;
+			panelOffset.Y = Mathf.Sin(_timeElapsed * 3f) * 5f;
+		}
+		OrderDisplayPanel.Position = _panelOriginalPosition + panelOffset;
+		GetNode<Label>("%RemainingTimeLabel").Text = Mathf.Floor(PatienceTimer.TimeLeft).ToString();
 		if (_isPlayerNearby && Input.IsActionJustPressed("Interact") && !IsDelivered && IsOrdered)
 		{
 			Player player = GetTree().GetFirstNodeInGroup("Player") as Player;
 			GD.Print($"Customer has received cuisine: {player.CurrentCuisine.CuisineName}");
 			IsDelivered = true;
 		}
-	}
-	public void StartPatienceTimer(float time)
-	{
-		PatienceTimer.Start(time);
 	}
 	public void StartCuisineEatingTimer(float time)
 	{
@@ -151,11 +190,15 @@ public partial class Customer : CharacterBody2D
 		GD.Print("顾客离开餐厅。");
 		IsLeaving = true;
 		if (IsDelivered)
-		{
 			AudioManager.Instance.PlaySFX("Coin");
-		}
 		
+		OrderDisplayPanel.Visible = false;
 		EmitSignal(SignalName.CustomerLeft);
+		GetTree().CreateTimer(20f).Timeout += () =>
+		{
+			if (IsInstanceValid(this))
+				QueueFree();
+		};
 	}
 	protected virtual void OnOrdered() { }
 	protected virtual void OnCuisineDelivered() { }

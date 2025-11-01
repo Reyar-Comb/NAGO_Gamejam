@@ -5,12 +5,14 @@ using System.Linq;
 
 public partial class PlayerUniversalState : State
 {
+	[Export] public int ScanFrameInterval = 5;
 	private Player _player;
 	private Area2D _interactArea;
 	private List<PickupPoint> _nearbyPickupPoints = new();
 	private PickupPoint _highlightedPickupPoint;
 	private List<Customer> _nearbyCustomers = new();
 	private Customer _highlightedCustomer;
+	private int _frameCounter = 0;
 	protected override void ReadyBehavior()
 	{
 		_player = Storage.GetNode<Player>("Player");
@@ -22,9 +24,11 @@ public partial class PlayerUniversalState : State
 	}
 	private void OnBodyEntered(Node2D body)
 	{
-		if (body is PickupPoint pickupPoint && pickupPoint.AssignedCuisine != null)
+		if (body is PickupPoint pickupPoint && pickupPoint.AssignedCuisine != null
+		&& !_nearbyPickupPoints.Contains(pickupPoint))
 			_nearbyPickupPoints.Add(pickupPoint);
-		if (body is Customer customer && customer.IsSeated && !customer.IsDelivered && !customer.IsLeaving)
+		if (body is Customer customer && customer.IsSeated && !customer.IsDelivered
+		&& !customer.IsLeaving && !_nearbyCustomers.Contains(customer))
 			_nearbyCustomers.Add(customer);
 	}
 	private void OnBodyExited(Node2D body)
@@ -40,10 +44,21 @@ public partial class PlayerUniversalState : State
 			customer.ToggleHighlight(false);
 		}
 	}
+	private void RunScan()
+	{
+		foreach (var body in _interactArea.GetOverlappingBodies())
+			OnBodyEntered(body);
+	}
 	protected override void FrameUpdate(double delta)
 	{
 		UpdatePickupPointHighlight();
 		UpdateCustomerHighlight();
+		_frameCounter++;
+		if (_frameCounter % ScanFrameInterval == 0)
+        {
+			_frameCounter = 0;
+			RunScan();
+        }
 		if (Input.IsActionJustPressed("Interact"))
 		{
 			if (_player.CurrentCuisine == null && _highlightedPickupPoint != null)
