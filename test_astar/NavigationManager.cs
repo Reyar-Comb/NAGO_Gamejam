@@ -48,10 +48,10 @@ public partial class NavigationManager : Node
 			worldPath[i] = ObstacleLayer.MapToLocal(pathCells[i]);
 			worldPath[i] = new Vector2I((int)worldPath[i].X, (int)worldPath[i].Y);
 		}
-		foreach (var cell in pathCells)
-		{
-			GD.Print("Path Cell: " + cell);
-		}
+		// foreach (var cell in pathCells)
+		// {
+		// 	GD.Print("Path Cell: " + cell);
+		// }
 		return worldPath;
 
 	}

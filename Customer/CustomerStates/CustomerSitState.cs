@@ -10,6 +10,7 @@ public partial class CustomerSitState : State
 	private Vector2 _originalCollisionShapePosition;
 	private int _originalZIndex;
 	private Vector2 _originalScale;
+	private bool _originalFlipH = false;
 	protected override void ReadyBehavior()
 	{
 		_animatedSprite = Storage.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -24,7 +25,7 @@ public partial class CustomerSitState : State
 		_originalZIndex = _customer.ZIndex;
 		_originalScale = _customer.Scale;
 		_customer.Scale = new Vector2(0.55f, 0.55f);
-		GD.Print("Customer has entered Sit State.");
+		_originalFlipH = _animatedSprite.FlipH;
 		switch (_customer.TargetChairType)
 		{
 			case Chair.ChairType.Up:
@@ -53,13 +54,15 @@ public partial class CustomerSitState : State
 				_animatedSprite.Play("SitUp");
 				break;
 		}
+		GD.Print("After: " + _animatedSprite.GlobalPosition);
 	}
 	private void OnCustomerLeft()
 	{
+		_customer.Scale = _originalScale;
 		_animatedSprite.GlobalPosition = _originalAnimatedSpritePosition;
 		_collisionShape.GlobalPosition = _originalCollisionShapePosition;
 		_customer.ZIndex = _originalZIndex;
-		_customer.Scale = _originalScale;
+		_animatedSprite.FlipH = _originalFlipH;
 		CustomerManager customerManager = GetTree().CurrentScene.GetNode<CustomerManager>("%CustomerManager");
 		var randomIndex = GD.Randi() % customerManager.SpawnPositions.Count;
 		Vector2 targetPosition = customerManager.SpawnPositions[(int)randomIndex];

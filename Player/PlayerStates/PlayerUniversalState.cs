@@ -88,7 +88,6 @@ public partial class PlayerUniversalState : State
 			_highlightedCustomer = null;
 			return;
 		}
-		GD.Print("Nearby Customers Count: " + _nearbyCustomers.Count);
 		_nearbyCustomers.Sort((a, b) =>
 			a.CollisionShapePos.DistanceTo(_player.GlobalPosition)
 			.CompareTo(b.CollisionShapePos.DistanceTo(_player.GlobalPosition))
