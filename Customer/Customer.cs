@@ -58,7 +58,7 @@ public partial class Customer : CharacterBody2D
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 		PatienceTimer.Timeout += OnPatienceTimeout;
 		CuisineEatingTimer.Timeout += OnCuisineFinished;
-		_customerShaderMaterial = GetNode<Sprite2D>("Sprite2D").Material as ShaderMaterial;
+		_customerShaderMaterial = GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material as ShaderMaterial;
 	}
 	private void ToggleWhiteBorder(bool enable)
 	{

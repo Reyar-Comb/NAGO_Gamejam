@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bybp2rmx2mbl"]
+
+[ext_resource type="PackedScene" uid="uid://ds83mf3sm4dvs" path="res://Customer/Customer.tscn" id="1_qden7"]
+[ext_resource type="Texture2D" uid="uid://cju8k6jpsicf8" path="res://Assets/Character/Customer1.png" id="2_2qau3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72s80"]
+atlas = ExtResource("2_2qau3")
+region = Rect2(598, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8iha"]
+atlas = ExtResource("2_2qau3")
+region = Rect2(1196, 640, 598, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2qau3"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72s80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8iha")
+}],
+"loop": true,
+"name": &"WalkHorizontal",
+"speed": 5.0
+}]
+
+[node name="Customer1" instance=ExtResource("1_qden7")]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_2qau3")
+animation = &"WalkHorizontal"
+frame_progress = 0.85439456
