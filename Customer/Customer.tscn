@@ -1,21 +1,33 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds83mf3sm4dvs"]
+[gd_scene load_steps=12 format=3 uid="uid://ds83mf3sm4dvs"]
 
 [ext_resource type="Script" uid="uid://dmfbsyg5sbi5t" path="res://Customer/Customer.cs" id="1_47pxv"]
 [ext_resource type="Script" uid="uid://g0d06dgwtpfu" path="res://test_astar/NavigationManager.cs" id="2_k6pke"]
 [ext_resource type="Material" uid="uid://du1va1amly4c0" path="res://UI/UIResouce/WhiteBorderShaderMaterial.tres" id="3_ms251"]
+[ext_resource type="Script" uid="uid://bnasen8oklvj8" path="res://StateTree/StateTree.cs" id="4_ms251"]
+[ext_resource type="Script" uid="uid://cxl5078s0u8sk" path="res://Customer/CustomerStates/CustomerWalkState.cs" id="5_gj5ka"]
+[ext_resource type="Script" uid="uid://crpdo0ou5puty" path="res://Customer/CustomerStates/CustomerWalkAnimationState.cs" id="6_73njr"]
+[ext_resource type="Script" uid="uid://dg3kwg10l5am0" path="res://Customer/CustomerStates/CustomerSitState.cs" id="7_26n4y"]
+[ext_resource type="Script" uid="uid://bk8rt0dw3k3ut" path="res://StateTree/VarStorage.cs" id="8_26n4y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ms251"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i5y8d"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"WalkLeft",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6pke"]
 radius = 350.05142
 
-[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer", "CuisineEatingTimer")]
+[node name="Customer" type="CharacterBody2D" node_paths=PackedStringArray("NavigationManager", "PatienceTimer", "CuisineEatingTimer", "AnimatedSprite")]
 script = ExtResource("1_47pxv")
 NavigationManager = NodePath("NavigationManager")
 PatienceTimer = NodePath("Timers/PatienceTimer")
 CuisineEatingTimer = NodePath("Timers/CuisineEatingTimer")
+AnimatedSprite = NodePath("AnimatedSprite2D")
 
 [node name="NavigationManager" type="Node" parent="."]
 script = ExtResource("2_k6pke")
@@ -41,6 +53,35 @@ one_shot = true
 
 [node name="CuisineEatingTimer" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="StateTree" type="Node" parent="." node_paths=PackedStringArray("Storage")]
+script = ExtResource("4_ms251")
+InitialStateName = "Walk"
+Storage = NodePath("../VarStorage")
+metadata/_custom_type_script = "uid://bnasen8oklvj8"
+
+[node name="WalkAnimationControl" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
+script = ExtResource("6_73njr")
+Storage = NodePath("../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Walk" type="Node" parent="StateTree/WalkAnimationControl" node_paths=PackedStringArray("Storage")]
+script = ExtResource("5_gj5ka")
+Storage = NodePath("../../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="Sit" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
+script = ExtResource("7_26n4y")
+Storage = NodePath("../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
+[node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
+script = ExtResource("8_26n4y")
+_nodeStorage = {
+"AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"Customer": NodePath("..")
+}
+metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
 
 [connection signal="body_entered" from="DetectArea" to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="DetectArea" to="." method="OnBodyExited"]

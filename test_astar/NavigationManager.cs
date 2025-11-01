@@ -26,7 +26,7 @@ public partial class NavigationManager : Node
 		
 		astar.Region = ObstacleLayer.GetUsedRect();
 		astar.CellSize = ObstacleLayer.TileSet.TileSize;
-		astar.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Always;
+		astar.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;
 		astar.Update();
 		
 		foreach (Vector2I cell in ObstacleLayer.GetUsedCells())
@@ -46,8 +46,12 @@ public partial class NavigationManager : Node
 		for (int i = 0; i < pathCells.Length; i++)
 		{
 			worldPath[i] = ObstacleLayer.MapToLocal(pathCells[i]);
+			worldPath[i] = new Vector2I((int)worldPath[i].X, (int)worldPath[i].Y);
 		}
-		
+		foreach (var cell in pathCells)
+		{
+			GD.Print("Path Cell: " + cell);
+		}
 		return worldPath;
 
 	}

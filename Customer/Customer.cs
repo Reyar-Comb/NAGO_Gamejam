@@ -9,6 +9,9 @@ public partial class Customer : CharacterBody2D
 	[Export] public Timer PatienceTimer;
 	[Export] public Timer CuisineEatingTimer;
 	[Export] public float CuisineEatingTime = 5f;
+	[Export] public AnimatedSprite2D AnimatedSprite;
+	
+	public Chair.ChairType TargetChairType;
 	public Cuisine DesiredCuisine;
 	public bool IsSeated
 	{
@@ -112,6 +115,7 @@ public partial class Customer : CharacterBody2D
 
 			if (_currentStep >= path.Length)
 			{
+				IsSeated = true;
 				GD.Print("顾客到达餐桌！");
 				path = Array.Empty<Vector2>();
 			}
@@ -139,7 +143,12 @@ public partial class Customer : CharacterBody2D
 	{
 		GD.Print("顾客离开餐厅。");
 	}
-	protected virtual void OnSeated() { }
+	public void OnSeated()
+	{
+		this.Scale = new Vector2(0.55f, 0.55f);
+		
+		
+	}
 	protected virtual void OnOrdered() { }
 	protected virtual void OnCuisineDelivered() { }
 	protected virtual void OnCuisineFinished() { }

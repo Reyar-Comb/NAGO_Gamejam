@@ -1,0 +1,164 @@
+[gd_scene load_steps=20 format=3 uid="uid://dy43ut3onv1ei"]
+
+[ext_resource type="PackedScene" uid="uid://ds83mf3sm4dvs" path="res://Customer/Customer.tscn" id="1_tvf8c"]
+[ext_resource type="Shader" uid="uid://cpaas03qnjjnb" path="res://UI/UIResouce/WhiteBorder.gdshader" id="2_phyro"]
+[ext_resource type="Texture2D" uid="uid://di50fvflxdghq" path="res://Assets/Character/Customer2.png" id="3_phyro"]
+[ext_resource type="Texture2D" uid="uid://dqef6q0b3xj0y" path="res://Assets/Character/Customer2SitRight.png" id="3_vnpts"]
+[ext_resource type="Texture2D" uid="uid://b15tryy1i41g2" path="res://Assets/Character/Customer2SitUp.png" id="4_81d6j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cs6t0"]
+resource_local_to_scene = true
+shader = ExtResource("2_phyro")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs6t0"]
+atlas = ExtResource("3_phyro")
+region = Rect2(0, 0, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnpts"]
+atlas = ExtResource("3_phyro")
+region = Rect2(598, 0, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81d6j"]
+atlas = ExtResource("3_phyro")
+region = Rect2(1196, 0, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2db5k"]
+atlas = ExtResource("3_phyro")
+region = Rect2(0, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgok0"]
+atlas = ExtResource("3_phyro")
+region = Rect2(598, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_620f7"]
+atlas = ExtResource("3_phyro")
+region = Rect2(1196, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6drcm"]
+atlas = ExtResource("3_phyro")
+region = Rect2(0, 1280, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psxe2"]
+atlas = ExtResource("3_phyro")
+region = Rect2(598, 1280, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wu7j"]
+atlas = ExtResource("3_phyro")
+region = Rect2(1196, 1280, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oey1r"]
+atlas = ExtResource("3_phyro")
+region = Rect2(0, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcsb1"]
+atlas = ExtResource("3_phyro")
+region = Rect2(598, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqbvk"]
+atlas = ExtResource("3_phyro")
+region = Rect2(1196, 1920, 598, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d3o02"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vnpts")
+}],
+"loop": true,
+"name": &"SitRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_81d6j")
+}],
+"loop": true,
+"name": &"SitUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs6t0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnpts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81d6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnpts")
+}],
+"loop": true,
+"name": &"WalkDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2db5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgok0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_620f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgok0")
+}],
+"loop": true,
+"name": &"WalkLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6drcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psxe2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wu7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psxe2")
+}],
+"loop": true,
+"name": &"WalkRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oey1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcsb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqbvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcsb1")
+}],
+"loop": true,
+"name": &"WalkUp",
+"speed": 5.0
+}]
+
+[node name="Customer" instance=ExtResource("1_tvf8c")]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+material = SubResource("ShaderMaterial_cs6t0")
+position = Vector2(4, -219)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_d3o02")
+animation = &"WalkLeft"
+
+[node name="VarStorage" parent="." index="6" node_paths=PackedStringArray("_nodeStorage")]
+_nodeStorage = {
+"AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"Customer": NodePath("..")
+}

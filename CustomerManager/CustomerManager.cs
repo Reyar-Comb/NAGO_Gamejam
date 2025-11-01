@@ -53,10 +53,12 @@ public partial class CustomerManager : Node
 
 		// Position the customer at the chair's location
 		customerInstance.GlobalPosition = GetRandomElement(SpawnPositions);
-
-		customerInstance.TargetChairPosition = targetChair.GetNode<Marker2D>("Marker2D").GlobalPosition;
+        customerInstance.TargetChairType = targetChair.Type;
+        GD.Print("CustomerManager: Assigned TargetChairType " + targetChair.Type.ToString());
+        customerInstance.TargetChairPosition = targetChair.GetNode<Marker2D>("Marker2D").GlobalPosition;
+        customerInstance.YSortEnabled = true;
 		// Add the customer to the scene tree
-		GetTree().CurrentScene.AddChild(customerInstance);
+		GetTree().CurrentScene.GetNode<Node2D>("CustomerContainer").AddChild(customerInstance);
 
 		GD.Print("CustomerManager: Spawned a new customer at chair position.");
 	}
