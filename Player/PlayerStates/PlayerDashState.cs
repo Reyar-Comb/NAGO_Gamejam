@@ -16,6 +16,7 @@ public partial class PlayerDashState : State
 		_sprite = Storage.GetNode<AnimatedSprite2D>("AnimatedSprite");
 		_staminaBar = Storage.GetNode<StaminaBar>("StaminaBar");
 		DashTrailTimer.Timeout += OnDashTrailTimerTimeout;
+		AudioManager.Instance.LoadSFX("FootFast", "res://Assets/SoundFX/FootFast2.mp3");
 	}
 
 	protected override void Enter()
@@ -23,10 +24,12 @@ public partial class PlayerDashState : State
 		GD.Print("Player has entered Dash State.");
 		Storage.SetVariant("AnimationSpeedMultiplier", Storage.GetVariant<float>("DashAnimationSpeedMultiplier"));
 		DashTrailTimer.Start(DashTrailInterval);
+		AudioManager.Instance.PlaySFX("FootFast");
 	}
 	protected override void Exit()
 	{
 		DashTrailTimer.Stop();
+		AudioManager.Instance.StopSFX("FootFast");
 	}
 	protected override void FrameUpdate(double delta)
 	{

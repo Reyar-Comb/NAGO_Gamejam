@@ -14,8 +14,17 @@ public partial class AudioManager : Node
 	public Dictionary<string, AudioStream> BGMDict = new Dictionary<string, AudioStream>();
 	public Dictionary<string, AudioStream> SFXDict = new Dictionary<string, AudioStream>();
 
-	public float DefaultBGMVolume = -6f;
-	public float DefaultAllSFXVolume = -6f;
+	private float _defaultBGMVolume = -10f; 
+	[Export] public float DefaultBGMVolume
+	{
+		get => _defaultBGMVolume;
+		set
+		{
+			_defaultBGMVolume = value;
+			setBGMVolume(value);
+		}
+	}
+	public float DefaultAllSFXVolume = -4f;
 	public float DefaultSFXVolume = 0f;
 	public float loopStart = 0f;
 	public float loopEnd = 0f;

@@ -17,6 +17,8 @@ public partial class PlayerUniversalState : State
 		_interactArea = Storage.GetNode<Area2D>("InteractArea");
 		_interactArea.BodyEntered += OnBodyEntered;
 		_interactArea.BodyExited += OnBodyExited;
+
+		AudioManager.Instance.LoadSFX("Interact", "res://Assets/SoundFX/Interact.mp3");
 	}
 	private void OnBodyEntered(Node2D body)
 	{
@@ -50,6 +52,8 @@ public partial class PlayerUniversalState : State
 				_highlightedPickupPoint.AssignedCuisine = null;
 				_nearbyPickupPoints.Remove(_highlightedPickupPoint);
 				_highlightedPickupPoint.ToggleHighlight(false);
+
+				AudioManager.Instance.PlaySFX("Interact");
 			}
 			else if (_player.CurrentCuisine != null && _highlightedCustomer != null)
 			{
@@ -57,6 +61,8 @@ public partial class PlayerUniversalState : State
 				_nearbyCustomers.Remove(_highlightedCustomer);
 				_highlightedCustomer.ToggleHighlight(false);
 				_player.CurrentCuisine = null;
+
+				AudioManager.Instance.PlaySFX("Interact");
 			}
 		}
 	}

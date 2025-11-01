@@ -54,20 +54,27 @@ public partial class Customer : CharacterBody2D
 		PatienceTimer.Timeout += OnPatienceTimeout;
 		CuisineEatingTimer.Timeout += OnCuisineFinished;
 
+		AudioManager.Instance.LoadSFX("Satisfied", "res://Assets/SoundFX/Satisfied2.mp3");
+		AudioManager.Instance.LoadSFX("Wrong", "res://Assets/SoundFX/Wrong3.mp3");
+		AudioManager.Instance.LoadSFX("Coin", "res://Assets/SoundFX/Coin.mp3");
 		await ToSignal(GetTree().CreateTimer(2), "timeout");
 		MoveTo(TargetChairPosition);
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 	}
-	public void ReceiveCuisine(Cuisine cuisine)
+	public async void ReceiveCuisine(Cuisine cuisine)
 	{
 		if (cuisine.CuisineName == DesiredCuisine.CuisineName)
 		{
 			GD.Print("顾客收到了正确的菜肴: " + cuisine.CuisineName);
+			AudioManager.Instance.PlaySFX("Satisfied");
 			IsDelivered = true;
+			await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
+			Leave();
 		}
 		else
 		{
 			Leave();
+			AudioManager.Instance.PlaySFX("Wrong");
 			GD.Print("顾客收到了错误的菜肴: " + cuisine.CuisineName + "，期望的是: " + DesiredCuisine.CuisineName);
 		}
 	}
@@ -136,6 +143,11 @@ public partial class Customer : CharacterBody2D
 	{
 		GD.Print("顾客离开餐厅。");
 		IsLeaving = true;
+		if (IsDelivered)
+		{
+			AudioManager.Instance.PlaySFX("Coin");
+		}
+		
 		EmitSignal(SignalName.CustomerLeft);
 	}
 	protected virtual void OnOrdered() { }
