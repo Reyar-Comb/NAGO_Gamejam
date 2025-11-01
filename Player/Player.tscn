@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=46 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
@@ -293,6 +293,9 @@ shader_parameter/antialiasing = 0.01
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lat"]
 size = Vector2(128, 128)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dm7nj"]
+radius = 266.75082
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite") groups=["Player"]]
 script = ExtResource("1_q3lat")
 CuisineDisplaySprite = NodePath("Sprites/CuisineDisplaySprite")
@@ -300,11 +303,11 @@ CuisineDisplaySprite = NodePath("Sprites/CuisineDisplaySprite")
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="LeftHoldMarker" type="Marker2D" parent="Markers"]
-position = Vector2(-51, 37)
+position = Vector2(-72, 37)
 scale = Vector2(352.0935, 16.21222)
 
 [node name="RightHoldMarker" type="Marker2D" parent="Markers"]
-position = Vector2(51, 37)
+position = Vector2(72, 37)
 
 [node name="DownHoldMarker" type="Marker2D" parent="Markers"]
 position = Vector2(0, 31)
@@ -314,7 +317,7 @@ position = Vector2(0, 31)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_v0k0e")
-animation = &"WalkUp"
+animation = &"HoldCuisineWalkHorizontal"
 
 [node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer")]
 material = SubResource("ShaderMaterial_p7tob")
@@ -327,11 +330,21 @@ StaminaTweenDuration = 0.2
 StaminaRegenDelayTimer = NodePath("../../Timers/StaminRegenDelayTimer")
 
 [node name="CuisineDisplaySprite" type="Sprite2D" parent="Sprites"]
+visible = false
 position = Vector2(-3, 31)
-scale = Vector2(0.6, 0.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_q3lat")
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_dm7nj")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
+one_shot = true
 
 [node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
 script = ExtResource("8_5wa8t")
@@ -349,6 +362,7 @@ _nodeStorage = {
 "CuisineDisplaySprite": NodePath("../Sprites/CuisineDisplaySprite"),
 "DownHoldMarker": NodePath("../Markers/DownHoldMarker"),
 "LeftHoldMarker": NodePath("../Markers/LeftHoldMarker"),
+"PickupArea": NodePath("../PickupArea"),
 "Player": NodePath(".."),
 "RightHoldMarker": NodePath("../Markers/RightHoldMarker"),
 "StaminaBar": NodePath("../Sprites/StaminaBar"),
@@ -391,8 +405,3 @@ metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 script = ExtResource("7_v0k0e")
 Storage = NodePath("../../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
-
-[node name="Timers" type="Node" parent="."]
-
-[node name="StaminRegenDelayTimer" type="Timer" parent="Timers"]
-one_shot = true

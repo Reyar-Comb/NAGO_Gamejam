@@ -1,4 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://du1va1amly4c0"]
+[gd_scene load_steps=6 format=3 uid="uid://bjqmobovkfrpx"]
+
+[ext_resource type="Texture2D" uid="uid://d4ggl6cc1qrm0" path="res://Assets/Cuisines/MilkTea.png" id="1_fl1w0"]
+[ext_resource type="Script" uid="uid://bv6dlcg7aoj0g" path="res://Restaurant/RestaurantItems/PickupCounter/PickupPoint.cs" id="2_fbrwh"]
 
 [sub_resource type="Shader" id="Shader_fl1w0"]
 resource_local_to_scene = true
@@ -36,9 +39,22 @@ void fragment() {
     }
 }"
 
-[resource]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fbrwh"]
 resource_local_to_scene = true
 shader = SubResource("Shader_fl1w0")
 shader_parameter/outline_width = 3.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hwpn"]
+size = Vector2(133, 85)
+
+[node name="PickupPoint" type="StaticBody2D"]
+script = ExtResource("2_fbrwh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_fbrwh")
+texture = ExtResource("1_fl1w0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5hwpn")
