@@ -151,7 +151,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Customer" instance=ExtResource("1_iy3b2")]
+[node name="Customer2" instance=ExtResource("1_iy3b2")]
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, -338)
@@ -168,5 +168,6 @@ animation = &"SitRight"
 [node name="VarStorage" parent="." index="5" node_paths=PackedStringArray("_nodeStorage")]
 _nodeStorage = {
 "AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"CollisionShape2D": NodePath("../CollisionShape2D"),
 "Customer": NodePath("..")
 }

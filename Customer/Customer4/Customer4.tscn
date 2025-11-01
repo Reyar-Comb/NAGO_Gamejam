@@ -1,0 +1,208 @@
+[gd_scene load_steps=21 format=3 uid="uid://ccxi7gk3ytqrk"]
+
+[ext_resource type="PackedScene" uid="uid://ds83mf3sm4dvs" path="res://Customer/Customer.tscn" id="1_afm4n"]
+[ext_resource type="Texture2D" uid="uid://dxk2ofxs7c620" path="res://Assets/Character/Customer4SitRight.png" id="2_be0d3"]
+[ext_resource type="Texture2D" uid="uid://c60qw4jrrn35a" path="res://Assets/Character/Customer4SitUp.png" id="3_35iec"]
+[ext_resource type="Texture2D" uid="uid://c0u3bwnvegmnq" path="res://Assets/Character/Customer4.png" id="4_pnm0m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be0d3"]
+size = Vector2(814, 748)
+
+[sub_resource type="Shader" id="Shader_1a38y"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform float outline_width : hint_range(0, 100, 1) = 1.0;
+uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform bool outline_enabled = true;
+
+void fragment() {
+    vec4 current_color = texture(TEXTURE, UV);
+    vec2 size = TEXTURE_PIXEL_SIZE * outline_width;
+
+    if (outline_enabled && current_color.a <= 0.1)
+	{
+        // 检查八个方向的像素
+        float alpha = 0.0;
+        alpha += texture(TEXTURE, UV + vec2(0.0, -size.y)).a;        // 上
+        alpha += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;     // 右上
+        alpha += texture(TEXTURE, UV + vec2(size.x, 0.0)).a;         // 右
+        alpha += texture(TEXTURE, UV + vec2(size.x, size.y)).a;      // 右下
+        alpha += texture(TEXTURE, UV + vec2(0.0, size.y)).a;         // 下
+        alpha += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;     // 左下
+        alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;        // 左
+        alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;    // 左上
+
+        if (alpha > 0.0)
+            COLOR = vec4(outline_color.rgb, alpha * outline_color.a);
+        else
+            COLOR = current_color;
+    }
+	else
+	{
+        COLOR = current_color;
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sunai"]
+resource_local_to_scene = true
+shader = SubResource("Shader_1a38y")
+shader_parameter/outline_width = 20.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3h67"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(0, 0, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2ws3"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(598, 0, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c682a"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(1196, 0, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aun0j"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(0, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w58vy"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(598, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6afm"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(1196, 640, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta6wg"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(0, 1280, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c211i"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(598, 1280, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gaqq"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(1196, 1280, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87ic5"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(0, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mpx4"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(598, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od7uv"]
+atlas = ExtResource("4_pnm0m")
+region = Rect2(1196, 1920, 598, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gak87"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_be0d3")
+}],
+"loop": true,
+"name": &"SitRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_35iec")
+}],
+"loop": true,
+"name": &"SitUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3h67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2ws3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c682a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2ws3")
+}],
+"loop": true,
+"name": &"WalkDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aun0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w58vy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6afm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w58vy")
+}],
+"loop": true,
+"name": &"WalkLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta6wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c211i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gaqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c211i")
+}],
+"loop": true,
+"name": &"WalkRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87ic5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mpx4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od7uv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mpx4")
+}],
+"loop": true,
+"name": &"WalkUp",
+"speed": 5.0
+}]
+
+[node name="Customer2" instance=ExtResource("1_afm4n")]
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -338)
+shape = SubResource("RectangleShape2D_be0d3")
+disabled = false
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+material = SubResource("ShaderMaterial_sunai")
+position = Vector2(4, -219)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_gak87")
+animation = &"SitUp"
+
+[node name="VarStorage" parent="." index="5" node_paths=PackedStringArray("_nodeStorage")]
+_nodeStorage = {
+"AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"CollisionShape2D": NodePath("../CollisionShape2D"),
+"Customer": NodePath("..")
+}

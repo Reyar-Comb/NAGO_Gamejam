@@ -1,4 +1,23 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://o2vhntpihssc"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://o2vhntpihssc"]
+
+[ext_resource type="Texture2D" uid="uid://wdeamc53l47y" path="res://Assets/StartMenu/Point.png" id="1_avet8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fkhj"]
+atlas = ExtResource("1_avet8")
+region = Rect2(1934, 788, 62, 62)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8gfum"]
+load_path = "res://.godot/imported/Point.png-9793017f5e1a4ca15b05bf9a177abe92.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p80tf"]
+atlas = SubResource("CompressedTexture2D_8gfum")
+region = Rect2(1934, 788, 62, 62)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u3ta8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1eii"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ktit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvrd1"]
 bg_color = Color(1, 1, 1, 1)
@@ -18,5 +37,11 @@ thickness = 10
 vertical = true
 
 [resource]
+HSlider/constants/center_grabber = 0
+HSlider/icons/grabber = SubResource("AtlasTexture_5fkhj")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_p80tf")
+HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_u3ta8")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_l1eii")
+HSlider/styles/slider = SubResource("StyleBoxEmpty_3ktit")
 Panel/styles/panel = SubResource("StyleBoxFlat_jvrd1")
 VSeparator/styles/separator = SubResource("StyleBoxLine_avet8")

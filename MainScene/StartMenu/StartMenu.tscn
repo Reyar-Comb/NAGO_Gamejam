@@ -1,0 +1,304 @@
+[gd_scene load_steps=26 format=3 uid="uid://bxd2q2xgvtkqf"]
+
+[ext_resource type="Script" uid="uid://7ultten0xgnw" path="res://MainScene/StartMenu/StartMenu.cs" id="1_bvx6n"]
+[ext_resource type="Texture2D" uid="uid://qmk28stkjxm" path="res://Assets/StartMenu/Background.jpg" id="1_qao1t"]
+[ext_resource type="Texture2D" uid="uid://box4o137oqips" path="res://Assets/StartMenu/SettingsButton.png" id="2_y1ybm"]
+[ext_resource type="Texture2D" uid="uid://dmlhy5fxf5bj0" path="res://Assets/StartMenu/AboutButton.png" id="3_bvx6n"]
+[ext_resource type="Script" uid="uid://cu7syoypcfmyv" path="res://MainScene/StartMenu/ResponsiveButton/ResponsiveButton.cs" id="4_qmvve"]
+[ext_resource type="Texture2D" uid="uid://eb3yega48hmw" path="res://Assets/StartMenu/StartGameButton.png" id="4_uf5kx"]
+[ext_resource type="Texture2D" uid="uid://cghqmucnbc4qr" path="res://Assets/StartMenu/QuitGameButton.png" id="5_qmvve"]
+[ext_resource type="Texture2D" uid="uid://w2anbkfs11wy" path="res://Assets/StartMenu/Title.png" id="6_0gb8q"]
+[ext_resource type="Texture2D" uid="uid://51bhxkikjeoc" path="res://Assets/StartMenu/About.png" id="9_qmvve"]
+[ext_resource type="Texture2D" uid="uid://d810mbi7vfge" path="res://Assets/StartMenu/SettingBack.png" id="10_o0fdo"]
+[ext_resource type="Texture2D" uid="uid://ct17qfbol6u2w" path="res://Assets/StartMenu/BGM.png" id="11_ysiop"]
+[ext_resource type="Texture2D" uid="uid://cnntxemadpna3" path="res://Assets/StartMenu/Tick_false.png" id="12_pvywn"]
+[ext_resource type="Texture2D" uid="uid://b41w7di4yltxb" path="res://Assets/StartMenu/Tick.png" id="13_v74s8"]
+[ext_resource type="Texture2D" uid="uid://dm1eyx0udkgvi" path="res://Assets/UI/SFX.png" id="14_ysiop"]
+[ext_resource type="Texture2D" uid="uid://ck7ksw0yk8x3c" path="res://Assets/StartMenu/SliderBack.png" id="15_6f4dq"]
+[ext_resource type="Texture2D" uid="uid://7riurcdp45s2" path="res://Assets/StartMenu/Slider.png" id="16_iwyvs"]
+[ext_resource type="Theme" uid="uid://o2vhntpihssc" path="res://UI/UIResouce/UITheme.tres" id="17_128kr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmvve"]
+atlas = ExtResource("5_qmvve")
+region = Rect2(193, 1422, 564, 222)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gb8q"]
+atlas = ExtResource("3_bvx6n")
+region = Rect2(193, 1117, 564, 225)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nut0n"]
+atlas = ExtResource("4_uf5kx")
+region = Rect2(193, 503, 564, 219)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uf5kx"]
+atlas = ExtResource("2_y1ybm")
+region = Rect2(193, 803, 564, 225)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f4dq"]
+atlas = ExtResource("12_pvywn")
+region = Rect2(1408, 1238, 105, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwyvs"]
+atlas = ExtResource("13_v74s8")
+region = Rect2(1408, 1238, 105, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbdec"]
+atlas = ExtResource("15_6f4dq")
+region = Rect2(1573, 798, 407, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh502"]
+atlas = ExtResource("16_iwyvs")
+region = Rect2(1573, 798, 407, 42)
+
+[node name="StartMenu" type="Control" node_paths=PackedStringArray("Title")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bvx6n")
+Title = NodePath("StartMenu/Title")
+
+[node name="StartMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qao1t")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+
+[node name="Title" type="TextureRect" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_0gb8q")
+expand_mode = 1
+
+[node name="QuitButton" type="TextureButton" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 149.0
+offset_top = 1082.0
+offset_right = -1207.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture_normal = SubResource("AtlasTexture_qmvve")
+script = ExtResource("4_qmvve")
+
+[node name="AboutButton" type="TextureButton" parent="StartMenu" node_paths=PackedStringArray("AboutMenu")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 151.0
+offset_top = 852.0
+offset_right = -1205.0
+offset_bottom = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture_normal = SubResource("AtlasTexture_0gb8q")
+script = ExtResource("4_qmvve")
+AboutMenu = NodePath("../../About")
+
+[node name="StartButton" type="TextureButton" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 149.0
+offset_top = 384.0
+offset_right = -1207.0
+offset_bottom = -728.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture_normal = SubResource("AtlasTexture_nut0n")
+script = ExtResource("4_qmvve")
+
+[node name="SettingsButton" type="TextureButton" parent="StartMenu" node_paths=PackedStringArray("SettingsMenu")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 148.0
+offset_top = 614.0
+offset_right = -1208.0
+offset_bottom = -504.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture_normal = SubResource("AtlasTexture_uf5kx")
+script = ExtResource("4_qmvve")
+SettingsMenu = NodePath("../../Settings")
+
+[node name="About" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="About"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.63529414)
+
+[node name="TextureRect" type="TextureRect" parent="About"]
+layout_mode = 1
+offset_right = 3198.3333
+offset_bottom = 2320.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("9_qmvve")
+
+[node name="BackButton" type="Button" parent="About"]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 204.0
+offset_right = 825.0
+offset_bottom = 298.0
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="TextureRect" parent="Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_o0fdo")
+
+[node name="ColorRect" type="ColorRect" parent="Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.63529414)
+
+[node name="BGM" type="TextureRect" parent="Settings"]
+layout_mode = 0
+offset_left = -518.0
+offset_top = -477.0
+offset_right = 2482.0
+offset_bottom = 1843.0
+texture = ExtResource("11_ysiop")
+
+[node name="SFX" type="TextureRect" parent="Settings"]
+layout_mode = 0
+offset_left = -518.0
+offset_top = -477.0
+offset_right = 2482.0
+offset_bottom = 1843.0
+texture = ExtResource("14_ysiop")
+
+[node name="BGMTickButton" type="TextureButton" parent="Settings"]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 297.0
+offset_right = 864.0
+offset_bottom = 400.0
+texture_normal = SubResource("AtlasTexture_6f4dq")
+
+[node name="BGMTickedButton" type="TextureButton" parent="Settings"]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 297.0
+offset_right = 864.0
+offset_bottom = 400.0
+texture_normal = SubResource("AtlasTexture_iwyvs")
+
+[node name="SFXTickButton" type="TextureButton" parent="Settings"]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 508.0
+offset_right = 864.0
+offset_bottom = 611.0
+texture_normal = SubResource("AtlasTexture_6f4dq")
+
+[node name="SFXTickedButton" type="TextureButton" parent="Settings"]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 508.0
+offset_right = 864.0
+offset_bottom = 611.0002
+texture_normal = SubResource("AtlasTexture_iwyvs")
+
+[node name="BGMProgressBar" type="TextureProgressBar" parent="Settings"]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 320.0
+offset_right = 1426.0
+offset_bottom = 362.0
+value = 53.0
+texture_under = SubResource("AtlasTexture_pbdec")
+texture_progress = SubResource("AtlasTexture_vh502")
+
+[node name="BGMSlider" type="HSlider" parent="Settings"]
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 279.0
+offset_right = 1425.0
+offset_bottom = 407.0
+theme = ExtResource("17_128kr")
+value = 59.0
+
+[node name="SFXProgressBar" type="TextureProgressBar" parent="Settings"]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 540.39
+offset_right = 1426.0
+offset_bottom = 582.39014
+value = 53.0
+texture_under = SubResource("AtlasTexture_pbdec")
+texture_progress = SubResource("AtlasTexture_vh502")
+
+[node name="SFXSlider" type="HSlider" parent="Settings"]
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 498.32
+offset_right = 1425.0
+offset_bottom = 626.32007
+theme = ExtResource("17_128kr")
+value = 59.0
