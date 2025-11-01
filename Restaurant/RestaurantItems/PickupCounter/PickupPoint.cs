@@ -26,6 +26,7 @@ public partial class PickupPoint : StaticBody2D
                 {
                     AssignedCuisine = Cuisine.GetCuisineByName(CuisineName);
                     Visible = true;
+                    EmitSignal(SignalName.CuisineSpawned);
                 };
             }
         }

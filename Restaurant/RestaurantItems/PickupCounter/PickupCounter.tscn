@@ -6,8 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://c2d2qejvgjfyr" path="res://Assets/Character/ChefPopup.png" id="3_be0di"]
 [ext_resource type="PackedScene" uid="uid://bjqmobovkfrpx" path="res://Restaurant/RestaurantItems/PickupCounter/PickupPoint.tscn" id="4_be0di"]
 
-[node name="PickupCounter" type="Node2D"]
+[node name="PickupCounter" type="Node2D" node_paths=PackedStringArray("PickupPointContainer", "ChefSprite", "UnseenMarker", "PopupMarker")]
 script = ExtResource("1_lek1m")
+PickupPointContainer = NodePath("PickupPoints")
+ChefSprite = NodePath("Mask/ChefSprite")
+ChefPopupChance = 0.2
+UnseenMarker = NodePath("Mask/UnseenMarker")
+PopupMarker = NodePath("Mask/PopupMarker")
 
 [node name="PickupCounterbackgroundSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_ff7m8")
@@ -47,6 +52,12 @@ offset_right = 443.0
 offset_bottom = 97.0
 
 [node name="ChefSprite" type="Sprite2D" parent="Mask"]
-position = Vector2(701.99994, 72.99994)
+position = Vector2(701.99994, 466.00003)
 scale = Vector2(0.3025078, 0.3025078)
 texture = ExtResource("3_be0di")
+
+[node name="UnseenMarker" type="Marker2D" parent="Mask"]
+position = Vector2(702, 466)
+
+[node name="PopupMarker" type="Marker2D" parent="Mask"]
+position = Vector2(702, 122)

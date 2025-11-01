@@ -26,9 +26,6 @@ public partial class InGameDisplay : CanvasLayer
 		InitializeNodeReferences();
 		ConnectSignals();
 	}
-	public override void _Process(double delta)
-	{
-	}
 	public void OnScoreUpdated(int newScore)
 	{
 		_scoreDisplayLabel.Text = "分数: " + newScore.ToString();

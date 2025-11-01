@@ -13,10 +13,9 @@ public partial class TestMainScene : Node2D
 	}
 	public override void _Process(double delta)
 	{
-		// if (Input.IsActionJustPressed("ui_accept"))
-		// {
-		// 	CustomerManager.SpawnCustomer();
-		// 	AudioManager.Instance.PlaySFX("Click");
-		// }
+		if (Input.IsActionJustPressed("ui_accept"))
+		{
+			SceneManager.Instance.ReloadRestaurantScene();
+		}
 	}
 }

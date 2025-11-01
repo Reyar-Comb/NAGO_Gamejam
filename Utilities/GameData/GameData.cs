@@ -39,7 +39,7 @@ public partial class GameData : Node
             field = value;
             SignalBus.Instance.EmitSignal(SignalBus.SignalName.TimeUpdated, field);
         }
-    } = 600;
+    } = 180;
     public override async void _Ready()
     {
         Instance = this;
@@ -47,10 +47,10 @@ public partial class GameData : Node
         UpdateInGameDisplay();
         GetTree().SceneChanged += async () =>
         {
-            RemainingTimeInSeconds = 600;
+            await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
+            RemainingTimeInSeconds = 180;
             NegativeViews = 0;
             Day++;
-            await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
             UpdateInGameDisplay();
         };
     }
