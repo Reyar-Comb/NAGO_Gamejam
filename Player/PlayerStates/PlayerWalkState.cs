@@ -10,12 +10,14 @@ public partial class PlayerWalkState : State
 	{
 		_player = Storage.GetNode<Player>("Player");
 		_sprite = Storage.GetNode<AnimatedSprite2D>("AnimatedSprite");
+		AudioManager.Instance.LoadSFX("FootNorm", "res://Assets/SoundFX/FootNorm2.mp3");
 	}
 
 	protected override void Enter()
 	{
 		GD.Print("Player has entered Walk State.");
 		Storage.SetVariant("AnimationSpeedMultiplier", 1.0f);
+		AudioManager.Instance.PlaySFX("FootNorm");
 	}
 	protected override void FrameUpdate(double delta)
 	{
@@ -27,5 +29,10 @@ public partial class PlayerWalkState : State
 		{
 			AskTransit("Idle");
 		}
+	}
+
+	protected override void Exit()
+	{
+		AudioManager.Instance.StopSFX("FootNorm");
 	}
 }

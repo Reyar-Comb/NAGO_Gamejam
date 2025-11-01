@@ -36,7 +36,7 @@ public partial class CustomerSitState : State
 				_animatedSprite.Play("SitUp");
 				break;
 			case Chair.ChairType.Left:
-				_animatedSprite.GlobalPosition = _customer.TargetChairPosition + new Vector2(160, -200) + new Vector2(0, -80);
+				_animatedSprite.GlobalPosition = _customer.TargetChairPosition + new Vector2(160, -200) + new Vector2(0, -70);
 				_collisionShape.GlobalPosition = _animatedSprite.GlobalPosition;
 				_animatedSprite.Stop();
 				_animatedSprite.Play("SitRight");
