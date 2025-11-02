@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt0r5otwddjv7"]
+
+[ext_resource type="Script" uid="uid://jk6b0khnhawv" path="res://MainScene/GameOverScene/GameOver.cs" id="1_a33jf"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_a33jf")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3o2mugpeoe7q"]
+[gd_scene load_steps=12 format=3 uid="uid://c3o2mugpeoe7q"]
 
 [ext_resource type="Script" uid="uid://t5gtckkvg7iy" path="res://TextManager/TextScene.cs" id="1_dsucd"]
 [ext_resource type="Texture2D" uid="uid://dj55tlt0yc0er" path="res://Assets/Character/PlayerProfile.png" id="2_68f6d"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bhua5pixfay7k" path="res://Assets/Character/ChefProfile.png" id="3_q2oqx"]
 [ext_resource type="Texture2D" uid="uid://d1w778ehlm62y" path="res://Assets/UI/Dialogue.png" id="4_5pydy"]
 [ext_resource type="FontFile" uid="uid://b51ul5dwfw3ok" path="res://Assets/Fonts/MapleMono-NF-CN-Medium.ttf" id="6_5pydy"]
+[ext_resource type="Texture2D" uid="uid://bpx5xeq02q1en" path="res://Assets/UI/Restart.png" id="8_o0qwb"]
+[ext_resource type="Script" uid="uid://b7eur2yyrlu7u" path="res://UI/InGameMenu/RestartButton.cs" id="9_ukqaw"]
+[ext_resource type="Texture2D" uid="uid://fpllu4f3ike8" path="res://Assets/UI/Exit.png" id="10_i83jw"]
+[ext_resource type="Script" uid="uid://dei6mq2ovnr27" path="res://UI/InGameMenu/ExitButton.cs" id="11_ycob4"]
 
 [node name="TextScene" type="CanvasLayer"]
 visible = false
@@ -107,3 +111,25 @@ theme_override_font_sizes/font_size = 40
 text = "asdfasdfsafsaf
 asdfasfasfdsafasfddsf
 asdfsafdasfdsadfsafsafafasfassfasfdasdfasdfasdfasfdasdf"
+
+[node name="RestartButton" type="Button" parent="."]
+z_index = 6
+offset_left = 1267.11
+offset_top = 1193.0
+offset_right = 1805.1106
+offset_bottom = 1416.0
+scale = Vector2(0.41, 0.41)
+focus_mode = 0
+icon = ExtResource("8_o0qwb")
+script = ExtResource("9_ukqaw")
+
+[node name="ExitButton" type="Button" parent="."]
+z_index = 6
+offset_left = 1534.0
+offset_top = 1193.0
+offset_right = 2072.0
+offset_bottom = 1416.0
+scale = Vector2(0.41, 0.41)
+focus_mode = 0
+icon = ExtResource("10_i83jw")
+script = ExtResource("11_ycob4")

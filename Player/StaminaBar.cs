@@ -12,14 +12,14 @@ public partial class StaminaBar : Sprite2D
 	[Export] public VarStorage Storage = null;
 	[Export] public float BaseStaminaGainWhenCustomerSatisfied = 20.0f;
 	public float StaminaDecreaseRate
-    {
+	{
 		get
 		{
 			int combo = GameData.Instance.Combo;
 			if (combo <= 9) return BaseStaminaDecreaseRate * (1 - combo * 0.05f);
 			else return 0;
-        }
-    }
+		}
+	}
 	public float StaminaGainMultiplier = 1.0f;
 	public float Value
 	{
