@@ -17,7 +17,7 @@ public partial class Customer : CharacterBody2D
 	[Export] public float PatienceTimeRandomness = 5f;
 	[Export] public PackedScene[] RubbishScenes;
 	public float CurrentBasePatienceTime => (float)Mathf.Max(
-		MaxPatienceTime - GameData.Instance.TimePassed / 60 * 3,
+		MaxPatienceTime - GameData.Instance.TimePassed / 60 * 5,
 		MinPatienceTime);
 	public float PatienceTime => (float)Mathf.Clamp(
 		CurrentBasePatienceTime + GD.RandRange(-PatienceTimeRandomness, PatienceTimeRandomness),

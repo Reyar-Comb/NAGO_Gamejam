@@ -12,6 +12,8 @@ public partial class SignalBus : Node
     [Signal] public delegate void DialogueStartedEventHandler();
     [Signal] public delegate void DialogueEndedEventHandler();
     [Signal] public delegate void GameStartEventHandler();
+    [Signal] public delegate void ComboReached10EventHandler();
+    [Signal] public delegate void ComboBoostEndedEventHandler();
     public static SignalBus Instance { get; private set; }
     public override void _Ready()
     {

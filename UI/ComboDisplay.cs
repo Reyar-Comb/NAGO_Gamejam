@@ -59,10 +59,12 @@ public partial class ComboDisplay : Label
 		if (newCombo >= 10 && !_reached10)
         {
 			_reached10 = true;
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.ComboReached10);
 			GetTree().CreateTimer(10f).Timeout += () =>
 			{
 				GameData.Instance.Combo = 0;
 				_reached10 = false;
+				SignalBus.Instance.EmitSignal(SignalBus.SignalName.ComboBoostEnded);
 			};
         }
 	}
