@@ -20,12 +20,15 @@ public partial class PlayerSlipState : State
 	protected override void Enter()
 	{
 		GD.Print("Player has entered Slip State.");
-		GetTree().CreateTimer(3f).Timeout += () => AskTransit("Idle");
+		GetTree().CreateTimer(3f).Timeout += () => AskTransit("Walk");
 		_player.CurrentCuisine = null;
 		CanDash = false;
+		_sprite.Play("Slip");
+		_sprite.Scale *= 0.5f;
 	}
     protected override void Exit()
     {
         CanDash = true;
+        _sprite.Scale *= 2f;
     }
 }

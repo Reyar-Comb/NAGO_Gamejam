@@ -48,7 +48,6 @@ public partial class GameData : Node
         await ToSignal(SignalBus.Instance, SignalBus.SignalName.GameStart);
         IsGameStarted = true;
         UpdateInGameDisplay();
-        Combo = 30;
     }
     public void ResetGameData()
     {

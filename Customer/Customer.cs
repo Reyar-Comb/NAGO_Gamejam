@@ -24,6 +24,7 @@ public partial class Customer : CharacterBody2D
 		MinPatienceTime,
 		MaxPatienceTime);
 	public Vector2 CollisionShapePos => GetNode<CollisionShape2D>("CollisionShape2D").GlobalPosition;
+	public bool CanReceiveCuisine = false;
 	public Chair.ChairType TargetChairType;
 	public Cuisine DesiredCuisine { get; private set; }
 	private Vector2 _panelOriginalPosition;
@@ -37,6 +38,7 @@ public partial class Customer : CharacterBody2D
 			field = value;
 			if (field)
 			{
+				GetTree().CreateTimer(0.5f).Timeout += () => CanReceiveCuisine = true;
 				OrderDisplayPanel.Visible = true;
 				GetNode<TextureRect>("%CuisineIcon").Texture = DesiredCuisine.CuisineTexture;
 				_patienceTime = PatienceTime;
@@ -146,7 +148,6 @@ public partial class Customer : CharacterBody2D
 			await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.CustomerSatisfied);
 			cuisine.OnDelivered(1 + (float)PatienceTimer.TimeLeft / _patienceTime);
-			for (int i = 0; i < 100; ++i)
 			DecideThrowRubbish();
 			GameData.Instance.Combo++;
 			Leave();
@@ -155,6 +156,7 @@ public partial class Customer : CharacterBody2D
 		{
 			AudioManager.Instance.PlaySFX("Wrong");
 			GetAngry();
+			GD.Print("** Highlighted customer wants " + DesiredCuisine.CuisineName + " but received " + cuisine.CuisineName);
 		}
 	}
 	public void ToggleHighlight(bool enable)

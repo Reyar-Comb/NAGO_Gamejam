@@ -228,7 +228,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vtj8b")
 }],
 "loop": true,
-"name": &"PlayerSlip",
+"name": &"Slip",
 "speed": 5.0
 }, {
 "frames": [{
@@ -338,7 +338,7 @@ position = Vector2(0, 31)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_v0k0e")
-animation = &"PlayerSlip"
+animation = &"Slip"
 
 [node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer", "Storage")]
 material = SubResource("ShaderMaterial_p7tob")
@@ -419,6 +419,11 @@ InitialStateName = "Idle"
 Storage = NodePath("../VarStorage")
 metadata/_custom_type_script = "uid://bnasen8oklvj8"
 
+[node name="Slip" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
+script = ExtResource("16_7v5gs")
+Storage = NodePath("../../VarStorage")
+metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
+
 [node name="Universal" type="Node" parent="StateTree" node_paths=PackedStringArray("Storage")]
 script = ExtResource("5_j23h2")
 Storage = NodePath("../../VarStorage")
@@ -450,9 +455,4 @@ metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
 [node name="Idle" type="Node" parent="StateTree/Universal/MoveControl" node_paths=PackedStringArray("Storage")]
 script = ExtResource("7_v0k0e")
 Storage = NodePath("../../../../VarStorage")
-metadata/_custom_type_script = "uid://c7tt4uu4hod0i"
-
-[node name="Slip" type="Node" parent="StateTree/Universal" node_paths=PackedStringArray("Storage")]
-script = ExtResource("16_7v5gs")
-Storage = NodePath("../../../VarStorage")
 metadata/_custom_type_script = "uid://c7tt4uu4hod0i"

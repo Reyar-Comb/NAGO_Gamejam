@@ -78,6 +78,7 @@ grow_horizontal = 2
 layout_mode = 2
 theme_override_constants/separation = 19
 script = ExtResource("3_5ue1w")
+TargetScale = Vector2(1.3, 1.3)
 
 [node name="ComboTextLabel" type="Label" parent="InGameDisplayControl/MarginContainer3/VBoxContainer"]
 layout_mode = 2
