@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="13_nryb2"]
 [ext_resource type="PackedScene" uid="uid://11it6dhr5qar" path="res://Restaurant/RestaurantItems/TableWithChairs.tscn" id="13_ulsfy"]
 [ext_resource type="Texture2D" uid="uid://inhx8x00g7np" path="res://Assets/UI/GameOver.png" id="19_8sqfm"]
-[ext_resource type="Script" uid="uid://bj5vffc5b42cs" path="res://MainScene/test/CanvasLayer.cs" id="19_f4kri"]
+[ext_resource type="Script" uid="uid://bj5vffc5b42cs" path="res://MainScene/test/CanvasLayer2.cs" id="19_f4kri"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nryb2"]
 texture = ExtResource("13_eab41")
@@ -379,7 +379,7 @@ unique_name_in_owner = true
 CustomerList = Array[PackedScene]([ExtResource("3_ulsfy"), ExtResource("4_gnhcv"), ExtResource("5_lds1c")])
 ChairList = [NodePath("../Offset/Tables/TableWithChairsTopLeft/ChairUp"), NodePath("../Offset/Tables/TableWithChairsTopLeft/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsTopLeft/ChairRight"), NodePath("../Offset/Tables/TableWithChairsTopRight/ChairUp"), NodePath("../Offset/Tables/TableWithChairsTopRight/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsTopRight/ChairRight"), NodePath("../Offset/Tables/TableWithChairsBottomLeft/ChairUp"), NodePath("../Offset/Tables/TableWithChairsBottomLeft/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsBottomLeft/ChairRight"), NodePath("../Offset/Tables/TableWithChairsBottomRight/ChairUp"), NodePath("../Offset/Tables/TableWithChairsBottomRight/ChairLeft"), NodePath("../Offset/Tables/TableWithChairsBottomRight/ChairRight")]
 SpawnPositions = Array[Vector2]([Vector2(-128, 1536), Vector2(3072, 1536)])
-InitialSpawnInterval = 1.0
+InitialSpawnInterval = 5.0
 MinSpawnInterval = 1.5
 CustomerSpawnTimer = NodePath("CustomerSpawnTimer")
 SpawnRefreshTimer = NodePath("SpawnTimeRefreshTimer")

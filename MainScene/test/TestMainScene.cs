@@ -19,10 +19,10 @@ public partial class TestMainScene : Node2D
 	}
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("ui_accept"))
-		{
-			GameData.Instance.TimePassed += 60;
-		}
+		// if (Input.IsActionJustPressed("ui_accept"))
+		// {
+		// 	GameData.Instance.TimePassed += 60;
+		// }
 		if (GameData.Instance.NegativeViews >= 10)
 		{
 			GameOver();
