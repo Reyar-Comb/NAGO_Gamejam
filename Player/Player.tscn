@@ -333,6 +333,34 @@ position = Vector2(72, 37)
 [node name="DownHoldMarker" type="Marker2D" parent="Markers"]
 position = Vector2(0, 31)
 
+[node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
+script = ExtResource("8_5wa8t")
+_initialVariantStorage = Dictionary[String, Variant]({
+"AnimationSpeedMultiplier": 1.0,
+"CanDash": true,
+"DashAnimationSpeedMultiplier": 2.0,
+"HeadingRight": false,
+"HeadingUp": false,
+"LastRemovedDirection": "",
+"Speed": 700.0,
+"SpeedMultiplier": 3.0,
+"StaminaDecreaseMultiplier": 1.0
+})
+_nodeStorage = {
+"AnimatedSprite": NodePath("../Sprites/AnimatedSprite2D"),
+"CollisionArea": NodePath("../CollisionArea"),
+"CuisineDisplaySprite": NodePath("../Sprites/CuisineDisplaySprite"),
+"DownHoldMarker": NodePath("../Markers/DownHoldMarker"),
+"InteractArea": NodePath("../InteractArea"),
+"LeftHoldMarker": NodePath("../Markers/LeftHoldMarker"),
+"Player": NodePath(".."),
+"RightHoldMarker": NodePath("../Markers/RightHoldMarker"),
+"StaminaBar": NodePath("../Sprites/StaminaBar"),
+"StateTree": NodePath("../StateTree"),
+"TakeCuisineArea": NodePath("../TakeCuisineArea")
+}
+metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
+
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
@@ -384,34 +412,6 @@ shape = SubResource("CircleShape2D_7v5gs")
 one_shot = true
 
 [node name="DashTrailTimer" type="Timer" parent="Timers"]
-
-[node name="VarStorage" type="Node" parent="." node_paths=PackedStringArray("_nodeStorage")]
-script = ExtResource("8_5wa8t")
-_initialVariantStorage = Dictionary[String, Variant]({
-"AnimationSpeedMultiplier": 1.0,
-"CanDash": true,
-"DashAnimationSpeedMultiplier": 2.0,
-"HeadingRight": false,
-"HeadingUp": false,
-"LastRemovedDirection": "",
-"Speed": 700.0,
-"SpeedMultiplier": 3.0,
-"StaminaDecreaseMultiplier": 1.0
-})
-_nodeStorage = {
-"AnimatedSprite": NodePath("../Sprites/AnimatedSprite2D"),
-"CollisionArea": NodePath("../CollisionArea"),
-"CuisineDisplaySprite": NodePath("../Sprites/CuisineDisplaySprite"),
-"DownHoldMarker": NodePath("../Markers/DownHoldMarker"),
-"InteractArea": NodePath("../InteractArea"),
-"LeftHoldMarker": NodePath("../Markers/LeftHoldMarker"),
-"Player": NodePath(".."),
-"RightHoldMarker": NodePath("../Markers/RightHoldMarker"),
-"StaminaBar": NodePath("../Sprites/StaminaBar"),
-"StateTree": NodePath("../StateTree"),
-"TakeCuisineArea": NodePath("../TakeCuisineArea")
-}
-metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
 
 [node name="StateTree" type="Node" parent="." node_paths=PackedStringArray("Storage")]
 script = ExtResource("4_s1rgi")

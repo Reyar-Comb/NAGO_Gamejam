@@ -11,6 +11,7 @@ public partial class CustomerManager : Node
 	[Export] public float InitialSpawnInterval = 10f;
 	[Export] public float MinSpawnInterval = 2f;
 	[Export] public Timer CustomerSpawnTimer;
+	[Export] public Timer SpawnRefreshTimer;
 	public Godot.Collections.Array<Chair> AvailableChairList = new();
 	public float SpawnInterval => Mathf.Max(
 		InitialSpawnInterval - GameData.Instance.TimePassed / 60 * 0.5f,
@@ -24,6 +25,8 @@ public partial class CustomerManager : Node
 		CustomerSpawnTimer.WaitTime = SpawnInterval;
 		CustomerSpawnTimer.Start(SpawnInterval);
 		CustomerSpawnTimer.Timeout += SpawnCustomer;
+		SpawnRefreshTimer.WaitTime = 60;
+		SpawnRefreshTimer.Timeout += () => CustomerSpawnTimer.Start(SpawnInterval);
 	}
 	
 	public void InitializeAvailableChairs()
@@ -45,7 +48,6 @@ public partial class CustomerManager : Node
 
 	public void SpawnCustomer()
 	{
-		CustomerSpawnTimer.Start(SpawnInterval);
 		if (CustomerList.Count == 0 || ChairList.Count == 0)
 		{
 			GD.PrintErr("CustomerManager: No customers or chairs available to spawn.");

@@ -17,7 +17,6 @@ public partial class TextManager : Node
 	public Label DialogueTextLabel;
 	public Label SpeakerNameLabel;
 	public Label TipLabel;
-	public Button RestartButton;
 	public Button ExitButton;
 	public MarginContainer TextMarginContainer;
 	public string CurrentDialogueScene = "";
@@ -54,9 +53,7 @@ public partial class TextManager : Node
 		PlayerProfileHappy = GD.Load<Texture2D>("res://Assets/Character/PlayerHappy.png");
 		PlayerProfileSad = GD.Load<Texture2D>("res://Assets/Character/PlayerSad.png");
 		PlayerProfileNormal = GD.Load<Texture2D>("res://Assets/Character/PlayerProfile.png");
-		RestartButton = TextScene.Instance.GetNode<Button>("%RestartButton");
 		ExitButton = TextScene.Instance.GetNode<Button>("%ExitButton");
-		RestartButton.Visible = false;
 		ExitButton.Visible = false;
 		AudioManager.Instance.LoadSFX("ShowText", "res://Assets/SoundFX/Click.mp3");
 		TipAnimation();
@@ -187,7 +184,6 @@ public partial class TextManager : Node
 
 		if (DialogueTextLabel.Text.Contains("重新开始"))
 		{
-			RestartButton.Visible = true;
 			ExitButton.Visible = true;
 		}
 		DialogueTextLabel.VisibleRatio = 0f;

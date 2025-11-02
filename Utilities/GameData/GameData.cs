@@ -30,6 +30,10 @@ public partial class GameData : Node
         {
             field = value;
             SignalBus.Instance.EmitSignal(SignalBus.SignalName.TimeUpdated, field);
+            if ((int)field % 60 == 0)
+            {
+                SignalBus.Instance.EmitSignal(SignalBus.SignalName.MinutePassed);
+            }
         }
     } = 0;
     public int Combo

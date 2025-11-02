@@ -17,6 +17,5 @@ public partial class RestartButton2 : ScaleButton
 		TextScene.Instance.Visible = false;
 		TextManager.Instance.RunLines("res://TextManager/Dialogues.json", "StartScene");
 		await SceneManager.Instance.ChangeScene(GD.Load<PackedScene>("res://MainScene/test/testMainScene.tscn"));
-		
 	}
 }
