@@ -29,9 +29,9 @@ public partial class PlayerDashState : State
 			AudioManager.Instance.PlaySFX("FootFast");
 		}
 		else
-        {
+		{
 			DashTrailTimer.Stop();
-        }
+		}
 	}
 	protected override void Exit()
 	{

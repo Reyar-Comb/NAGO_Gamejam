@@ -23,6 +23,10 @@ public partial class TestMainScene : Node2D
 		{
 			GameData.Instance.TimePassed += 60;
 		}
+		if (GameData.Instance.NegativeViews >= 5)
+		{
+			GameOver();
+		}
 	}
 	public async void TryPlayRoutineBGM()
 	{
@@ -32,8 +36,7 @@ public partial class TestMainScene : Node2D
 
 	public async void OnStartDialugueEnded()
 	{
-		AudioManager.Instance.StopBGM(1f);
-		await ToSignal(GetTree().CreateTimer(1f), "timeout");
+		AudioManager.Instance.StopBGM();
 
 		SignalBus.Instance.EmitSignal(SignalBus.SignalName.GameStart);
 		
@@ -45,5 +48,12 @@ public partial class TestMainScene : Node2D
 		AudioManager.Instance.SetBGMVolume(AudioManager.Instance.DefaultBGMVolume);
 		AudioManager.Instance.PlayBGM("BGM");
 		GD.Print(AudioManager.Instance.BGMPlayer.Playing);
+	}
+
+	public async void GameOver()
+	{
+		AudioManager.Instance.StopBGM(3f);
+		await ToSignal(GetTree().CreateTimer(3f), "timeout");
+		await SceneManager.Instance.ChangeScene(GD.Load<PackedScene>("res://MainScene/GameOverScene/GameOver.tscn"));
 	}
 }

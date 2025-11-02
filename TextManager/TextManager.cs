@@ -17,6 +17,8 @@ public partial class TextManager : Node
 	public Label DialogueTextLabel;
 	public Label SpeakerNameLabel;
 	public Label TipLabel;
+	public Button RestartButton;
+	public Button ExitButton;
 	public MarginContainer TextMarginContainer;
 	public string CurrentDialogueScene = "";
 	private float _ePressedTime = 0f;
@@ -52,7 +54,10 @@ public partial class TextManager : Node
 		PlayerProfileHappy = GD.Load<Texture2D>("res://Assets/Character/PlayerHappy.png");
 		PlayerProfileSad = GD.Load<Texture2D>("res://Assets/Character/PlayerSad.png");
 		PlayerProfileNormal = GD.Load<Texture2D>("res://Assets/Character/PlayerProfile.png");
-
+		RestartButton = TextScene.Instance.GetNode<Button>("RestartButton");
+		ExitButton = TextScene.Instance.GetNode<Button>("ExitButton");
+		RestartButton.Visible = false;
+		ExitButton.Visible = false;
 		AudioManager.Instance.LoadSFX("ShowText", "res://Assets/SoundFX/Click.mp3");
 		TipAnimation();
 	}
@@ -107,6 +112,15 @@ public partial class TextManager : Node
 			return;
 		LoadLines(path, scene);
 		StartDialogue();
+
+		if (scene == "GameOverScene")
+		{
+			ChangePlayerImpresstion("Sad");
+		}
+		else
+		{
+			ChangePlayerImpresstion("Normal");
+		}
 	}
 	public void EndDialogue()
 	{
@@ -144,6 +158,34 @@ public partial class TextManager : Node
 		}
 		if (line.Side == "Left") ChangePlayerImpresstion(line.Impression);
 		DialogueTextLabel.Text = line.Text;
+		if (DialogueTextLabel.Text.Contains("#"))
+		{
+			string temp = "";
+			for (int i = 0; i < DialogueTextLabel.Text.Length; i++)
+			{
+				if (DialogueTextLabel.Text[i] == '&')
+				{
+					int min = (int)GameData.Instance.TimePassed / 60;
+					int sec = (int)GameData.Instance.TimePassed % 60;
+					temp += min.ToString("0") + ":" + sec.ToString("00");
+				}
+				else if (DialogueTextLabel.Text[i] == '#')
+				{
+					temp += GameData.Instance.Score.ToString("0");
+				}
+				else
+				{
+					temp += DialogueTextLabel.Text[i];
+				}
+			}
+			DialogueTextLabel.Text = temp;
+		}
+
+		if (DialogueTextLabel.Text.Contains("重新开始"))
+		{
+			RestartButton.Visible = true;
+			ExitButton.Visible = true;
+		}
 		DialogueTextLabel.VisibleRatio = 0f;
 		SpeakerNameLabel.Text = line.SpeakerName;
 		float durationFactor = 0.05f;

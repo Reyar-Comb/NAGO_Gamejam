@@ -112,5 +112,28 @@
             "SpeakerName": "小锑",
             "Impression": "Normal"
         }
+    ], 
+    "GameOverScene":[
+        {
+            "Id": "1",
+            "Side": "Right",
+            "Text": "辛苦了小椰子……今天餐厅确实太忙了，我知道你已经尽力了。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "2",
+            "Side": "Right",
+            "Text": "别气馁！每次失败都是宝贵的经验(坚持时间：&  最终得分：#)",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        }, 
+        {
+            "Id": "3",
+            "Side": "Right",
+            "Text": "调整一下，下次一定送的更好！”你可以点击“重新开始”按钮再来一次，\n我相信你！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        }
     ]
 }
