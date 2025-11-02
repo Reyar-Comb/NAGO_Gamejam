@@ -24,7 +24,7 @@ public partial class AudioManager : Node
 			SetBGMVolume(value);
 		}
 	}
-	public float DefaultAllSFXVolume = -4f;
+	public float DefaultAllSFXVolume = -6f;
 	public float DefaultSFXVolume = 0f;
 	public float loopStart = 0f;
 	public float loopEnd = 0f;

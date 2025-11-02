@@ -16,8 +16,10 @@ public partial class TextManager : Node
 	public TextureRect ChefProfile;
 	public Label DialogueTextLabel;
 	public Label SpeakerNameLabel;
+	public Label TipLabel;
 	public MarginContainer TextMarginContainer;
 	public string CurrentDialogueScene = "";
+	private float _ePressedTime = 0f;
 	private bool _isTextShowing = false;
 	[Serializable]
 	public class DialogueLine
@@ -52,6 +54,7 @@ public partial class TextManager : Node
 		PlayerProfileNormal = GD.Load<Texture2D>("res://Assets/Character/PlayerProfile.png");
 
 		AudioManager.Instance.LoadSFX("ShowText", "res://Assets/SoundFX/Click.mp3");
+		TipAnimation();
 	}
 	private void StartDialogue()
 	{
@@ -69,6 +72,7 @@ public partial class TextManager : Node
 		ChefProfile = textScene.GetNode<TextureRect>("%ChefProfile");
 		DialogueTextLabel = textScene.GetNode<Label>("%DialogueTextLabel");
 		SpeakerNameLabel = textScene.GetNode<Label>("%SpeakerNameLabel");
+		TipLabel = textScene.GetNode<Label>("%TipLabel");
 	}
 	public void ChangePlayerImpresstion(String impression)
 	{
@@ -197,5 +201,25 @@ public partial class TextManager : Node
 	private bool IsSkipping()
 	{
 		return Input.IsMouseButtonPressed(MouseButton.Left) || Input.IsActionJustPressed("Interact");
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionPressed("Skip") && _isTextShowing)
+		{
+			_ePressedTime += (float)delta;
+			if (_ePressedTime >= 1.2f)
+			{
+				EndDialogue();
+			}
+		}
+	}
+
+	public void TipAnimation()
+	{
+		Tween tween = CreateTween();
+		tween.SetLoops();
+		tween.TweenProperty(TipLabel, "modulate:a", 0f, 1f).SetEase(Tween.EaseType.InOut);
+		tween.TweenProperty(TipLabel, "modulate:a", 1f, 1f).SetEase(Tween.EaseType.InOut);
 	}
 }

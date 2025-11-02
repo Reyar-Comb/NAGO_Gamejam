@@ -15,6 +15,7 @@ public partial class TestMainScene : Node2D
 		TextManager.Instance.RunLines("res://TextManager/Dialogues.json", "StartScene");
 		TryPlayRoutineBGM();
 		SignalBus.Instance.Connect(SignalBus.SignalName.DialogueEnded, new Callable(this, MethodName.OnStartDialugueEnded));
+		SignalBus.Instance.Connect(SignalBus.SignalName.GameStart, new Callable(this, MethodName.OnGameStart));
 	}
 	public override void _Process(double delta)
 	{
@@ -27,7 +28,6 @@ public partial class TestMainScene : Node2D
 	{
 		await ToSignal(GetTree().CreateTimer(1f), "timeout");
 		AudioManager.Instance.PlayBGM("Routine", 29.54f, 44.31f);
-		
 	}
 
 	public async void OnStartDialugueEnded()
@@ -36,6 +36,14 @@ public partial class TestMainScene : Node2D
 		await ToSignal(GetTree().CreateTimer(1f), "timeout");
 
 		SignalBus.Instance.EmitSignal(SignalBus.SignalName.GameStart);
+		
+	}
+	public async void OnGameStart()
+	{
+		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+		AudioManager.Instance.StopBGM();
+		AudioManager.Instance.SetBGMVolume(AudioManager.Instance.DefaultBGMVolume);
 		AudioManager.Instance.PlayBGM("BGM");
+		GD.Print(AudioManager.Instance.BGMPlayer.Playing);
 	}
 }

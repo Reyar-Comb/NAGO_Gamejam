@@ -3,6 +3,7 @@ using System;
 
 public partial class GameData : Node
 {
+    public bool IsGameStarted = false;
     public static GameData Instance { get; private set; }
     public int Score
     {
@@ -44,6 +45,8 @@ public partial class GameData : Node
     {
         Instance = this;
         await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
+        await ToSignal(SignalBus.Instance, SignalBus.SignalName.GameStart);
+        IsGameStarted = true;
         UpdateInGameDisplay();
     }
     public void ResetGameData()
@@ -63,6 +66,6 @@ public partial class GameData : Node
     }
     public override void _Process(double delta)
     {
-        TimePassed += (float)delta;
+        if (IsGameStarted) TimePassed += (float)delta;
     }
 }

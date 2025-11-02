@@ -19,6 +19,7 @@ public partial class CustomerManager : Node
 	public override async void _Ready()
 	{
 		await ToSignal(GetTree().CurrentScene, SignalName.Ready);
+		await ToSignal(SignalBus.Instance, SignalBus.SignalName.GameStart);
 		InitializeAvailableChairs();
 		CustomerSpawnTimer.WaitTime = SpawnInterval;
 		CustomerSpawnTimer.Start(SpawnInterval);

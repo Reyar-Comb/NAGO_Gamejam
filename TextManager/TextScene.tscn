@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3o2mugpeoe7q"]
+[gd_scene load_steps=8 format=3 uid="uid://c3o2mugpeoe7q"]
 
 [ext_resource type="Script" uid="uid://t5gtckkvg7iy" path="res://TextManager/TextScene.cs" id="1_dsucd"]
 [ext_resource type="Texture2D" uid="uid://dj55tlt0yc0er" path="res://Assets/Character/PlayerProfile.png" id="2_68f6d"]
+[ext_resource type="FontFile" uid="uid://dlb5jb4whk2q1" path="res://Assets/Fonts/MapleMono-NF-CN-Bold.ttf" id="2_eglui"]
 [ext_resource type="Texture2D" uid="uid://d1q4blkv5dgu8" path="res://Assets/RestaurantItems/FullRestaurantWithKitchen.png" id="2_q2oqx"]
 [ext_resource type="Texture2D" uid="uid://bhua5pixfay7k" path="res://Assets/Character/ChefProfile.png" id="3_q2oqx"]
 [ext_resource type="Texture2D" uid="uid://d1w778ehlm62y" path="res://Assets/UI/Dialogue.png" id="4_5pydy"]
@@ -19,6 +20,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TipLabel" type="Label" parent="DialoguePanel"]
+unique_name_in_owner = true
+z_index = 5
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 626.0
+offset_bottom = 130.0
+theme_override_fonts/font = ExtResource("2_eglui")
+theme_override_font_sizes/font_size = 60
+text = "长按空格跳过对话"
 
 [node name="MarginContainer" type="MarginContainer" parent="DialoguePanel"]
 layout_mode = 1
