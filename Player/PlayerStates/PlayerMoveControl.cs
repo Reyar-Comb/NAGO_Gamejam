@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 public partial class PlayerMoveControl : State
 {
 	private bool HeadingRight
@@ -37,6 +38,23 @@ public partial class PlayerMoveControl : State
 		_originalAnimationSpeedMultiplier = Storage.GetVariant<float>("DashAnimationSpeedMultiplier"); ;
 		_originalSpeed = Storage.GetVariant<float>("Speed");
 	}
+	private void BoostSpeedAfterComboReached10()
+	{
+		Storage.SetVariant("Speed", _originalSpeed * 1.2f);
+		Storage.SetVariant("SpeedMultiplier", _originalSpeedMultiplier);
+		Storage.SetVariant("DashAnimationSpeedMultiplier", _originalAnimationSpeedMultiplier * 1.2f);
+	}
+	private void ResetSpeedAfterComboBoostEnded()
+	{
+		Storage.SetVariant("Speed", _originalSpeed);
+		Storage.SetVariant("SpeedMultiplier", _originalSpeedMultiplier);
+		Storage.SetVariant("DashAnimationSpeedMultiplier", _originalAnimationSpeedMultiplier);
+	}
+    public override void _ExitTree()
+    {
+        SignalBus.Instance.ComboReached10 -= BoostSpeedAfterComboReached10;
+        SignalBus.Instance.ComboBoostEnded -= ResetSpeedAfterComboBoostEnded;
+    }
 	protected override void ReadyBehavior()
 	{
 		_player = Storage.GetNode<Player>("Player");
@@ -48,12 +66,14 @@ public partial class PlayerMoveControl : State
 		_cuisineDisplaySprite = Storage.GetNode<Sprite2D>("CuisineDisplaySprite");
 		_collisionArea = Storage.GetNode<Area2D>("CollisionArea");
 		_collisionArea.AreaEntered += OnCollisionAreaEntered;
+		SignalBus.Instance.ComboReached10 += BoostSpeedAfterComboReached10;
+		SignalBus.Instance.ComboBoostEnded += ResetSpeedAfterComboBoostEnded;
 		InitializeOriginalValues();
 	}
 	private void OnCollisionAreaEntered(Area2D area)
 	{
 		if (GameData.Instance.Combo >= 10) return;
-		
+		GameData.Instance.Combo = 0;
 		if (area.IsInGroup("BananaPeel"))
 		{
 			AskTransit("Slip");
@@ -70,7 +90,6 @@ public partial class PlayerMoveControl : State
 			};
 			GetTree().CreateTimer(10f).Timeout += () =>
 			{
-
 				Storage.SetVariant("SpeedMultiplier", _originalSpeedMultiplier);
 				Storage.SetVariant("DashAnimationSpeedMultiplier", _originalAnimationSpeedMultiplier);
 			};

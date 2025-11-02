@@ -46,6 +46,7 @@ public partial class StaminaBar : Sprite2D
 	private bool _canRegen = true;
 	private ShaderMaterial _staminaBarMaterial = null;
 	private Vector2 _lastPos = Vector2.Zero;
+	private float _originalSpeed = 0f;
 	private void SetInitialShaderParameters()
 	{
 		_staminaBarMaterial.SetShaderParameter("max_value", MaxStamina);
@@ -59,6 +60,8 @@ public partial class StaminaBar : Sprite2D
 		SetInitialShaderParameters();
 		StaminaRegenDelayTimer.Timeout += OnStaminaRegenDelayTimeout;
 		SignalBus.Instance.CustomerSatisfied += OnCustomerSatisfied;
+		_originalSpeed = Storage.GetVariant<float>("Speed");
+		_lastPos = GlobalPosition;
 	}
 	public override void _ExitTree()
 	{
