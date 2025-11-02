@@ -50,11 +50,11 @@ public partial class PlayerMoveControl : State
 		Storage.SetVariant("SpeedMultiplier", _originalSpeedMultiplier);
 		Storage.SetVariant("DashAnimationSpeedMultiplier", _originalAnimationSpeedMultiplier);
 	}
-    public override void _ExitTree()
-    {
-        SignalBus.Instance.ComboReached10 -= BoostSpeedAfterComboReached10;
-        SignalBus.Instance.ComboBoostEnded -= ResetSpeedAfterComboBoostEnded;
-    }
+	public override void _ExitTree()
+	{
+		SignalBus.Instance.ComboReached10 -= BoostSpeedAfterComboReached10;
+		SignalBus.Instance.ComboBoostEnded -= ResetSpeedAfterComboBoostEnded;
+	}
 	protected override void ReadyBehavior()
 	{
 		_player = Storage.GetNode<Player>("Player");
