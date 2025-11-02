@@ -8,12 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://d1w778ehlm62y" path="res://Assets/UI/Dialogue.png" id="4_5pydy"]
 [ext_resource type="FontFile" uid="uid://b51ul5dwfw3ok" path="res://Assets/Fonts/MapleMono-NF-CN-Medium.ttf" id="6_5pydy"]
 [ext_resource type="Texture2D" uid="uid://bpx5xeq02q1en" path="res://Assets/UI/Restart.png" id="8_o0qwb"]
-[ext_resource type="Script" uid="uid://b7eur2yyrlu7u" path="res://UI/InGameMenu/RestartButton.cs" id="9_ukqaw"]
+[ext_resource type="Script" uid="uid://c417dtymlgdof" path="res://TextManager/RestartButton2.cs" id="9_o0qwb"]
 [ext_resource type="Texture2D" uid="uid://fpllu4f3ike8" path="res://Assets/UI/Exit.png" id="10_i83jw"]
 [ext_resource type="Script" uid="uid://dei6mq2ovnr27" path="res://UI/InGameMenu/ExitButton.cs" id="11_ycob4"]
 
 [node name="TextScene" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_dsucd")
 
 [node name="DialoguePanel" type="Control" parent="."]
@@ -112,24 +111,33 @@ text = "asdfasdfsafsaf
 asdfasfasfdsafasfddsf
 asdfsafdasfdsadfsafsafafasfassfasfdasdfasdfasdfasfdasdf"
 
-[node name="RestartButton" type="Button" parent="."]
+[node name="Control" type="HBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -745.0
+offset_top = -151.0
+offset_right = 535.0
+offset_bottom = 72.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.45, 0.45)
+theme_override_constants/separation = 204
+
+[node name="RestartButton" type="Button" parent="Control"]
+unique_name_in_owner = true
 z_index = 6
-offset_left = 1267.11
-offset_top = 1193.0
-offset_right = 1805.1106
-offset_bottom = 1416.0
-scale = Vector2(0.41, 0.41)
+layout_mode = 2
 focus_mode = 0
 icon = ExtResource("8_o0qwb")
-script = ExtResource("9_ukqaw")
+script = ExtResource("9_o0qwb")
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="ExitButton" type="Button" parent="Control"]
+unique_name_in_owner = true
 z_index = 6
-offset_left = 1534.0
-offset_top = 1193.0
-offset_right = 2072.0
-offset_bottom = 1416.0
-scale = Vector2(0.41, 0.41)
+layout_mode = 2
 focus_mode = 0
 icon = ExtResource("10_i83jw")
 script = ExtResource("11_ycob4")
