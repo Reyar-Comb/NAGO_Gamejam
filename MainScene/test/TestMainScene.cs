@@ -53,7 +53,7 @@ public partial class TestMainScene : Node2D
 	public async void GameOver()
 	{
 		GetTree().Paused = true;
-		
+		this.GetNode<CanvasLayer2>("CanvasLayer").Showw();
 		AudioManager.Instance.StopBGM(3f);
 		await ToSignal(GetTree().CreateTimer(3f), "timeout");
 		await SceneManager.Instance.ChangeScene(GD.Load<PackedScene>("res://MainScene/GameOverScene/GameOver.tscn"));

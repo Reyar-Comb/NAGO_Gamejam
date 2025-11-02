@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://i3vol5ye486g"]
+[gd_scene load_steps=25 format=4 uid="uid://i3vol5ye486g"]
 
 [ext_resource type="PackedScene" uid="uid://51vopsq0t4ij" path="res://CustomerManager/CustomerManager.tscn" id="1_nryb2"]
 [ext_resource type="Script" uid="uid://brxcmsndqnude" path="res://MainScene/test/TestMainScene.cs" id="1_ulsfy"]
@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://chqc8x6t38uyi" path="res://test_astar/TX Tileset Ground.png" id="13_eab41"]
 [ext_resource type="PackedScene" uid="uid://c5krfav7ktqx4" path="res://Player/Player.tscn" id="13_nryb2"]
 [ext_resource type="PackedScene" uid="uid://11it6dhr5qar" path="res://Restaurant/RestaurantItems/TableWithChairs.tscn" id="13_ulsfy"]
+[ext_resource type="Texture2D" uid="uid://inhx8x00g7np" path="res://Assets/UI/GameOver.png" id="19_8sqfm"]
+[ext_resource type="Script" uid="uid://bj5vffc5b42cs" path="res://MainScene/test/CanvasLayer.cs" id="19_f4kri"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nryb2"]
 texture = ExtResource("13_eab41")
@@ -516,6 +518,34 @@ tile_set = SubResource("TileSet_eab41")
 
 [node name="CustomerContainer" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("19_f4kri")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="TextureRect" parent="CanvasLayer/Control"]
+z_index = 5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1500.0
+offset_top = -1160.0
+offset_right = 1500.0
+offset_bottom = 1160.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_8sqfm")
 
 [editable path="Offset/Tables/TableWithChairsTopLeft"]
 [editable path="Offset/Tables/TableWithChairsTopLeft/ChairUp"]

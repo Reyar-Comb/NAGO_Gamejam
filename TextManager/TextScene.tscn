@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dei6mq2ovnr27" path="res://UI/InGameMenu/ExitButton.cs" id="11_ycob4"]
 
 [node name="TextScene" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_dsucd")
 
 [node name="DialoguePanel" type="Control" parent="."]
