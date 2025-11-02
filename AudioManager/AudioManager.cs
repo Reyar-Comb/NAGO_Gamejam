@@ -135,6 +135,7 @@ public partial class AudioManager : Node
 			await FadeVolume("bgm doesnt need name", DefaultBGMVolume, -80f, fadeTime, "BGM");
 		}
 		BGMPlayer.Stop();
+		SetBGMVolume(DefaultBGMVolume);
 		isLooping = false;
 	}
 

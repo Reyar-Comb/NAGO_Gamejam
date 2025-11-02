@@ -1,0 +1,116 @@
+{
+    "StartScene":[
+        {
+            "Id": "1",
+            "Side": "Right",
+            "Text": "(用勺子敲了敲锅边) 叮咚！小椰子，醒醒神儿！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "2",
+            "Side": "Right",
+            "Text": "今天是一年一度的萌兽节！来吃饭的顾客会特别多。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "3",
+            "Side": "Right",
+            "Text": "你是咱们闪送茶餐厅的唯一服务员，快速送餐向来都是你的优势，今天可要\n全靠你发挥了！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "4",
+            "Side": "Left",
+            "Text": "(立刻挺直身板) 放心，我这“椰子闪送”，主打一个快如闪电，稳如泰山！",
+            "SpeakerName": "椰子",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "5",
+            "Side": "Right",
+            "Text": "瞧见这个出餐口没？美味从这里诞生，然后呢（用勺子指向大厅）就得靠\n你把它们送到等候的客人桌上。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "6",
+            "Side": "Right",
+            "Text": "你只需要按E就能端上菜品，走到客人身边再按下E就可以完成送餐。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "7",
+            "Side": "Right",
+            "Text": "对了，客人们的耐心有限哦，要是送错了或者让他们等太久……",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "7",
+            "Side": "Left",
+            "Text": "(脑袋耷拉下来) ……我知道我知道，差评风暴就要来了！",
+            "SpeakerName": "椰子",
+            "Impression": "Sad"
+        },
+        {
+            "Id": "8",
+            "Side": "Right",
+            "Text": "嗯嗯！但要是做得好，(用勺子比划) 咱们的“口碑分数”就能蹭蹭往上涨，\n离咱“萌兽城顶流”的梦想就更近一步！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "9",
+            "Side": "Left",
+            "Text": "(眼睛一亮) 懂了！我要当一个莫得感情的……送餐机器！",
+            "SpeakerName": "椰子",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "10",
+            "Side": "Right",
+            "Text": "哎，机器也得升级嘛！看见那个Shift键了没？情急的时候，可以按住\nShift键发动你的独家“椰子冲刺”！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "11",
+            "Side": "Left",
+            "Text": "(兴奋地原地小跑) 芜湖！起飞！",
+            "SpeakerName": "椰子",
+            "Impression": "Happy"
+        },
+        {
+            "Id": "12",
+            "Side": "Right",
+            "Text": "(赶紧用勺子示意他停下) 哎哟喂，你小心点！飞可以，但得看着点你的\n体力条，可别累晕在半路上了。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "13",
+            "Side": "Right",
+            "Text": "对了，当你成功送餐获得得分时也会获得一个小连击，连击越多体力就会\n消耗得越慢，连击10次就可以激活无限冲刺的能力，维持10秒。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "14",
+            "Side": "Left",
+            "Text": "(立正敬礼) 我明白啦！我会看好体力，精准闪送的！小锑，厨房就交给\n你了，送餐就看我表演吧！",
+            "SpeakerName": "椰子",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "15",
+            "Side": "Right",
+            "Text": "(挥舞着炒勺) 好！第一波客人马上要来了！小椰子快准备好！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        }
+    ]
+}
