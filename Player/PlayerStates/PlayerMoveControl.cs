@@ -49,11 +49,10 @@ public partial class PlayerMoveControl : State
 		}
 		if (area.IsInGroup("WaterPuddle"))
 		{
-			AskTransit("Slip");
 			float speedMultiplier = Storage.GetVariant<float>("SpeedMultiplier");
 			float dashAnimationSpeedMultiplier = Storage.GetVariant<float>("DashAnimationSpeedMultiplier");
 			float speed = Storage.GetVariant<float>("Speed");
-			Storage.SetVariant("Speed", speed * 0.8f);
+			Storage.SetVariant("Speed", speed * 0.6f);
 			Storage.SetVariant("SpeedMultiplier", 1f);
 			Storage.SetVariant("DashAnimationSpeedMultiplier", 1);
 			GetTree().CreateTimer(2f).Timeout += () =>

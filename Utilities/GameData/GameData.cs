@@ -13,15 +13,6 @@ public partial class GameData : Node
             SignalBus.Instance.EmitSignal(SignalBus.SignalName.ScoreUpdated, field);
         }
     } = 0;
-    public int Day
-    {
-        get => field;
-        set
-        {
-            field = value;
-            SignalBus.Instance.EmitSignal(SignalBus.SignalName.DayChanged, field);
-        }
-    } = 1;
     public int NegativeViews
     {
         get => field;
@@ -31,7 +22,7 @@ public partial class GameData : Node
             SignalBus.Instance.EmitSignal(SignalBus.SignalName.NegativeViewsReceived, field);
         }
     } = 0;
-    public float RemainingTimeInSeconds
+    public float TimePassed
     {
         get => field;
         set
@@ -39,38 +30,39 @@ public partial class GameData : Node
             field = value;
             SignalBus.Instance.EmitSignal(SignalBus.SignalName.TimeUpdated, field);
         }
-    } = 180;
+    } = 0;
+    public int Combo
+    {
+        get => field;
+        set
+        {
+            field = value;
+            SignalBus.Instance.EmitSignal(SignalBus.SignalName.ComboUpdated, field);
+        }
+    } = 0;
     public override async void _Ready()
     {
         Instance = this;
         await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
         UpdateInGameDisplay();
-        GetTree().SceneChanged += () =>
-        {
-            RemainingTimeInSeconds = 180;
-            NegativeViews = 0;
-            Day++;
-            Score = Score;
-            GD.Print("New Day: " + Day);
-        };
     }
     public void ResetGameData()
     {
         Score = 0;
-        Day = 1;
         NegativeViews = 0;
-        RemainingTimeInSeconds = 180;
+        TimePassed = 0;
+        Combo = 0;
         UpdateInGameDisplay();
     }
     private void UpdateInGameDisplay()
     {
         Score = Score;
         NegativeViews = NegativeViews;
-        Day = Day;
-        RemainingTimeInSeconds = RemainingTimeInSeconds;
+        TimePassed = TimePassed;
+        Combo = Combo;
     }
     public override void _Process(double delta)
     {
-        RemainingTimeInSeconds -= (float)delta;
+        TimePassed += (float)delta;
     }
 }

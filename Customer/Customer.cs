@@ -17,7 +17,7 @@ public partial class Customer : CharacterBody2D
 	[Export] public float PatienceTimeRandomness = 5f;
 	[Export] public PackedScene[] RubbishScenes;
 	public float CurrentBasePatienceTime => (float)Mathf.Max(
-		MaxPatienceTime - (GameData.Instance.Day - 1) * 2,
+		MaxPatienceTime - GameData.Instance.TimePassed / 60 * 3,
 		MinPatienceTime);
 	public float PatienceTime => (float)Mathf.Clamp(
 		CurrentBasePatienceTime + GD.RandRange(-PatienceTimeRandomness, PatienceTimeRandomness),
@@ -96,7 +96,7 @@ public partial class Customer : CharacterBody2D
 	}
 	private void DecideThrowRubbish()
 	{
-		float throwChance = Mathf.Clamp(0.1f + GameData.Instance.Day * 0.02f, 0.1f, 0.2f);
+		float throwChance = Mathf.Clamp(0.1f + GameData.Instance.TimePassed / 60 * 0.025f, 0.1f, 0.3f);
 		bool willThrow = GD.Randf() < throwChance;
 		if (!willThrow) return;
 		PackedScene rubbishScene = Probability.RunUniformChoose(RubbishScenes);

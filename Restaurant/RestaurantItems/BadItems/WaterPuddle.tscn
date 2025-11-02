@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://beuq4p5wu1ev5"]
+[gd_scene load_steps=4 format=3 uid="uid://beuq4p5wu1ev5"]
 
 [ext_resource type="Script" uid="uid://coa41ptij75h8" path="res://Restaurant/RestaurantItems/BadItems/WaterPuddle.cs" id="1_xgcam"]
+[ext_resource type="Texture2D" uid="uid://cir7as70efvx4" path="res://Assets/Misc/BadItems/WaterPuddle.png" id="2_0akll"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm4cp"]
+size = Vector2(127, 55)
 
 [node name="WaterPuddle" type="Area2D" groups=["WaterPuddle"]]
 script = ExtResource("1_xgcam")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0akll")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 17.5)
+shape = SubResource("RectangleShape2D_gm4cp")

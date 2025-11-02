@@ -73,25 +73,27 @@ public partial class PlayerUniversalState : State
 		}
 		if (Input.IsActionJustPressed("Interact"))
 		{
-			if (_player.CurrentCuisine == null && _highlightedPickupPoint != null)
-			{
-				_player.CurrentCuisine = _highlightedPickupPoint.AssignedCuisine;
-				_highlightedPickupPoint.AssignedCuisine = null;
-				_nearbyPickupPoints.Remove(_highlightedPickupPoint);
-				_highlightedPickupPoint.ToggleHighlight(false);
-
-				AudioManager.Instance.PlaySFX("Interact");
-			}
-			else if (_player.CurrentCuisine != null && _highlightedCustomer != null)
-			{
-				_highlightedCustomer.ReceiveCuisine(_player.CurrentCuisine);
-				_nearbyCustomers.Remove(_highlightedCustomer);
-				_highlightedCustomer.ToggleHighlight(false);
-				_player.CurrentCuisine = null;
-
-				AudioManager.Instance.PlaySFX("Interact");
-			}
+			OnPickupPointInteracted(_highlightedPickupPoint);
+			OnCustomerInteracted(_highlightedCustomer);
 		}
+	}
+	private void OnPickupPointInteracted(PickupPoint pickupPoint)
+	{
+		if (pickupPoint is null || pickupPoint?.AssignedCuisine is null) return;
+		_player.CurrentCuisine = pickupPoint.AssignedCuisine;
+		pickupPoint.AssignedCuisine = null;
+		_nearbyPickupPoints.Remove(pickupPoint);
+		pickupPoint.ToggleHighlight(false);
+	}
+	private void OnCustomerInteracted(Customer customer)
+	{
+		if (_player.CurrentCuisine is null || customer is null) return;
+		customer.ReceiveCuisine(_player.CurrentCuisine);
+		_player.CurrentCuisine = null;
+		_nearbyCustomers.Remove(customer);
+		customer.ToggleHighlight(false);
+
+		AudioManager.Instance.PlaySFX("Interact");
 	}
 	private void UpdatePickupPointHighlight()
 	{
@@ -104,11 +106,11 @@ public partial class PlayerUniversalState : State
 			a.GlobalPosition.DistanceTo(_player.GlobalPosition)
 			.CompareTo(b.GlobalPosition.DistanceTo(_player.GlobalPosition))
 		);
-		if (_player.CurrentCuisine != null)
-		{
-			_highlightedPickupPoint = null;
-			return;
-		}
+		// if (_player.CurrentCuisine != null)
+		// {
+		// 	_highlightedPickupPoint = null;
+		// 	return;
+		// }
 		_highlightedPickupPoint = _nearbyPickupPoints[0];
 		_highlightedPickupPoint.ToggleHighlight(true);
 		for (int i = 1; i < _nearbyPickupPoints.Count; i++)

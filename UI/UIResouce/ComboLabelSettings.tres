@@ -1,0 +1,14 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c5lhhaey1m6ep"]
+
+[sub_resource type="SystemFont" id="SystemFont_ro4k2"]
+font_names = PackedStringArray("南构倩黑-H")
+
+[resource]
+font = SubResource("SystemFont_ro4k2")
+font_size = 70
+font_color = Color(0.65, 0.65, 0.65, 1)
+outline_size = 5
+outline_color = Color(0.4, 0.4, 0.4, 1)
+shadow_size = 20
+shadow_color = Color(0.33, 0.059400003, 0.059400003, 0.41568628)
+shadow_offset = Vector2(5, 5)

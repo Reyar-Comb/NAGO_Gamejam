@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://qau8f4xvrh45"]
+[gd_scene load_steps=5 format=3 uid="uid://qau8f4xvrh45"]
 
 [ext_resource type="LabelSettings" uid="uid://du3tjffftumx3" path="res://UI/UIResouce/LabelSettings.tres" id="1_iybee"]
 [ext_resource type="Script" uid="uid://dtrimc2h6b4jg" path="res://UI/InGameDisplay.cs" id="1_v4w3m"]
+[ext_resource type="LabelSettings" uid="uid://c5lhhaey1m6ep" path="res://UI/UIResouce/ComboLabelSettings.tres" id="3_b6rdy"]
+[ext_resource type="Script" uid="uid://bud6mc3pc2liv" path="res://UI/ComboDisplay.cs" id="4_nepr3"]
 
 [node name="InGameDisplay" type="CanvasLayer"]
 script = ExtResource("1_v4w3m")
@@ -24,16 +26,15 @@ theme_override_constants/margin_left = 50
 layout_mode = 2
 theme_override_constants/separation = 19
 
-[node name="DayDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer1/VBoxContainer"]
-unique_name_in_owner = true
+[node name="TimeTextLabel" type="Label" parent="InGameDisplayControl/MarginContainer1/VBoxContainer"]
 layout_mode = 2
-text = "第 0721 天"
+text = "经营时间"
 label_settings = ExtResource("1_iybee")
 
 [node name="RemainingTimeDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer1/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "9 分钟"
+text = "00:00"
 label_settings = ExtResource("1_iybee")
 
 [node name="MarginContainer2" type="MarginContainer" parent="InGameDisplayControl"]
@@ -60,3 +61,32 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "差评 1919810"
 label_settings = ExtResource("1_iybee")
+
+[node name="MarginContainer3" type="MarginContainer" parent="InGameDisplayControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -236.0
+offset_right = 236.0
+offset_bottom = 164.0
+grow_horizontal = 2
+theme_override_constants/margin_right = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameDisplayControl/MarginContainer3"]
+layout_mode = 2
+
+[node name="ComboTextLabel" type="Label" parent="InGameDisplayControl/MarginContainer3/VBoxContainer"]
+layout_mode = 2
+text = "连击数"
+label_settings = ExtResource("3_b6rdy")
+horizontal_alignment = 1
+
+[node name="ComboDisplay" type="Label" parent="InGameDisplayControl/MarginContainer3/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0
+"
+label_settings = ExtResource("3_b6rdy")
+horizontal_alignment = 1
+script = ExtResource("4_nepr3")

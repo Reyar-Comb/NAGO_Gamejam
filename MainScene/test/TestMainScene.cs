@@ -15,7 +15,7 @@ public partial class TestMainScene : Node2D
 	{
 		if (Input.IsActionJustPressed("ui_accept"))
 		{
-			SceneManager.Instance.ReloadRestaurantScene();
+			GameData.Instance.TimePassed += 60;
 		}
 	}
 }

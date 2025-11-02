@@ -23,8 +23,11 @@ public partial class PlayerDashState : State
 	{
 		GD.Print("Player has entered Dash State.");
 		Storage.SetVariant("AnimationSpeedMultiplier", Storage.GetVariant<float>("DashAnimationSpeedMultiplier"));
-		DashTrailTimer.Start(DashTrailInterval);
-		AudioManager.Instance.PlaySFX("FootFast");
+		if (!Mathf.IsEqualApprox(Storage.GetVariant<float>("SpeedMultiplier"), 1f))
+		{
+			DashTrailTimer.Start(DashTrailInterval);
+			AudioManager.Instance.PlaySFX("FootFast");
+		}
 	}
 	protected override void Exit()
 	{
