@@ -10,6 +10,9 @@ public partial class TextManager : Node
 	public static TextManager Instance { get; private set; }
 	public Control DialoguePanel;
 	public TextureRect PlayerProfile;
+	public Texture2D PlayerProfileHappy;
+	public Texture2D PlayerProfileSad;
+	public Texture2D PlayerProfileNormal;
 	public TextureRect ChefProfile;
 	public Label DialogueTextLabel;
 	public Label SpeakerNameLabel;
@@ -23,6 +26,7 @@ public partial class TextManager : Node
 		public string Side { get; set; }
 		public string Text { get; set; }
 		public string SpeakerName { get; set; }
+		public string Impression { get; set; }
 	}
 	public DialogueLine[] Lines;
 	public int Index = 0;
@@ -42,6 +46,12 @@ public partial class TextManager : Node
 		}
 
 		GetTextSceneNodes();
+
+		PlayerProfileHappy = GD.Load<Texture2D>("res://Assets/Character/PlayerHappy.png");
+		PlayerProfileSad = GD.Load<Texture2D>("res://Assets/Character/PlayerSad.png");
+		PlayerProfileNormal = GD.Load<Texture2D>("res://Assets/Character/PlayerProfile.png");
+
+		AudioManager.Instance.LoadSFX("ShowText", "res://Assets/SoundFX/Click.mp3");
 	}
 	private void StartDialogue()
 	{
@@ -59,6 +69,22 @@ public partial class TextManager : Node
 		ChefProfile = textScene.GetNode<TextureRect>("%ChefProfile");
 		DialogueTextLabel = textScene.GetNode<Label>("%DialogueTextLabel");
 		SpeakerNameLabel = textScene.GetNode<Label>("%SpeakerNameLabel");
+	}
+	public void ChangePlayerImpresstion(String impression)
+	{
+		switch (impression)
+		{
+			case "Happy":
+				PlayerProfile.Texture = PlayerProfileHappy;
+				break;
+			case "Sad":
+				PlayerProfile.Texture = PlayerProfileSad;
+				break;
+			default:
+				// 默认表情
+				PlayerProfile.Texture = PlayerProfileNormal;
+				break;
+		}
 	}
 	private void LoadLines(string path, string scene)
 	{
@@ -91,6 +117,7 @@ public partial class TextManager : Node
 	}
 	private async void ShowText()
 	{
+		AudioManager.Instance.PlaySFX("ShowText");
 		if (!_isTextShowing || Lines is null || Index >= Lines.Length)
 		{
 			EndDialogue();
@@ -111,11 +138,11 @@ public partial class TextManager : Node
 			PlayerProfile.Modulate = new Color(0.5f, 0.5f, 0.5f, 1f);		
 			ChefProfile.Modulate = new Color(1, 1, 1, 1);
 		}
-
+		if (line.Side == "Left") ChangePlayerImpresstion(line.Impression);
 		DialogueTextLabel.Text = line.Text;
 		DialogueTextLabel.VisibleRatio = 0f;
 		SpeakerNameLabel.Text = line.SpeakerName;
-		float durationFactor = 0.035f;
+		float durationFactor = 0.05f;
 		tween.TweenProperty(DialogueTextLabel, "visible_ratio", 1f, line.Text.Length * durationFactor);
 
 		while (true)

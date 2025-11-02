@@ -1,28 +1,95 @@
 {
-    "scene1":[
+    "StartScene":[
         {
             "Id": "1",
-            "Side": "Left",
-            "Text": "Hello!",
-            "SpeakerName": "椰子"
+            "Side": "Right",
+            "Text": "(用勺子敲了敲锅边) 叮咚！小椰子，醒醒神儿！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
         },
         {
             "Id": "2",
             "Side": "Right",
-            "Text": "Hey there!",
-            "SpeakerName": "小锑"
+            "Text": "你是咱们闪送茶餐厅的唯一服务员，咱这店的生死存亡，可全都看你那\n“椰子闪送”了！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
         },
         {
             "Id": "3",
             "Side": "Left",
-            "Text": "Where are we going?",
-            "SpeakerName": "椰子"
+            "Text": "(立刻挺直身板) 放心，我这“椰子闪送”，主打一个快如闪电，稳如泰山！",
+            "SpeakerName": "椰子",
+            "Impression": "Normal"
         },
         {
             "Id": "4",
             "Side": "Right",
-            "Text": "Just going to the dock to get some chips.",
-            "SpeakerName": "小锑"
+            "Text": "瞧见那个出餐口没？美味从这里诞生，然后——（用勺子指向大厅）就得靠你\n把它“闪送”到嗷嗷待哺的客人桌上。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "5",
+            "Side": "Right",
+            "Text": "对了，客人们的耐心可不是都很好哟，要是送错了或者让他们等太久……",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "6",
+            "Side": "Left",
+            "Text": "(脑袋耷拉下来) ……我知道我知道，差评风暴就要来了！",
+            "SpeakerName": "椰子",
+            "Impression": "Sad"
+        },
+        {
+            "Id": "7",
+            "Side": "Right",
+            "Text": "嗯嗯！但要是做得好，（用勺子画了个星星）咱们的“口碑得分”就能蹭蹭往\n上涨，离咱“萌宠城顶流”的梦想就更近一步！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "8",
+            "Side": "Left",
+            "Text": "(眼睛一亮）懂了！就是当好一个莫得感情的……送餐机器！",
+            "SpeakerName": "椰子",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "9",
+            "Side": "Right",
+            "Text": "哎，机器也得升级嘛！看见你身上那个Shift键了没？情急的时候，可以按\n住Shift键发动你的独家“椰子冲刺”！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "10",
+            "Side": "Left",
+            "Text": "(兴奋地原地小跑) 芜湖！起飞！",
+            "SpeakerName": "椰子",
+            "Impression": "Happy"
+        },
+        {
+            "Id": "11",
+            "Side": "Right",
+            "Text": "(赶紧用勺子示意他停下) 哎哟喂，我的小祖宗！飞可以，但得看着点你的\n体力条，可别累晕在半路上了。",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "12",
+            "Side": "Left",
+            "Text": "(立正敬礼) 明白啦！我会看好体力，精准闪送的！小锑，厨房就交给你\n了，前台看我表演！",
+            "SpeakerName": "椰子",
+            "Impression": "Normal"
+        },
+        {
+            "Id": "13",
+            "Side": "Right",
+            "Text": "(挥舞着炒勺) 好！第一波客人马上要来了！小椰子快准备好！",
+            "SpeakerName": "小锑",
+            "Impression": "Normal"
         }
     ]
 }

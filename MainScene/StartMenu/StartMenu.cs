@@ -20,7 +20,7 @@ public partial class StartMenu : Control
 		AudioManager.Instance.PlayBGM("BGM");
 	}
 
-	
+
 	public void TitleAnimation()
 	{
 		if (_titleTween != null)
@@ -34,4 +34,6 @@ public partial class StartMenu : Control
 		_titleTween.TweenProperty(Title, "global_position", TitlePos - new Vector2(0, 20f), 1f).SetEase(Tween.EaseType.InOut);
 
 	}
+
+	
 }

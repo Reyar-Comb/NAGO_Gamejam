@@ -138,7 +138,7 @@ public partial class ResponsiveButton : TextureButton
 		if (this.Name == "StartButton")
 		{
 			AudioManager.Instance.StopBGM(1f);
-
+			await SceneManager.Instance.ChangeScene(GD.Load<PackedScene>("res://MainScene/test/testMainScene.tscn"));
 		}
 		else if (this.Name == "QuitButton")
 		{
