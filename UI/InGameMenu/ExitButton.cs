@@ -6,6 +6,9 @@ public partial class ExitButton : ScaleButton
 	protected override void ReadyBehavior()
 	{
 		ProcessMode = ProcessModeEnum.Always;
-		Pressed += () => GetTree().Quit();
+		Pressed += () =>
+		{
+			GetTree().Quit();
+		};
 	}
 }

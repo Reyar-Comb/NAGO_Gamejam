@@ -127,7 +127,6 @@ theme_override_constants/separation = 204
 
 [node name="ExitButton" type="Button" parent="Control"]
 unique_name_in_owner = true
-visible = false
 z_index = 6
 layout_mode = 2
 focus_mode = 0

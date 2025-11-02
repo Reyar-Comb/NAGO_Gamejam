@@ -182,7 +182,7 @@ public partial class TextManager : Node
 			DialogueTextLabel.Text = temp;
 		}
 
-		if (DialogueTextLabel.Text.Contains("重新开始"))
+		if (DialogueTextLabel.Text.Contains("下次一定"))
 		{
 			ExitButton.Visible = true;
 		}

@@ -23,7 +23,7 @@ public partial class TestMainScene : Node2D
 		{
 			GameData.Instance.TimePassed += 60;
 		}
-		if (GameData.Instance.NegativeViews >= 5)
+		if (GameData.Instance.NegativeViews >= 10)
 		{
 			GameOver();
 		}
