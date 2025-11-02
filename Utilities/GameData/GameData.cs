@@ -45,13 +45,13 @@ public partial class GameData : Node
         Instance = this;
         await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
         UpdateInGameDisplay();
-        GetTree().SceneChanged += async () =>
+        GetTree().SceneChanged += () =>
         {
-            await ToSignal(GetTree().CurrentScene, Node.SignalName.Ready);
             RemainingTimeInSeconds = 180;
             NegativeViews = 0;
             Day++;
-            UpdateInGameDisplay();
+            Score = Score;
+            GD.Print("New Day: " + Day);
         };
     }
     public void ResetGameData()
@@ -59,7 +59,7 @@ public partial class GameData : Node
         Score = 0;
         Day = 1;
         NegativeViews = 0;
-        RemainingTimeInSeconds = 600;
+        RemainingTimeInSeconds = 180;
         UpdateInGameDisplay();
     }
     private void UpdateInGameDisplay()

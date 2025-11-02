@@ -90,7 +90,7 @@ public partial class PlayerMoveControl : State
 	protected override void FrameUpdate(double delta)
 	{
 		if (_player.CurrentCuisine is null) return;
-		switch (GetLastDirection())
+		switch (string.IsNullOrEmpty(GetLastDirection()) ? Storage.GetVariant<string>("LastRemovedDirection") : GetLastDirection())
 		{
 			case "Left":
 				_cuisineDisplaySprite.GlobalPosition = _leftHoldMarker.GlobalPosition;

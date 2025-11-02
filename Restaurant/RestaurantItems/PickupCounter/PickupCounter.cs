@@ -17,7 +17,7 @@ public partial class PickupCounter : Node2D
 	}
 	private void OnCuisineSpawned()
 	{
-		if (GD.Randf() <= ChefPopupChance)
+		if (GD.Randf() <= ChefPopupChance && (!_chefTween?.IsRunning() ?? true))
 		{
 			_chefTween = CreateTween();
 			_chefTween.TweenProperty(ChefSprite, "global_position", PopupMarker.GlobalPosition, 0.3f)

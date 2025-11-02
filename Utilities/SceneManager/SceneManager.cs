@@ -6,7 +6,7 @@ public partial class SceneManager : Node
     [Export] public PackedScene RestaurantScene;
 	public static SceneManager Instance { get; private set; }
 	public TransitionLayer Transition => GetNode<TransitionLayer>("TransitionLayer");
-	public async void ChangeScene(PackedScene scene)
+	public async Task ChangeScene(PackedScene scene)
     {
 		await Transition.FadeIn(0.5f);
         GetTree().ChangeSceneToPacked(scene);
@@ -22,8 +22,7 @@ public partial class SceneManager : Node
 	}
     public async void ReloadRestaurantScene()
     {
-        var currentScene = GetTree().CurrentScene;
-        ChangeScene(RestaurantScene);
+       await ChangeScene(RestaurantScene);
     }
 	public override void _Ready()
 	{

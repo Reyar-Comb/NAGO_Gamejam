@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=50 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
@@ -296,10 +296,13 @@ shader_parameter/antialiasing = 0.01
 size = Vector2(128, 89)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dm7nj"]
-radius = 266.75082
+radius = 165.02727
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7v5gs"]
 size = Vector2(128, 89)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7v5gs"]
+radius = 192.02344
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CuisineDisplaySprite") groups=["Player"]]
 script = ExtResource("1_q3lat")
@@ -347,6 +350,7 @@ shape = SubResource("RectangleShape2D_q3lat")
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(-1, 173)
 shape = SubResource("CircleShape2D_dm7nj")
 
 [node name="CollisionArea" type="Area2D" parent="."]
@@ -354,6 +358,12 @@ shape = SubResource("CircleShape2D_dm7nj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
 position = Vector2(0, 200.5)
 shape = SubResource("RectangleShape2D_7v5gs")
+
+[node name="TakeCuisineArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeCuisineArea"]
+position = Vector2(0, -75)
+shape = SubResource("CircleShape2D_7v5gs")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -385,7 +395,8 @@ _nodeStorage = {
 "Player": NodePath(".."),
 "RightHoldMarker": NodePath("../Markers/RightHoldMarker"),
 "StaminaBar": NodePath("../Sprites/StaminaBar"),
-"StateTree": NodePath("../StateTree")
+"StateTree": NodePath("../StateTree"),
+"TakeCuisineArea": NodePath("../TakeCuisineArea")
 }
 metadata/_custom_type_script = "uid://bk8rt0dw3k3ut"
 

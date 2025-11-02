@@ -8,6 +8,7 @@ public partial class PlayerUniversalState : State
 	[Export] public int ScanFrameInterval = 5;
 	private Player _player;
 	private Area2D _interactArea;
+	private Area2D _takeCuisineArea;
 	private List<PickupPoint> _nearbyPickupPoints = new();
 	private PickupPoint _highlightedPickupPoint;
 	private List<Customer> _nearbyCustomers = new();
@@ -17,37 +18,48 @@ public partial class PlayerUniversalState : State
 	{
 		_player = Storage.GetNode<Player>("Player");
 		_interactArea = Storage.GetNode<Area2D>("InteractArea");
-		_interactArea.BodyEntered += OnBodyEntered;
-		_interactArea.BodyExited += OnBodyExited;
+		_takeCuisineArea = Storage.GetNode<Area2D>("TakeCuisineArea");
+		_interactArea.BodyEntered += OnInteractAreaBodyEntered;
+		_interactArea.BodyExited += OnInteractAreaBodyExited;
+		_takeCuisineArea.BodyEntered += OnTakeCuisineAreaBodyEntered;
+		_takeCuisineArea.BodyExited += OnTakeCuisineAreaBodyExited;
 
 		AudioManager.Instance.LoadSFX("Interact", "res://Assets/SoundFX/Interact.mp3");
 	}
-	private void OnBodyEntered(Node2D body)
+	private void OnInteractAreaBodyEntered(Node2D body)
 	{
-		if (body is PickupPoint pickupPoint && pickupPoint.AssignedCuisine != null
-		&& !_nearbyPickupPoints.Contains(pickupPoint))
-			_nearbyPickupPoints.Add(pickupPoint);
 		if (body is Customer customer && customer.IsSeated && !customer.IsDelivered
 		&& !customer.IsLeaving && !_nearbyCustomers.Contains(customer))
 			_nearbyCustomers.Add(customer);
 	}
-	private void OnBodyExited(Node2D body)
+	private void OnInteractAreaBodyExited(Node2D body)
 	{
-		if (body is PickupPoint pickupPoint)
-		{
-			_nearbyPickupPoints.Remove(pickupPoint);
-			pickupPoint.ToggleHighlight(false);
-		}
 		if (body is Customer customer)
 		{
 			_nearbyCustomers.Remove(customer);
 			customer.ToggleHighlight(false);
 		}
 	}
+	private void OnTakeCuisineAreaBodyEntered(Node2D body)
+	{
+		if (body is PickupPoint pickupPoint && pickupPoint.AssignedCuisine != null
+		&& !_nearbyPickupPoints.Contains(pickupPoint))
+			_nearbyPickupPoints.Add(pickupPoint);
+	}
+	private void OnTakeCuisineAreaBodyExited(Node2D body)
+	{
+		if (body is PickupPoint pickupPoint)
+		{
+			_nearbyPickupPoints.Remove(pickupPoint);
+			pickupPoint.ToggleHighlight(false);
+		}
+	}
 	private void RunScan()
 	{
 		foreach (var body in _interactArea.GetOverlappingBodies())
-			OnBodyEntered(body);
+			OnInteractAreaBodyEntered(body);
+		foreach (var body in _takeCuisineArea.GetOverlappingBodies())
+			OnTakeCuisineAreaBodyEntered(body);
 	}
 	protected override void FrameUpdate(double delta)
 	{

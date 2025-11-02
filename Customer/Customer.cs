@@ -90,25 +90,25 @@ public partial class Customer : CharacterBody2D
 		{
 			Chair.ChairType.Up => new Vector2(-400, -700),
 			Chair.ChairType.Left => new Vector2(61 + _leftAndRightXOffset, -1070),
-			Chair.ChairType.Right => new Vector2(-261 + _leftAndRightXOffset, -1070),
+			Chair.ChairType.Right => new Vector2(-261 + _leftAndRightXOffset, -1135),
 			_ => new Vector2(0, -150),
 		};
 	}
 	private void DecideThrowRubbish()
 	{
-		float throwChance = 0.1f;
+		float throwChance = Mathf.Clamp(0.1f + GameData.Instance.Day * 0.02f, 0.1f, 0.2f);
 		bool willThrow = GD.Randf() < throwChance;
 		if (!willThrow) return;
 		PackedScene rubbishScene = Probability.RunUniformChoose(RubbishScenes);
 		Node2D instance = rubbishScene.Instantiate<Node2D>();
 		if (TargetChairType == Chair.ChairType.Up)
 		{
-			instance.GlobalPosition = TargetChairPosition + Vector2.Right * GD.RandRange(-300, 300);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Right * GD.RandRange(150, 300) * Probability.RunUniformChoose([-1f, 1f]);
 		}
 		else if (TargetChairType == Chair.ChairType.Left)
 		{
 			float angle = (float)GD.RandRange(-Mathf.Pi / 2, Mathf.Pi / 2);
-			instance.GlobalPosition = TargetChairPosition + Vector2.Left.Rotated(angle) * GD.RandRange(150, 300);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Left.Rotated(angle) * GD.RandRange(300, 500);
 		}
 		else
 		{
@@ -232,11 +232,10 @@ public partial class Customer : CharacterBody2D
 	protected virtual void OnOrdered() { }
 	protected virtual void OnCuisineDelivered() { }
 	protected virtual void OnCuisineFinished() { }
-	protected virtual void OnPatienceRunOut() { }
 	protected void OnPatienceTimeout()
 	{
 		GD.Print("顾客的耐心用尽了！");
-		OnPatienceRunOut();
+		GameData.Instance.NegativeViews++;
 		Leave();
 	}
 }

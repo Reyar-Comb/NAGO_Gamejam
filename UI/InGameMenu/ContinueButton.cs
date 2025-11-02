@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public partial class ContinueButton : Button
+public partial class ContinueButton : ScaleButton
 {
-	public override void _Ready()
+	protected override void ReadyBehavior()
 	{
 		Pressed += () =>
 		{

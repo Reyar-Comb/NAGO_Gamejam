@@ -1,10 +1,15 @@
 using Godot;
 using System;
 
-public partial class SettingsButton : Button
+public partial class SettingsButton : ScaleButton
 {
-	public override void _Ready()
+	protected override void ReadyBehavior()
 	{
 		ProcessMode = ProcessModeEnum.Always;
+		Pressed += () =>
+		{
+			AudioManager.Instance.PlaySFX("ButtonClick");
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.InGameMenuSettingsToggled);
+		};
 	}
 }

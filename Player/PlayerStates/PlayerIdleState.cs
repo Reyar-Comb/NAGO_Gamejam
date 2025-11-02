@@ -20,7 +20,10 @@ public partial class PlayerIdleState : State
     }
     private void DecideAnimationPlay()
     {
-        string lastDirection = Storage.GetVariant<string>("LastRemovedDirection");
+		PlayerMoveControl moveControl = Parent as PlayerMoveControl;
+		string lastDirection = string.IsNullOrEmpty(moveControl.GetLastDirection())
+            ? Storage.GetVariant<string>("LastRemovedDirection")
+            : moveControl.GetLastDirection();
         switch (lastDirection)
         {
             case "Up":

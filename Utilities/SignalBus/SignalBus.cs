@@ -7,6 +7,7 @@ public partial class SignalBus : Node
     [Signal] public delegate void NegativeViewsReceivedEventHandler(int newNegativeViews);
     [Signal] public delegate void DayChangedEventHandler(int newDay);
     [Signal] public delegate void TimeUpdatedEventHandler(float remainingTimeInSeconds);
+    [Signal] public delegate void InGameMenuSettingsToggledEventHandler();
     [Signal] public delegate void CustomerSatisfiedEventHandler();
     [Signal] public delegate void DialogueStartedEventHandler();
     [Signal] public delegate void DialogueEndedEventHandler();

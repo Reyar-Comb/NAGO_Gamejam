@@ -21,6 +21,13 @@ public partial class InGameDisplay : CanvasLayer
 		SignalBus.Instance.DayChanged += OnDayChanged;
 		SignalBus.Instance.TimeUpdated += OnTimeUpdated;
 	}
+	public override void _ExitTree()
+	{
+		SignalBus.Instance.ScoreUpdated -= OnScoreUpdated;
+		SignalBus.Instance.NegativeViewsReceived -= OnNegativeViewsReceived;
+		SignalBus.Instance.DayChanged -= OnDayChanged;
+		SignalBus.Instance.TimeUpdated -= OnTimeUpdated;
+	}
 	public override void _Ready()
 	{
 		InitializeNodeReferences();

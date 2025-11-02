@@ -9,3 +9,6 @@ font_size = 70
 font_color = Color(0.64737993, 0.7108182, 0.97544116, 1)
 outline_size = 5
 outline_color = Color(0.22000003, 0.36299992, 1, 1)
+shadow_size = 20
+shadow_color = Color(0.23760001, 0.25762004, 0.33, 0.41568628)
+shadow_offset = Vector2(5, 5)

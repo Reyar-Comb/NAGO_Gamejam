@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3j8cakdprqds"]
+[gd_scene load_steps=24 format=3 uid="uid://c3j8cakdprqds"]
 
 [ext_resource type="Script" uid="uid://lpr7b3qaypvu" path="res://UI/InGameMenu/InGameMenu.cs" id="1_rn23e"]
 [ext_resource type="Theme" uid="uid://o2vhntpihssc" path="res://UI/UIResouce/UITheme.tres" id="1_tak8a"]
@@ -11,30 +11,56 @@
 [ext_resource type="Script" uid="uid://b7eur2yyrlu7u" path="res://UI/InGameMenu/RestartButton.cs" id="6_rn23e"]
 [ext_resource type="Script" uid="uid://cmhsrhiny0j0a" path="res://UI/InGameMenu/SettingsButton.cs" id="8_2qrxl"]
 [ext_resource type="Script" uid="uid://dei6mq2ovnr27" path="res://UI/InGameMenu/ExitButton.cs" id="10_qvchc"]
+[ext_resource type="Texture2D" uid="uid://d810mbi7vfge" path="res://Assets/StartMenu/SettingBack.png" id="12_bdu0j"]
+[ext_resource type="Script" uid="uid://b0xbkjmg3lvxb" path="res://UI/InGameMenu/InGameMenuSettings.cs" id="12_k2ysv"]
+[ext_resource type="Texture2D" uid="uid://ct17qfbol6u2w" path="res://Assets/StartMenu/BGM.png" id="13_k2ysv"]
+[ext_resource type="Texture2D" uid="uid://dm1eyx0udkgvi" path="res://Assets/UI/SFX.png" id="14_c0p3o"]
+[ext_resource type="Texture2D" uid="uid://cnntxemadpna3" path="res://Assets/StartMenu/Tick_false.png" id="15_qr8yb"]
+[ext_resource type="Texture2D" uid="uid://b41w7di4yltxb" path="res://Assets/StartMenu/Tick.png" id="16_2sphp"]
+[ext_resource type="Texture2D" uid="uid://ck7ksw0yk8x3c" path="res://Assets/StartMenu/SliderBack.png" id="17_opxxa"]
+[ext_resource type="Texture2D" uid="uid://7riurcdp45s2" path="res://Assets/StartMenu/Slider.png" id="18_g1jg7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhtci"]
+atlas = ExtResource("15_qr8yb")
+region = Rect2(1408, 1238, 105, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjtrj"]
+atlas = ExtResource("16_2sphp")
+region = Rect2(1408, 1238, 105, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avdci"]
+atlas = ExtResource("17_opxxa")
+region = Rect2(1573, 798, 407, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsdfb"]
+atlas = ExtResource("18_g1jg7")
+region = Rect2(1573, 798, 407, 42)
 
 [node name="InGameMenu" type="CanvasLayer"]
 layer = 2
 script = ExtResource("1_rn23e")
 
-[node name="Control" type="Control" parent="."]
+[node name="InGameMenuControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_tak8a")
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="InGameMenuControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.44705883)
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="InGameMenuControl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,19 +70,21 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+mouse_filter = 2
 texture = ExtResource("2_860qj")
 expand_mode = 1
 stretch_mode = 3
 
-[node name="Control" type="Control" parent="Control/TextureRect"]
+[node name="Control" type="Control" parent="InGameMenuControl/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/TextureRect/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="InGameMenuControl/TextureRect/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -69,33 +97,168 @@ offset_right = 269.0
 offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 195
 theme_override_constants/margin_right = 90
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/TextureRect/Control/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameMenuControl/TextureRect/Control/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 129
 
-[node name="Continue" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+[node name="Continue" type="Button" parent="InGameMenuControl/TextureRect/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 icon = ExtResource("3_p8d27")
 script = ExtResource("4_hh5ln")
 
-[node name="Restart" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="InGameMenuControl/TextureRect/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 icon = ExtResource("4_eefn2")
 script = ExtResource("6_rn23e")
 
-[node name="Settings" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="InGameMenuControl/TextureRect/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 icon = ExtResource("5_s0ark")
 script = ExtResource("8_2qrxl")
 
-[node name="Exit" type="Button" parent="Control/TextureRect/Control/MarginContainer/VBoxContainer"]
+[node name="Exit" type="Button" parent="InGameMenuControl/TextureRect/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 icon = ExtResource("6_h2juf")
 script = ExtResource("10_qvchc")
+
+[node name="SettingsControl" type="Control" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("12_k2ysv")
+
+[node name="Back" type="TextureRect" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_bdu0j")
+
+[node name="ColorRect" type="ColorRect" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.63529414)
+
+[node name="BGM" type="TextureRect" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = -518.0
+offset_top = -477.0
+offset_right = 2482.0
+offset_bottom = 1843.0
+mouse_filter = 2
+texture = ExtResource("13_k2ysv")
+
+[node name="SFX" type="TextureRect" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = -518.0
+offset_top = -477.0
+offset_right = 2482.0
+offset_bottom = 1843.0
+mouse_filter = 2
+texture = ExtResource("14_c0p3o")
+
+[node name="BGMTickButton" type="TextureButton" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 759.0
+offset_top = 297.0
+offset_right = 864.0
+offset_bottom = 400.0
+texture_normal = SubResource("AtlasTexture_yhtci")
+
+[node name="BGMTickedButton" type="TextureButton" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 759.0
+offset_top = 297.0
+offset_right = 864.0
+offset_bottom = 400.0
+texture_normal = SubResource("AtlasTexture_rjtrj")
+
+[node name="SFXTickButton" type="TextureButton" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 759.0
+offset_top = 508.0
+offset_right = 864.0
+offset_bottom = 611.0
+texture_normal = SubResource("AtlasTexture_yhtci")
+
+[node name="SFXTickedButton" type="TextureButton" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 759.0
+offset_top = 508.0
+offset_right = 864.0
+offset_bottom = 611.0002
+texture_normal = SubResource("AtlasTexture_rjtrj")
+
+[node name="BGMProgressBar" type="TextureProgressBar" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 320.0
+offset_right = 1426.0
+offset_bottom = 362.0
+value = 53.0
+texture_under = SubResource("AtlasTexture_avdci")
+texture_progress = SubResource("AtlasTexture_jsdfb")
+
+[node name="BGMSlider" type="HSlider" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 279.0
+offset_right = 1425.0
+offset_bottom = 407.0
+theme = ExtResource("1_tak8a")
+value = 59.0
+
+[node name="SFXProgressBar" type="TextureProgressBar" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 540.39
+offset_right = 1426.0
+offset_bottom = 582.39014
+value = 53.0
+texture_under = SubResource("AtlasTexture_avdci")
+texture_progress = SubResource("AtlasTexture_jsdfb")
+
+[node name="SFXSlider" type="HSlider" parent="SettingsControl"]
+process_mode = 3
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 498.32
+offset_right = 1425.0
+offset_bottom = 626.32007
+theme = ExtResource("1_tak8a")
+value = 59.0

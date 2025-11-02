@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public partial class ExitButton : Button
+public partial class ExitButton : ScaleButton
 {
-	public override void _Ready()
+	protected override void ReadyBehavior()
 	{
 		ProcessMode = ProcessModeEnum.Always;
 		Pressed += () => GetTree().Quit();

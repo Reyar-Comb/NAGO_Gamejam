@@ -21,7 +21,7 @@ public partial class AudioManager : Node
 		set
 		{
 			_defaultBGMVolume = value;
-			setBGMVolume(value);
+			SetBGMVolume(value);
 		}
 	}
 	public float DefaultAllSFXVolume = -4f;
@@ -32,10 +32,10 @@ public partial class AudioManager : Node
 
 	public override void _Ready()
 	{
-		// 单例模式
 		if (Instance == null)
 		{
 			Instance = this;
+			ProcessMode = ProcessModeEnum.Always;
 		}
 		else
 		{
@@ -44,7 +44,7 @@ public partial class AudioManager : Node
 		BGMPlayer = new AudioStreamPlayer();
 		BGMPlayer.Bus = "BGM";
 		AddChild(BGMPlayer);
-		setBGMVolume(DefaultBGMVolume);
+		SetBGMVolume(DefaultBGMVolume);
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -54,12 +54,12 @@ public partial class AudioManager : Node
 			AddChild(SFXPlayer);
 			SFXPlayer.Autoplay = false;
 		}
-		setAllSFXVolume(DefaultAllSFXVolume);
+		SetAllSFXVolume(DefaultAllSFXVolume);
 	}
 	public void LoadBGM(string name, string path)
 	{
 		var stream = GD.Load<AudioStream>(path);
-		if (stream != null)
+		if (stream != null && !BGMDict.ContainsKey(name))
 		{
 			BGMDict[name] = stream;
 		}
@@ -68,7 +68,7 @@ public partial class AudioManager : Node
 	public void LoadSFX(string name, string path)
 	{
 		var stream = GD.Load<AudioStream>(path);
-		if (stream != null)
+		if (stream != null && !SFXDict.ContainsKey(name))
 		{
 			SFXDict[name] = stream;
 		}
@@ -83,14 +83,14 @@ public partial class AudioManager : Node
 
 			if (fadeTime > 0f)
 			{
-				setBGMVolume(-80f);
+				SetBGMVolume(-80f);
 				BGMPlayer.Play();
 				BGMPlayer.Seek(startTime);
 				await FadeVolume(name, -80f, DefaultBGMVolume, fadeTime, "BGM");
 			}
 			else
 			{
-				setBGMVolume(DefaultBGMVolume);
+				SetBGMVolume(DefaultBGMVolume);
 				BGMPlayer.Play();
 				BGMPlayer.Seek(startTime);
 			}
@@ -119,7 +119,7 @@ public partial class AudioManager : Node
 					}
 					else
 					{
-						setSFXVolume(name, DefaultSFXVolume);
+						SetSFXVolume(name, DefaultSFXVolume);
 						sfx.Play();
 					}
 					break;
@@ -168,16 +168,16 @@ public partial class AudioManager : Node
 			float currentDb = Mathf.LinearToDb(currentLinear);
 			if (bus == "BGM")
 
-				setBGMVolume(currentDb);
+				SetBGMVolume(currentDb);
 			else
-				setSFXVolume(name, currentDb);
+				SetSFXVolume(name, currentDb);
 			await ToSignal(GetTree(), "process_frame");
 			elapsed += (float)GetProcessDeltaTime();
 		}
 		if (bus == "BGM")
-			setBGMVolume(toDb);
+			SetBGMVolume(toDb);
 		else
-			setSFXVolume(name, toDb);
+			SetSFXVolume(name, toDb);
 	}
 
 
@@ -196,17 +196,17 @@ public partial class AudioManager : Node
 
 
 
-	public void setBGMVolume(float volume)
+	public void SetBGMVolume(float volume)
 	{
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("BGM"), volume);
 	}
 
-	public void setAllSFXVolume(float volume)
+	public void SetAllSFXVolume(float volume)
 	{
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("SFX"), volume);
 	}
 
-	public void setSFXVolume(string name, float volume)
+	public void SetSFXVolume(string name, float volume)
 	{
 		foreach (var sfx in SFXPlayers)
 		{

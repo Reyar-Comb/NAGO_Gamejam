@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public partial class RestartButton : Button
+public partial class RestartButton : ScaleButton
 {
-	public override void _Ready()
+	protected override void ReadyBehavior()
 	{
 		Pressed += GameData.Instance.ResetGameData;
 		ProcessMode = ProcessModeEnum.Always;
