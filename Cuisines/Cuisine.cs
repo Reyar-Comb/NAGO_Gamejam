@@ -19,7 +19,7 @@ public partial class Cuisine : Resource
     protected static Dictionary<string, Cuisine> CuisineDictionary = new();
     public virtual void OnDelivered(float multiplier)
     {
-        GameData.Instance.Score += (int)(BaseScore + GameData.Instance.TimePassed / 60 * 5 * multiplier);
+        GameData.Instance.Score += (int)((BaseScore + GameData.Instance.Combo + GameData.Instance.TimePassed / 60 * 5) * multiplier);
     }
     static Cuisine()
     {

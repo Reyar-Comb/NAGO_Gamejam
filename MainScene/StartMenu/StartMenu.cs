@@ -27,7 +27,7 @@ public partial class StartMenu : Control
 		{
 			_titleTween.Kill();  // 停止旧动画
 		}
-		_titleTween = GetTree().CreateTween();
+		_titleTween = CreateTween();
 		_titleTween.SetTrans(Tween.TransitionType.Sine);
 		_titleTween.SetLoops(-1);
 		_titleTween.TweenProperty(Title, "global_position", TitlePos - new Vector2(0, -20f), 1f).SetEase(Tween.EaseType.InOut);

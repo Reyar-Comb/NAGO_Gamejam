@@ -12,19 +12,21 @@ public partial class InGameDisplay : CanvasLayer
 		_scoreDisplayLabel = GetNode<Label>("%ScoreDisplayLabel");
 		_negativeViewsDisplayLabel = GetNode<Label>("%NegativeViewsDisplayLabel");
 		_remainingTimeDisplayLabel = GetNode<Label>("%RemainingTimeDisplayLabel");
-		_comboDisplayLabel = GetNode<ComboDisplay>("%ComboLabel");
+		_comboDisplayLabel = GetNode<ComboDisplay>("%ComboDisplayLabel");
 	}
 	private void ConnectSignals()
 	{
 		SignalBus.Instance.ScoreUpdated += OnScoreUpdated;
 		SignalBus.Instance.NegativeViewsReceived += OnNegativeViewsReceived;
 		SignalBus.Instance.TimeUpdated += OnTimeUpdated;
+		SignalBus.Instance.ComboUpdated += OnComboUpdated;
 	}
 	public override void _ExitTree()
 	{
 		SignalBus.Instance.ScoreUpdated -= OnScoreUpdated;
 		SignalBus.Instance.NegativeViewsReceived -= OnNegativeViewsReceived;
 		SignalBus.Instance.TimeUpdated -= OnTimeUpdated;
+		SignalBus.Instance.ComboUpdated -= OnComboUpdated;
 	}
 	public override void _Ready()
 	{
@@ -51,5 +53,6 @@ public partial class InGameDisplay : CanvasLayer
 	public void OnComboUpdated(float newCombo)
     {
 		_comboDisplayLabel.ReceiveCombo(newCombo);
+		_comboDisplayLabel.Text = newCombo.ToString();
     }
 }

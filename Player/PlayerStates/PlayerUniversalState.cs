@@ -56,10 +56,10 @@ public partial class PlayerUniversalState : State
 	}
 	private void RunScan()
 	{
-		foreach (var body in _interactArea.GetOverlappingBodies())
-			OnInteractAreaBodyEntered(body);
 		foreach (var body in _takeCuisineArea.GetOverlappingBodies())
 			OnTakeCuisineAreaBodyEntered(body);
+		foreach (var body in _interactArea.GetOverlappingBodies())
+			OnInteractAreaBodyEntered(body);
 	}
 	protected override void FrameUpdate(double delta)
 	{

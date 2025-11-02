@@ -28,6 +28,15 @@ public partial class PlayerMoveControl : State
 	private Sprite2D _cuisineDisplaySprite;
 	private Area2D _collisionArea;
 	private List<string> _directionStack = new();
+	private float _originalSpeedMultiplier;
+	private float _originalAnimationSpeedMultiplier;
+	private float _originalSpeed;
+	private void InitializeOriginalValues()
+	{
+		_originalSpeedMultiplier = Storage.GetVariant<float>("SpeedMultiplier");
+		_originalAnimationSpeedMultiplier = Storage.GetVariant<float>("DashAnimationSpeedMultiplier"); ;
+		_originalSpeed = Storage.GetVariant<float>("Speed");
+	}
 	protected override void ReadyBehavior()
 	{
 		_player = Storage.GetNode<Player>("Player");
@@ -39,9 +48,12 @@ public partial class PlayerMoveControl : State
 		_cuisineDisplaySprite = Storage.GetNode<Sprite2D>("CuisineDisplaySprite");
 		_collisionArea = Storage.GetNode<Area2D>("CollisionArea");
 		_collisionArea.AreaEntered += OnCollisionAreaEntered;
+		InitializeOriginalValues();
 	}
 	private void OnCollisionAreaEntered(Area2D area)
 	{
+		if (GameData.Instance.Combo >= 10) return;
+		
 		if (area.IsInGroup("BananaPeel"))
 		{
 			AskTransit("Slip");
@@ -49,20 +61,18 @@ public partial class PlayerMoveControl : State
 		}
 		if (area.IsInGroup("WaterPuddle"))
 		{
-			float speedMultiplier = Storage.GetVariant<float>("SpeedMultiplier");
-			float dashAnimationSpeedMultiplier = Storage.GetVariant<float>("DashAnimationSpeedMultiplier");
-			float speed = Storage.GetVariant<float>("Speed");
-			Storage.SetVariant("Speed", speed * 0.6f);
+			Storage.SetVariant("Speed", _originalSpeed * 0.6f);
 			Storage.SetVariant("SpeedMultiplier", 1f);
 			Storage.SetVariant("DashAnimationSpeedMultiplier", 1);
 			GetTree().CreateTimer(2f).Timeout += () =>
 			{
-				Storage.SetVariant("Speed", speed);
+				Storage.SetVariant("Speed", _originalSpeed);
 			};
 			GetTree().CreateTimer(10f).Timeout += () =>
 			{
-				Storage.SetVariant("SpeedMultiplier", speedMultiplier);
-				Storage.SetVariant("DashAnimationSpeedMultiplier", dashAnimationSpeedMultiplier);
+
+				Storage.SetVariant("SpeedMultiplier", _originalSpeedMultiplier);
+				Storage.SetVariant("DashAnimationSpeedMultiplier", _originalAnimationSpeedMultiplier);
 			};
 			area.QueueFree();
 		}

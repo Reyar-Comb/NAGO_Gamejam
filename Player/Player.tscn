@@ -1,9 +1,10 @@
-[gd_scene load_steps=50 format=3 uid="uid://c5krfav7ktqx4"]
+[gd_scene load_steps=52 format=3 uid="uid://c5krfav7ktqx4"]
 
 [ext_resource type="Texture2D" uid="uid://cf7j2n35ny0rb" path="res://icon.svg" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://cm26sm1mmmhoc" path="res://Player/Player.cs" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://4vjdtioododl" path="res://Assets/Character/Player.png" id="2_7v5gs"]
 [ext_resource type="Script" uid="uid://dxintdrx5ddm8" path="res://Player/StaminaBar.cs" id="3_tok1r"]
+[ext_resource type="Texture2D" uid="uid://dp0nb34k44xh4" path="res://Assets/Character/PlayerSlipped.png" id="4_8sa4y"]
 [ext_resource type="Script" uid="uid://bnasen8oklvj8" path="res://StateTree/StateTree.cs" id="4_s1rgi"]
 [ext_resource type="Texture2D" uid="uid://bgx4c6763yw6k" path="res://Assets/Character/PlayerWalkSpriteSheet.png" id="5_8sa4y"]
 [ext_resource type="Script" uid="uid://8t4wc55psrvo" path="res://Player/PlayerStates/PlayerUniversalState.cs" id="5_j23h2"]
@@ -76,6 +77,10 @@ region = Rect2(598, 640, 598, 640)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3nb2p"]
 atlas = ExtResource("5_8sa4y")
 region = Rect2(598, 1920, 598, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtj8b"]
+atlas = ExtResource("4_8sa4y")
+region = Rect2(0, 0, 2048, 2048)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7xyo"]
 atlas = ExtResource("5_8sa4y")
@@ -220,6 +225,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vtj8b")
+}],
+"loop": true,
+"name": &"PlayerSlip",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_d7xyo")
 }, {
 "duration": 1.0,
@@ -325,7 +338,7 @@ position = Vector2(0, 31)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_v0k0e")
-animation = &"HoldCuisineWalkHorizontal"
+animation = &"PlayerSlip"
 
 [node name="StaminaBar" type="Sprite2D" parent="Sprites" node_paths=PackedStringArray("StaminaRegenDelayTimer", "Storage")]
 material = SubResource("ShaderMaterial_p7tob")

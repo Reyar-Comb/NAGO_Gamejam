@@ -28,6 +28,10 @@ public partial class PlayerDashState : State
 			DashTrailTimer.Start(DashTrailInterval);
 			AudioManager.Instance.PlaySFX("FootFast");
 		}
+		else
+        {
+			DashTrailTimer.Stop();
+        }
 	}
 	protected override void Exit()
 	{

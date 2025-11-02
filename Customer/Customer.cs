@@ -103,17 +103,17 @@ public partial class Customer : CharacterBody2D
 		Node2D instance = rubbishScene.Instantiate<Node2D>();
 		if (TargetChairType == Chair.ChairType.Up)
 		{
-			instance.GlobalPosition = TargetChairPosition + Vector2.Right * GD.RandRange(150, 300) * Probability.RunUniformChoose([-1f, 1f]);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Up * 150f + Vector2.Right * GD.RandRange(150, 300) * Probability.RunUniformChoose([-1f, 1f]);
 		}
 		else if (TargetChairType == Chair.ChairType.Left)
 		{
-			float angle = (float)GD.RandRange(-Mathf.Pi / 2, Mathf.Pi / 2);
-			instance.GlobalPosition = TargetChairPosition + Vector2.Left.Rotated(angle) * GD.RandRange(300, 500);
+			float angle = (float)GD.RandRange(-Mathf.Pi / 2, 0);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Left.Rotated(angle) * GD.RandRange(150, 500);
 		}
 		else
 		{
-			float angle = (float)GD.RandRange(-Mathf.Pi / 2, Mathf.Pi / 2);
-			instance.GlobalPosition = TargetChairPosition + Vector2.Right.Rotated(angle) * GD.RandRange(150, 300);
+			float angle = (float)GD.RandRange(0, Mathf.Pi / 2);
+			instance.GlobalPosition = TargetChairPosition + Vector2.Right.Rotated(angle) * GD.RandRange(150, 500);
 		}
 		GetTree().CurrentScene.AddChild(instance);
 	}
@@ -131,23 +131,31 @@ public partial class Customer : CharacterBody2D
 		MoveTo(TargetChairPosition);
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 	}
+	private void GetAngry()
+	{
+		GameData.Instance.Combo = 0;
+		GameData.Instance.NegativeViews++;
+		Leave();
+	}
 	public async void ReceiveCuisine(Cuisine cuisine)
 	{
 		if (cuisine.CuisineName == DesiredCuisine.CuisineName)
 		{
 			AudioManager.Instance.PlaySFX("Satisfied");
 			IsDelivered = true;
-			SignalBus.Instance.EmitSignal(SignalBus.SignalName.CustomerSatisfied);
 			await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.CustomerSatisfied);
 			cuisine.OnDelivered(1 + (float)PatienceTimer.TimeLeft / _patienceTime);
+			for (int i = 0; i < 100; ++i)
 			DecideThrowRubbish();
+			GameData.Instance.Combo++;
+			Leave();
 		}
 		else
 		{
 			AudioManager.Instance.PlaySFX("Wrong");
-			GameData.Instance.NegativeViews++;
+			GetAngry();
 		}
-		Leave();
 	}
 	public void ToggleHighlight(bool enable)
 	{
@@ -235,7 +243,6 @@ public partial class Customer : CharacterBody2D
 	protected void OnPatienceTimeout()
 	{
 		GD.Print("顾客的耐心用尽了！");
-		GameData.Instance.NegativeViews++;
-		Leave();
+		GetAngry();
 	}
 }

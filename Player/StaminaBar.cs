@@ -5,12 +5,21 @@ public partial class StaminaBar : Sprite2D
 {
 	[Export] public float MaxStamina = 100.0f;
 	[Export] public float StaminaRegenRate = 10.0f;
-	[Export] public float StaminaDecreaseRate = 30.0f;
+	[Export] public float BaseStaminaDecreaseRate = 30.0f;
 	[Export] public float StaminaRegenDelay = 1.0f;
 	[Export] public float StaminaTweenDuration = 0.1f;
 	[Export] public Timer StaminaRegenDelayTimer = null;
 	[Export] public VarStorage Storage = null;
 	[Export] public float BaseStaminaGainWhenCustomerSatisfied = 20.0f;
+	public float StaminaDecreaseRate
+    {
+		get
+		{
+			int combo = GameData.Instance.Combo;
+			if (combo <= 9) return BaseStaminaDecreaseRate * (1 - combo * 0.05f);
+			else return 0;
+        }
+    }
 	public float StaminaGainMultiplier = 1.0f;
 	public float Value
 	{
