@@ -54,8 +54,8 @@ public partial class TextManager : Node
 		PlayerProfileHappy = GD.Load<Texture2D>("res://Assets/Character/PlayerHappy.png");
 		PlayerProfileSad = GD.Load<Texture2D>("res://Assets/Character/PlayerSad.png");
 		PlayerProfileNormal = GD.Load<Texture2D>("res://Assets/Character/PlayerProfile.png");
-		RestartButton = TextScene.Instance.GetNode<Button>("RestartButton");
-		ExitButton = TextScene.Instance.GetNode<Button>("ExitButton");
+		RestartButton = TextScene.Instance.GetNode<Button>("%RestartButton");
+		ExitButton = TextScene.Instance.GetNode<Button>("%ExitButton");
 		RestartButton.Visible = false;
 		ExitButton.Visible = false;
 		AudioManager.Instance.LoadSFX("ShowText", "res://Assets/SoundFX/Click.mp3");
@@ -124,6 +124,10 @@ public partial class TextManager : Node
 	}
 	public void EndDialogue()
 	{
+		if (CurrentDialogueScene == "GameOverScene")
+		{
+			return;
+		}
 		if (!_isTextShowing)
 			return;
 			
