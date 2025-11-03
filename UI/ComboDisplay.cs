@@ -8,64 +8,62 @@ public partial class ComboDisplay : Label
 	private bool _reached10 = false;
 	private class LabelSettingsData
 	{
-		public int requiredCombo = 0;
-		public int fontSize = 70;
-		public Color fontColor = Colors.Gray;
-		public int outlineSize = 5;
-		public Color outlineColor = Colors.DarkGray;
-		public int shadowSize = 20;
-		public Color shadowColor = Colors.DarkGray;
+		public int RequiredCombo = 0;
+		public int FontSize = 70;
+		public Color FontColor = Colors.Gray;
+		public int OutlineSize = 5;
+		public Color OutlineColor = Colors.DarkGray;
+		public int ShadowSize = 20;
+		public Color ShadowColor = Colors.DarkGray;
 	}
 	private readonly static List<LabelSettingsData> LabelSettingsDataList = new()
 	{
 		new(),
 		new()
 		{
-			requiredCombo = 5,
-			fontSize = 80,
-			fontColor = Colors.Orange,
-			outlineColor = Colors.DarkOrange,
-			shadowColor = Colors.DarkGray with { A = 0.5f }
+			RequiredCombo = 5,
+			FontSize = 80,
+			FontColor = Colors.Orange,
+			OutlineColor = Colors.DarkOrange,
+			ShadowColor = Colors.DarkGray with { A = 0.5f }
 		},
 		new()
 		{
-			requiredCombo = 10,
-			fontSize = 95,
-			fontColor = Colors.Red,
-			outlineColor = Colors.Orange,
-			shadowColor = Colors.DarkRed with { A = 0.8f }
+			RequiredCombo = 10,
+			FontSize = 95,
+			FontColor = Colors.Red,
+			OutlineColor = Colors.Orange,
+			ShadowColor = Colors.DarkRed with { A = 0.8f }
 		},
 		new()
 		{
-			requiredCombo = 20,
-			fontSize = 105,
-			fontColor = Colors.Crimson,
-			outlineColor = Colors.Red,
-			shadowColor = Colors.Orange with { A = 0.9f }
+			RequiredCombo = 20,
+			FontSize = 105,
+			FontColor = Colors.Crimson,
+			OutlineColor = Colors.Red,
+			ShadowColor = Colors.Orange with { A = 0.9f }
 		}
 	};
 	public void ReceiveCombo(float newCombo)
 	{
 		LabelSettingsData nextLabelSettingsData =
 		LabelSettingsDataList
-			.Where(x => x.requiredCombo <= newCombo)
+			.Where(x => x.RequiredCombo <= newCombo)
 			.LastOrDefault();
-		LabelSettings.FontSize = nextLabelSettingsData.fontSize;
-		LabelSettings.FontColor = nextLabelSettingsData.fontColor;
-		LabelSettings.OutlineSize = nextLabelSettingsData.outlineSize;
-		LabelSettings.OutlineColor = nextLabelSettingsData.outlineColor;
-		LabelSettings.ShadowSize = nextLabelSettingsData.shadowSize;
-		LabelSettings.ShadowColor = nextLabelSettingsData.shadowColor;
+		LabelSettings.FontSize = nextLabelSettingsData.FontSize;
+		LabelSettings.FontColor = nextLabelSettingsData.FontColor;
+		LabelSettings.OutlineSize = nextLabelSettingsData.OutlineSize;
+		LabelSettings.OutlineColor = nextLabelSettingsData.OutlineColor;
+		LabelSettings.ShadowSize = nextLabelSettingsData.ShadowSize;
+		LabelSettings.ShadowColor = nextLabelSettingsData.ShadowColor;
 		if (newCombo >= 10 && !_reached10)
-        {
+		{
 			_reached10 = true;
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.ComboReached10);
-			GetTree().CreateTimer(10f).Timeout += () =>
-			{
-				GameData.Instance.Combo = 0;
-				_reached10 = false;
-				SignalBus.Instance.EmitSignal(SignalBus.SignalName.ComboBoostEnded);
-			};
-        }
+		}
+		if (newCombo < 10)
+		{
+			_reached10 = false;
+		}
 	}
 }

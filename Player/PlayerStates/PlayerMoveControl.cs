@@ -88,7 +88,7 @@ public partial class PlayerMoveControl : State
 			{
 				Storage.SetVariant("Speed", _originalSpeed);
 			};
-			GetTree().CreateTimer(10f).Timeout += () =>
+			GetTree().CreateTimer(7f).Timeout += () =>
 			{
 				Storage.SetVariant("SpeedMultiplier", _originalSpeedMultiplier);
 				Storage.SetVariant("DashAnimationSpeedMultiplier", _originalAnimationSpeedMultiplier);

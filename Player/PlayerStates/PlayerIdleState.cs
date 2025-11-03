@@ -52,5 +52,7 @@ public partial class PlayerIdleState : State
         {
             AskTransit("Walk");
         }
+        if (Input.IsActionJustPressed("Dash"))
+            AskTransit("Dash");
     }
 }

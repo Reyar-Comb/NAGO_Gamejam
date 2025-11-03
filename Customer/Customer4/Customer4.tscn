@@ -47,7 +47,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sunai"]
 resource_local_to_scene = true
 shader = SubResource("Shader_1a38y")
-shader_parameter/outline_width = 20.0
+shader_parameter/outline_width = 30.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
@@ -195,7 +195,6 @@ disabled = false
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 material = SubResource("ShaderMaterial_sunai")
-position = Vector2(4, -219)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_gak87")
 animation = &"SitUp"

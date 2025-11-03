@@ -7,12 +7,14 @@ public partial class InGameDisplay : CanvasLayer
 	private Label _negativeViewsDisplayLabel = null; 
 	private Label _remainingTimeDisplayLabel = null;
 	private ComboDisplay _comboDisplayLabel = null;
+	private ComboProgressBar _comboProgressBar = null;
 	private void InitializeNodeReferences()
 	{
 		_scoreDisplayLabel = GetNode<Label>("%ScoreDisplayLabel");
 		_negativeViewsDisplayLabel = GetNode<Label>("%NegativeViewsDisplayLabel");
 		_remainingTimeDisplayLabel = GetNode<Label>("%RemainingTimeDisplayLabel");
 		_comboDisplayLabel = GetNode<ComboDisplay>("%ComboDisplayLabel");
+		_comboProgressBar = GetNode<ComboProgressBar>("%ComboProgressBar");
 	}
 	private void ConnectSignals()
 	{
@@ -54,5 +56,6 @@ public partial class InGameDisplay : CanvasLayer
     {
 		_comboDisplayLabel.ReceiveCombo(newCombo);
 		_comboDisplayLabel.Text = newCombo.ToString();
+		_comboProgressBar.Run();
     }
 }

@@ -71,9 +71,9 @@ public partial class StaminaBar : Sprite2D
 	{
 		Vector2 velocity = (GlobalPosition - _lastPos) / (float)delta;
 		_lastPos = GlobalPosition;
-		if (!Storage.GetVariant<bool>("CanDash") || velocity.Length() < 1f) return;
 		if (_canRegen)
 			RegenStamina(delta);
+		if (!Storage.GetVariant<bool>("CanDash") || velocity.Length() < 1f) return;
 		if (Input.IsActionPressed("Dash"))
 			CurrentStamina -= StaminaDecreaseRate * (float)delta;
 	}

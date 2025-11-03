@@ -5,6 +5,7 @@ public partial class GameData : Node
 {
     public bool IsGameStarted = false;
     public static GameData Instance { get; private set; }
+    public const int MaxNegativeViewsAllowed = 10;
     public int Score
     {
         get => field;

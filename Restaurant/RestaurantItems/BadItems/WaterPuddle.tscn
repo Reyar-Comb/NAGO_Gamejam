@@ -7,6 +7,7 @@
 size = Vector2(127, 55)
 
 [node name="WaterPuddle" type="Area2D" groups=["WaterPuddle"]]
+y_sort_enabled = true
 script = ExtResource("1_xgcam")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

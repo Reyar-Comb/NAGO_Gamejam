@@ -10,13 +10,15 @@ public partial class CustomerManager : Node
 	[Export] public Godot.Collections.Array<Vector2> SpawnPositions = new();
 	[Export] public float InitialSpawnInterval = 10f;
 	[Export] public float MinSpawnInterval = 2f;
+	[Export] public float SpawnTimeDecrementPerMinute = 1f;
+	[Export] public float RefreshInterval = 30f;
 	[Export] public Timer CustomerSpawnTimer;
 	[Export] public Timer SpawnRefreshTimer;
 	public Godot.Collections.Array<Chair> AvailableChairList = new();
 	public float SpawnInterval => Mathf.Max(
-		InitialSpawnInterval - GameData.Instance.TimePassed / 60 * 0.5f,
+		InitialSpawnInterval - GameData.Instance.TimePassed / 60 * SpawnTimeDecrementPerMinute,
 		MinSpawnInterval);
-	
+
 	public override async void _Ready()
 	{
 		await ToSignal(GetTree().CurrentScene, SignalName.Ready);
@@ -25,10 +27,10 @@ public partial class CustomerManager : Node
 		CustomerSpawnTimer.WaitTime = SpawnInterval;
 		CustomerSpawnTimer.Start(SpawnInterval);
 		CustomerSpawnTimer.Timeout += SpawnCustomer;
-		SpawnRefreshTimer.WaitTime = 60;
-		SpawnRefreshTimer.Timeout += () => CustomerSpawnTimer.Start(SpawnInterval);
+		SpawnRefreshTimer.WaitTime = RefreshInterval;
+		SpawnRefreshTimer.Timeout += () => CustomerSpawnTimer.WaitTime = SpawnInterval;
 	}
-	
+
 	public void InitializeAvailableChairs()
 	{
 		if (ChairList.Count == 0)

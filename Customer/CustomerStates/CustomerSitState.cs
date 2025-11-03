@@ -57,6 +57,7 @@ public partial class CustomerSitState : State
 	}
 	private void OnCustomerLeft()
 	{
+		if (GameData.Instance.NegativeViews >= GameData.MaxNegativeViewsAllowed) return;
 		_customer.Scale = _originalScale;
 		_animatedSprite.GlobalPosition = _originalAnimatedSpritePosition;
 		_collisionShape.GlobalPosition = _originalCollisionShapePosition;

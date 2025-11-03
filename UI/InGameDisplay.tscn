@@ -1,10 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://qau8f4xvrh45"]
+[gd_scene load_steps=9 format=3 uid="uid://qau8f4xvrh45"]
 
 [ext_resource type="LabelSettings" uid="uid://du3tjffftumx3" path="res://UI/UIResouce/LabelSettings.tres" id="1_iybee"]
 [ext_resource type="Script" uid="uid://dtrimc2h6b4jg" path="res://UI/InGameDisplay.cs" id="1_v4w3m"]
 [ext_resource type="Script" uid="uid://cgvugll0t7qdr" path="res://UI/ComboVBoxContainer.cs" id="3_5ue1w"]
 [ext_resource type="LabelSettings" uid="uid://c5lhhaey1m6ep" path="res://UI/UIResouce/ComboLabelSettings.tres" id="3_b6rdy"]
 [ext_resource type="Script" uid="uid://bud6mc3pc2liv" path="res://UI/ComboDisplay.cs" id="4_nepr3"]
+[ext_resource type="Script" uid="uid://666yqqhrdebi" path="res://UI/ComboProgressBar.cs" id="6_7fr23"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fr23"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.2, 0.066, 0.066, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoqyk"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.4392157, 0.4, 0.4, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
 
 [node name="InGameDisplay" type="CanvasLayer"]
 script = ExtResource("1_v4w3m")
@@ -82,6 +107,7 @@ TargetScale = Vector2(1.3, 1.3)
 
 [node name="ComboTextLabel" type="Label" parent="InGameDisplayControl/MarginContainer3/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 6
 text = "连击数"
 label_settings = ExtResource("3_b6rdy")
 horizontal_alignment = 1
@@ -89,8 +115,18 @@ horizontal_alignment = 1
 [node name="ComboDisplayLabel" type="Label" parent="InGameDisplayControl/MarginContainer3/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0
-"
+size_flags_vertical = 6
+text = "0"
 label_settings = ExtResource("3_b6rdy")
 horizontal_alignment = 1
 script = ExtResource("4_nepr3")
+
+[node name="ComboProgressBar" type="ProgressBar" parent="InGameDisplayControl/MarginContainer3/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_7fr23")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qoqyk")
+show_percentage = false
+script = ExtResource("6_7fr23")

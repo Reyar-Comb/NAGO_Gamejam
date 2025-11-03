@@ -12,7 +12,7 @@ size = Vector2(814, 748)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cs6t0"]
 resource_local_to_scene = true
 shader = ExtResource("2_phyro")
-shader_parameter/outline_width = 20.0
+shader_parameter/outline_width = 30.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
@@ -160,7 +160,6 @@ disabled = false
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 material = SubResource("ShaderMaterial_cs6t0")
-position = Vector2(4, -219)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_d3o02")
 animation = &"SitUp"
@@ -168,5 +167,6 @@ animation = &"SitUp"
 [node name="VarStorage" parent="." index="5" node_paths=PackedStringArray("_nodeStorage")]
 _nodeStorage = {
 "AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"CollisionShape2D": NodePath("../CollisionShape2D"),
 "Customer": NodePath("..")
 }

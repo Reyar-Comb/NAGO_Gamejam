@@ -12,7 +12,7 @@ size = Vector2(814, 748)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjf4j"]
 resource_local_to_scene = true
 shader = ExtResource("2_1l2jb")
-shader_parameter/outline_width = 20.0
+shader_parameter/outline_width = 30.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
@@ -168,5 +168,6 @@ animation = &"SitRight"
 [node name="VarStorage" parent="." index="5" node_paths=PackedStringArray("_nodeStorage")]
 _nodeStorage = {
 "AnimatedSprite2D": NodePath("../AnimatedSprite2D"),
+"CollisionShape2D": NodePath("../CollisionShape2D"),
 "Customer": NodePath("..")
 }

@@ -42,7 +42,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fbrwh"]
 resource_local_to_scene = true
 shader = SubResource("Shader_fl1w0")
-shader_parameter/outline_width = 3.0
+shader_parameter/outline_width = 6.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 

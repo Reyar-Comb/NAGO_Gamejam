@@ -375,9 +375,11 @@ scale = Vector2(1.26957, 1.3092836)
 texture = ExtResource("1_3qydi")
 script = ExtResource("3_tok1r")
 StaminaRegenRate = 20.0
+BaseStaminaDecreaseRate = 60.0
 StaminaTweenDuration = 0.2
 StaminaRegenDelayTimer = NodePath("../../Timers/StaminRegenDelayTimer")
 Storage = NodePath("../../VarStorage")
+BaseStaminaGainWhenCustomerSatisfied = 30.0
 
 [node name="CuisineDisplaySprite" type="Sprite2D" parent="Sprites"]
 visible = false

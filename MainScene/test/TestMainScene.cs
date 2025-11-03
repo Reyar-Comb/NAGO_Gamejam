@@ -16,14 +16,13 @@ public partial class TestMainScene : Node2D
 		TryPlayRoutineBGM();
 		SignalBus.Instance.Connect(SignalBus.SignalName.DialogueEnded, new Callable(this, MethodName.OnStartDialugueEnded));
 		SignalBus.Instance.Connect(SignalBus.SignalName.GameStart, new Callable(this, MethodName.OnGameStart));
-	}
-	public override void _Process(double delta)
+	}	public override void _Process(double delta)
 	{
 		// if (Input.IsActionJustPressed("ui_accept"))
 		// {
 		// 	GameData.Instance.TimePassed += 60;
 		// }
-		if (GameData.Instance.NegativeViews >= 10)
+		if (GameData.Instance.NegativeViews >= GameData.MaxNegativeViewsAllowed)
 		{
 			GameOver();
 		}

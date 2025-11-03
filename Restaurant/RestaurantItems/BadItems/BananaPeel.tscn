@@ -7,6 +7,7 @@
 size = Vector2(188.5715, 74.285736)
 
 [node name="BananaPeel" type="Area2D" groups=["BananaPeel"]]
+y_sort_enabled = true
 script = ExtResource("1_bg1qf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
