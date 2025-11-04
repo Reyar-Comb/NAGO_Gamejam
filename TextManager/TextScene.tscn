@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3o2mugpeoe7q"]
+[gd_scene load_steps=11 format=3 uid="uid://c3o2mugpeoe7q"]
 
 [ext_resource type="Script" uid="uid://t5gtckkvg7iy" path="res://TextManager/TextScene.cs" id="1_dsucd"]
 [ext_resource type="Texture2D" uid="uid://dj55tlt0yc0er" path="res://Assets/Character/PlayerProfile.png" id="2_68f6d"]
@@ -8,11 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://d1w778ehlm62y" path="res://Assets/UI/Dialogue.png" id="4_5pydy"]
 [ext_resource type="FontFile" uid="uid://b51ul5dwfw3ok" path="res://Assets/Fonts/MapleMono-NF-CN-Medium.ttf" id="6_5pydy"]
 [ext_resource type="Texture2D" uid="uid://fpllu4f3ike8" path="res://Assets/UI/Exit.png" id="10_i83jw"]
+[ext_resource type="FontFile" uid="uid://d07ao32qiv46p" path="res://Assets/Fonts/MapleMono-NF-CN-ExtraBold.ttf" id="10_nh3xt"]
 [ext_resource type="Script" uid="uid://dei6mq2ovnr27" path="res://UI/InGameMenu/ExitButton.cs" id="11_ycob4"]
 
-[node name="TextScene" type="CanvasLayer"]
+[node name="TextScene" type="CanvasLayer" node_paths=PackedStringArray("NameInput")]
 visible = false
 script = ExtResource("1_dsucd")
+NameInput = NodePath("NameInput")
 
 [node name="DialoguePanel" type="Control" parent="."]
 unique_name_in_owner = true
@@ -132,3 +134,27 @@ layout_mode = 2
 focus_mode = 0
 icon = ExtResource("10_i83jw")
 script = ExtResource("11_ycob4")
+
+[node name="UploadButton" type="Button" parent="."]
+unique_name_in_owner = true
+z_index = 9
+offset_left = 1264.0
+offset_top = 1188.0
+offset_right = 1481.0
+offset_bottom = 1288.0
+theme_override_fonts/font = ExtResource("10_nh3xt")
+theme_override_font_sizes/font_size = 60
+text = "上传"
+
+[node name="NameInput" type="LineEdit" parent="."]
+unique_name_in_owner = true
+z_index = 9
+offset_left = 814.0
+offset_top = 1188.0
+offset_right = 1219.0
+offset_bottom = 1288.0
+theme_override_fonts/font = ExtResource("6_5pydy")
+theme_override_font_sizes/font_size = 40
+placeholder_text = "请输入用户名"
+alignment = 1
+keep_editing_on_text_submit = true

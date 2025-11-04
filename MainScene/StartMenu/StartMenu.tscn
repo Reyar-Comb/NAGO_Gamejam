@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bxd2q2xgvtkqf"]
+[gd_scene load_steps=28 format=3 uid="uid://bxd2q2xgvtkqf"]
 
 [ext_resource type="Script" uid="uid://7ultten0xgnw" path="res://MainScene/StartMenu/StartMenu.cs" id="1_bvx6n"]
 [ext_resource type="Texture2D" uid="uid://qmk28stkjxm" path="res://Assets/StartMenu/Background.jpg" id="1_qao1t"]
@@ -8,8 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://eb3yega48hmw" path="res://Assets/StartMenu/StartGameButton.png" id="4_uf5kx"]
 [ext_resource type="Texture2D" uid="uid://cghqmucnbc4qr" path="res://Assets/StartMenu/QuitGameButton.png" id="5_qmvve"]
 [ext_resource type="Texture2D" uid="uid://w2anbkfs11wy" path="res://Assets/StartMenu/Title.png" id="6_0gb8q"]
+[ext_resource type="FontFile" uid="uid://b51ul5dwfw3ok" path="res://Assets/Fonts/MapleMono-NF-CN-Medium.ttf" id="9_iwyvs"]
 [ext_resource type="Texture2D" uid="uid://51bhxkikjeoc" path="res://Assets/StartMenu/About.png" id="9_qmvve"]
 [ext_resource type="Texture2D" uid="uid://d810mbi7vfge" path="res://Assets/StartMenu/SettingBack.png" id="10_o0fdo"]
+[ext_resource type="FontFile" uid="uid://d07ao32qiv46p" path="res://Assets/Fonts/MapleMono-NF-CN-ExtraBold.ttf" id="11_128kr"]
 [ext_resource type="Texture2D" uid="uid://ct17qfbol6u2w" path="res://Assets/StartMenu/BGM.png" id="11_ysiop"]
 [ext_resource type="Texture2D" uid="uid://cnntxemadpna3" path="res://Assets/StartMenu/Tick_false.png" id="12_pvywn"]
 [ext_resource type="Texture2D" uid="uid://b41w7di4yltxb" path="res://Assets/StartMenu/Tick.png" id="13_v74s8"]
@@ -50,7 +52,7 @@ region = Rect2(1573, 798, 407, 42)
 atlas = ExtResource("16_iwyvs")
 region = Rect2(1573, 798, 407, 42)
 
-[node name="StartMenu" type="Control" node_paths=PackedStringArray("Title")]
+[node name="StartMenu" type="Control" node_paths=PackedStringArray("Title", "httpRequest", "leaderboardLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,6 +61,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bvx6n")
 Title = NodePath("StartMenu/Title")
+httpRequest = NodePath("HTTPRequest")
+leaderboardLabel = NodePath("About/Control/ScrollContainer/Label")
 
 [node name="StartMenu" type="Control" parent="."]
 layout_mode = 1
@@ -161,6 +165,7 @@ script = ExtResource("4_qmvve")
 SettingsMenu = NodePath("../../Settings")
 
 [node name="About" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,26 +182,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.63529414)
 
-[node name="VScrollBar" type="VScrollBar" parent="About"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 613.0
-offset_top = 353.0
-offset_right = -665.0
-offset_bottom = -173.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="About/VScrollBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="TextureRect" type="TextureRect" parent="About"]
 layout_mode = 1
 offset_right = 3198.3333
@@ -210,6 +195,83 @@ offset_left = 565.0
 offset_top = 204.0
 offset_right = 825.0
 offset_bottom = 298.0
+
+[node name="Control" type="Control" parent="About"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 613.0
+offset_top = 353.0
+offset_right = -665.0
+offset_bottom = -173.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="About/Control"]
+layout_mode = 0
+offset_top = 111.0
+offset_right = 640.0
+offset_bottom = 784.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.15686275)
+
+[node name="Label2" type="Label" parent="About/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9843137, 0.023529412, 0.050980393, 1)
+theme_override_fonts/font = ExtResource("11_128kr")
+theme_override_font_sizes/font_size = 80
+text = "排行榜"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="About/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 111.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="About/Control/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_iwyvs")
+theme_override_font_sizes/font_size = 30
+text = "laksndf;
+;lksdf;lkjasfd
+;lkjsdf;lkjsdaf
+;lkjsdf;lkjsadf
+;lksdf;lkjsadf
+;lksjdf;lkjsadf
+;lksajdf;lkjsdf
+lkjdsfl;kjasf
+;lkjsadflkjasf
+lkjsadf;kjsdf
+;lkjsfd;lkjsaf
+;lksdf;lkjsf
+lksf;kljsadf
+lkdsf;kjasdf
+;lksd;kjsadf
+;lksdf;kjsaf
+;lkjafs;kjsadf
+;lkjsdf;kljdsaf
+;lkjsdf;kjlsadf
+lkjsdf;kjsdaf
+lkjdsf;lkjsdaf
+lkjsdaf;kjsadf
+lkasd;fkjsdf
+"
+horizontal_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
 visible = false
@@ -323,3 +385,5 @@ offset_right = 1425.0
 offset_bottom = 626.32007
 theme = ExtResource("17_128kr")
 value = 59.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

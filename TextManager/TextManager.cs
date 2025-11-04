@@ -18,6 +18,8 @@ public partial class TextManager : Node
 	public Label SpeakerNameLabel;
 	public Label TipLabel;
 	public Button ExitButton;
+	public Button UploadButton;
+	public LineEdit NameInput;
 	public MarginContainer TextMarginContainer;
 	public string CurrentDialogueScene = "";
 	private float _ePressedTime = 0f;
@@ -55,6 +57,11 @@ public partial class TextManager : Node
 		PlayerProfileNormal = GD.Load<Texture2D>("res://Assets/Character/PlayerProfile.png");
 		ExitButton = TextScene.Instance.GetNode<Button>("%ExitButton");
 		ExitButton.Visible = false;
+		UploadButton = TextScene.Instance.GetNode<Button>("%UploadButton");
+		NameInput = TextScene.Instance.GetNode<LineEdit>("%NameInput");
+		UploadButton.Visible = false;
+		NameInput.Visible = false;
+		UploadButton.Pressed += OnUploadButtonPressed;
 		AudioManager.Instance.LoadSFX("ShowText", "res://Assets/SoundFX/Click.mp3");
 		TipAnimation();
 	}
@@ -127,7 +134,7 @@ public partial class TextManager : Node
 		}
 		if (!_isTextShowing)
 			return;
-			
+
 		Lines = null;
 		Index = 0;
 		_isTextShowing = false;
@@ -149,12 +156,12 @@ public partial class TextManager : Node
 		Tween tween = CreateTween();
 		if (line.Side == "Left")
 		{
-			PlayerProfile.Modulate = new Color(1, 1, 1, 1);		
+			PlayerProfile.Modulate = new Color(1, 1, 1, 1);
 			ChefProfile.Modulate = new Color(0.5f, 0.5f, 0.5f, 1f);
 		}
 		else if (line.Side == "Right")
 		{
-			PlayerProfile.Modulate = new Color(0.5f, 0.5f, 0.5f, 1f);		
+			PlayerProfile.Modulate = new Color(0.5f, 0.5f, 0.5f, 1f);
 			ChefProfile.Modulate = new Color(1, 1, 1, 1);
 		}
 		if (line.Side == "Left") ChangePlayerImpresstion(line.Impression);
@@ -185,6 +192,9 @@ public partial class TextManager : Node
 		if (DialogueTextLabel.Text.Contains("下次一定"))
 		{
 			ExitButton.Visible = true;
+			UploadButton.Visible = true;
+			NameInput.Visible = true;
+			ShowInput();
 		}
 		DialogueTextLabel.VisibleRatio = 0f;
 		SpeakerNameLabel.Text = line.SpeakerName;
@@ -263,5 +273,73 @@ public partial class TextManager : Node
 		tween.SetLoops();
 		tween.TweenProperty(TipLabel, "modulate:a", 0f, 1f).SetEase(Tween.EaseType.InOut);
 		tween.TweenProperty(TipLabel, "modulate:a", 1f, 1f).SetEase(Tween.EaseType.InOut);
+	}
+
+	private void ShowInput()
+	{
+		
+		NameInput.Visible = true;
+		NameInput.Editable = true;  // 确保可编辑
+		NameInput.GrabFocus();      // 强制聚焦
+		NameInput.Text = "";        // 清空文本
+		GD.Print(NameInput.HasFocus());
+	}
+	
+	public void OnUploadButtonPressed()
+	{
+		string playerName = NameInput.Text.Trim();
+		if (string.IsNullOrEmpty(playerName))
+		{
+			GD.Print("Player name cannot be empty.");
+			NameInput.Text = "";
+			NameInput.PlaceholderText = "请输入有效的名字";
+			return;
+		}
+		int min = (int)GameData.Instance.TimePassed / 60;
+		int sec = (int)GameData.Instance.TimePassed % 60;
+		string time = min.ToString("0") + ":" + sec.ToString("00");
+
+		string jsondata = JsonSerializer.Serialize(new Dictionary<string, object>
+		{
+			{ "username", playerName },
+			{ "score", GameData.Instance.Score },
+			{ "time", time }
+		});
+		var httpRequest = new HttpRequest();
+		AddChild(httpRequest);
+		string[] headers = new string[] { "Content-Type: application/json" };
+		httpRequest.Request("http://47.115.77.27:5067/upload", headers, HttpClient.Method.Post, jsondata);
+		httpRequest.RequestCompleted += (long result, long responseCode, string[] responseHeaders, byte[] body) =>
+		{
+			GD.Print("Upload Response Code: " + responseCode);
+			if (responseCode == 200 || responseCode == 201)
+			{
+				GD.Print("Score uploaded successfully!");
+				UploadButton.Disabled = true;
+				NameInput.Text = "";
+				NameInput.PlaceholderText = "分数已上传~";
+				UploadButton.Text = "QwQ";
+			}
+			else if (responseCode == 400)
+			{
+				GD.PrintErr("Invalid data format.");
+				NameInput.Text = "";
+				NameInput.PlaceholderText = "名称包含非法字符";
+			}
+			else if (responseCode == 401)
+			{
+				GD.PrintErr("Unauthorized request.");
+				NameInput.Text = "";
+				NameInput.PlaceholderText = "名称应在3-20字符之间";
+			}
+			else
+			{
+				GD.PrintErr("Failed to upload score.");
+				NameInput.Text = "";
+				NameInput.PlaceholderText = "网络错误, 上传失败";
+			}
+		};
+
+
 	}
 }

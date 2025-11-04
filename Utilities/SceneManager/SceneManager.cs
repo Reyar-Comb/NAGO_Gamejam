@@ -11,6 +11,7 @@ public partial class SceneManager : Node
 		await Transition.FadeIn(0.5f);
         GetTree().ChangeSceneToPacked(scene);
 		await ToSignal(GetTree(), SceneTree.SignalName.SceneChanged);
+		GetTree().Paused = false;
 		await Transition.FadeOut(0.5f);
 	}
 	public async void ChangeScenePath(string scene)
