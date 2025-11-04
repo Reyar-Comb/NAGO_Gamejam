@@ -140,7 +140,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 script = ExtResource("12_k2ysv")
 
 [node name="Back" type="TextureRect" parent="SettingsControl"]
@@ -151,7 +150,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 texture = ExtResource("12_bdu0j")
 
 [node name="ColorRect" type="ColorRect" parent="SettingsControl"]
@@ -162,7 +161,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.63529414)
 
 [node name="BGM" type="TextureRect" parent="SettingsControl"]
@@ -172,7 +170,7 @@ offset_left = -518.0
 offset_top = -477.0
 offset_right = 2482.0
 offset_bottom = 1843.0
-mouse_filter = 2
+mouse_filter = 0
 texture = ExtResource("13_k2ysv")
 
 [node name="SFX" type="TextureRect" parent="SettingsControl"]
@@ -182,7 +180,7 @@ offset_left = -518.0
 offset_top = -477.0
 offset_right = 2482.0
 offset_bottom = 1843.0
-mouse_filter = 2
+mouse_filter = 0
 texture = ExtResource("14_c0p3o")
 
 [node name="BGMTickButton" type="TextureButton" parent="SettingsControl"]
@@ -228,6 +226,7 @@ offset_left = 1019.0
 offset_top = 320.0
 offset_right = 1426.0
 offset_bottom = 362.0
+mouse_filter = 0
 value = 53.0
 texture_under = SubResource("AtlasTexture_avdci")
 texture_progress = SubResource("AtlasTexture_jsdfb")
@@ -249,6 +248,7 @@ offset_left = 1019.0
 offset_top = 540.39
 offset_right = 1426.0
 offset_bottom = 582.39014
+mouse_filter = 0
 value = 53.0
 texture_under = SubResource("AtlasTexture_avdci")
 texture_progress = SubResource("AtlasTexture_jsdfb")
