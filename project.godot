@@ -28,8 +28,7 @@ SceneManager="*res://Utilities/SceneManager/SceneManager.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1334
-window/size/resizable=false
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
