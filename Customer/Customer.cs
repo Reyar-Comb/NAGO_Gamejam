@@ -120,7 +120,7 @@ public partial class Customer : CharacterBody2D
 		}
 		GetTree().CurrentScene.AddChild(instance);
 	}
-	public override async void _Ready()
+	public override void _Ready()
 	{
 		DesiredCuisine = Cuisine.GetRandomCuisine();
 		PatienceTimer.Timeout += OnPatienceTimeout;
@@ -129,7 +129,6 @@ public partial class Customer : CharacterBody2D
 		AudioManager.Instance.LoadSFX("Satisfied", "res://Assets/SoundFX/Satisfied2.mp3");
 		AudioManager.Instance.LoadSFX("Wrong", "res://Assets/SoundFX/Wrong3.mp3");
 		AudioManager.Instance.LoadSFX("Coin", "res://Assets/SoundFX/Coin.mp3");
-		await ToSignal(GetTree().CreateTimer(2f), SceneTreeTimer.SignalName.Timeout);
 		Visible = true;
 		MoveTo(TargetChairPosition);
 		DesiredCuisine = Cuisine.GetRandomCuisine();
@@ -140,18 +139,22 @@ public partial class Customer : CharacterBody2D
 		GameData.Instance.NegativeViews++;
 		Leave();
 	}
-	public async void ReceiveCuisine(Cuisine cuisine)
+	public void ReceiveCuisine(Cuisine cuisine)
 	{
+		if (IsDelivered) return;
+		PatienceTimer.Stop();
+		GD.Print("** Customer received: " + cuisine.CuisineName);
 		if (cuisine.CuisineName == DesiredCuisine.CuisineName)
 		{
 			AudioManager.Instance.PlaySFX("Satisfied");
 			IsDelivered = true;
-			await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
+			//await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.CustomerSatisfied);
+			Leave();
 			cuisine.OnDelivered(1 + (float)PatienceTimer.TimeLeft / _patienceTime);
 			DecideThrowRubbish();
 			GameData.Instance.Combo++;
-			Leave();
+			GD.Print("** Highlighted customer received the correct cuisine: " + cuisine.CuisineName);
 		}
 		else
 		{
@@ -245,7 +248,10 @@ public partial class Customer : CharacterBody2D
 	protected virtual void OnCuisineFinished() { }
 	protected void OnPatienceTimeout()
 	{
-		GD.Print("顾客的耐心用尽了！");
-		GetAngry();
+		if (IsSeated && !IsLeaving)
+		{
+			GD.Print("顾客的耐心用尽了！");
+			GetAngry();
+		}
 	}
 }

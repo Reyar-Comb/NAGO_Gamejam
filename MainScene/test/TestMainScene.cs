@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 public partial class TestMainScene : Node2D
 {
 	[Export] CustomerManager CustomerManager;
+	// private int _frameInterval = 5;
+	// private int _frameCounter = 0;
 	public override void _Ready()
 	{
 		AudioManager.Instance.LoadBGM("BGM", "res://Assets/SoundFX/bgm.mp3");
@@ -16,11 +18,29 @@ public partial class TestMainScene : Node2D
 		TryPlayRoutineBGM();
 		SignalBus.Instance.Connect(SignalBus.SignalName.DialogueEnded, new Callable(this, MethodName.OnStartDialugueEnded));
 		SignalBus.Instance.Connect(SignalBus.SignalName.GameStart, new Callable(this, MethodName.OnGameStart));
-	}	public override void _Process(double delta)
+	}
+	public override void _Process(double delta)
 	{
 		// if (Input.IsActionJustPressed("ui_accept"))
 		// {
 		// 	GameData.Instance.TimePassed += 60;
+		// }
+		// Node2D container = GetNode<Node2D>("%CustomerContainer");
+		// _frameCounter++;
+		// if (_frameCounter % _frameInterval != 0) return;
+		// for (int i = 0; i < container.GetChildCount(); i++)
+		// {
+		// 	for (int j = i + 1; j < container.GetChildCount(); j++)
+		// 	{
+		// 		Customer customerA = container.GetChild<Customer>(i);
+		// 		Customer customerB = container.GetChild<Customer>(j);
+		// 		if (customerA.TargetChairPosition.DistanceTo(customerB.TargetChairPosition) < 20f
+		// 		&& !customerA.IsLeaving && !customerB.IsLeaving && customerA.IsSeated && customerB.IsSeated)
+		// 		{
+		// 			GD.Print("FUCK: Collision detected between customers at positions: " +
+		// 				customerA.TargetChairPosition + " and " + customerB.TargetChairPosition);
+		// 		}
+		// 	}
 		// }
 		if (GameData.Instance.NegativeViews >= GameData.MaxNegativeViewsAllowed)
 		{

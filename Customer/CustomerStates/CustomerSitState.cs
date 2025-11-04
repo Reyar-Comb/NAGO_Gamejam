@@ -65,7 +65,7 @@ public partial class CustomerSitState : State
 		_animatedSprite.FlipH = _originalFlipH;
 		CustomerManager customerManager = GetTree().CurrentScene.GetNode<CustomerManager>("%CustomerManager");
 		var randomIndex = GD.Randi() % customerManager.SpawnPositions.Count;
-		Vector2 targetPosition = customerManager.SpawnPositions[(int)randomIndex];
+		Vector2 targetPosition = customerManager.SpawnPositions[(int)randomIndex].GlobalPosition;
 		_customer.MoveTo(targetPosition);
 		AskTransit("Walk");
 	}

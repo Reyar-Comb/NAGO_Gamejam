@@ -84,6 +84,7 @@ public partial class PlayerUniversalState : State
 		_player.CurrentCuisine = pickupPoint.AssignedCuisine;
 		GD.Print("** Player picked up cuisine: " + _player.CurrentCuisine.CuisineName);
 		pickupPoint.AssignedCuisine = null;
+		_highlightedPickupPoint = null;
 		_nearbyPickupPoints.Remove(pickupPoint);
 		pickupPoint.ToggleHighlight(false);
 	}
@@ -94,7 +95,7 @@ public partial class PlayerUniversalState : State
 		_player.CurrentCuisine = null;
 		_nearbyCustomers.Remove(customer);
 		customer.ToggleHighlight(false);
-
+		_highlightedCustomer = null;
 		AudioManager.Instance.PlaySFX("Interact");
 	}
 	private void UpdatePickupPointHighlight()
