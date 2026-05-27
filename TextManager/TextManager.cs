@@ -308,7 +308,7 @@ public partial class TextManager : Node
 		var httpRequest = new HttpRequest();
 		AddChild(httpRequest);
 		string[] headers = new string[] { "Content-Type: application/json" };
-		httpRequest.Request("http://47.115.77.27:5067/upload", headers, HttpClient.Method.Post, jsondata);
+		httpRequest.Request("https://reyar.top/fdtr/upload", headers, HttpClient.Method.Post, jsondata);
 		httpRequest.RequestCompleted += (long result, long responseCode, string[] responseHeaders, byte[] body) =>
 		{
 			GD.Print("Upload Response Code: " + responseCode);

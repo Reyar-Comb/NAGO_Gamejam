@@ -20,7 +20,7 @@ public partial class StartMenu : Control
 		TitleAnimation();
 		await ToSignal(GetTree().CreateTimer(1f), "timeout");
 		AudioManager.Instance.PlayBGM("BGM");
- 		httpRequest.Request("http://47.115.77.27:5067/leaderboard");
+ 		httpRequest.Request("https://reyar.top/fdtr/leaderboard");
 		httpRequest.RequestCompleted += OnRequestCompleted;
 	}
 
